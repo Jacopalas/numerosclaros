@@ -8,3 +8,4 @@ export { CalcDeuda } from './calc-deuda.js';
 export { CalcPresupuesto } from './calc-presupuesto.js';
 export { CalcFondoEmergencia } from './calc-fondo-emergencia.js';
 export { CalcMetaAhorro } from './calc-meta-ahorro.js';
+export * from './spain/index.js';
