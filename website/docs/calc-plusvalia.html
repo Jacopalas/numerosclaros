@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plusvalía Municipal — NumerosClaros</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; color: #1e293b; background: #f8fafc; line-height: 1.6; }
+    .container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #e2e8f0; }
+    .back-link { color: #1a56db; text-decoration: none; font-weight: 500; }
+    .back-link:hover { text-decoration: underline; }
+    .brand { font-weight: 700; color: #1a56db; font-size: 1.1rem; }
+    h1 { font-size: 2rem; margin-bottom: 0.75rem; color: #0f172a; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 2rem; }
+    .badge-espana { background: #fef3c7; color: #92400e; }
+    section { margin-bottom: 2rem; }
+    h2 { font-size: 1.3rem; color: #1a56db; margin-bottom: 0.75rem; padding-bottom: 0.25rem; border-bottom: 1px solid #e2e8f0; }
+    p { margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    th, td { text-align: left; padding: 0.625rem 0.75rem; border: 1px solid #e2e8f0; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 0.9rem; }
+    td { font-size: 0.9rem; }
+    code { font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace; font-size: 0.85rem; }
+    pre { background: #0f172a; color: #e2e8f0; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1rem; }
+    pre code { color: #e2e8f0; }
+    .formula-block { background: #eff6ff; border-left: 4px solid #1a56db; padding: 1rem 1.25rem; border-radius: 0 0.5rem 0.5rem 0; margin-bottom: 1rem; }
+    .formula-block code { color: #1e40af; font-size: 1rem; }
+    .var-list { margin-top: 0.5rem; padding-left: 1.25rem; }
+    .var-list li { margin-bottom: 0.25rem; font-size: 0.9rem; }
+    .source-link { color: #1a56db; text-decoration: none; }
+    .source-link:hover { text-decoration: underline; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; text-align: center; color: #64748b; font-size: 0.875rem; }
+    footer a { color: #1a56db; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 600px) { h1 { font-size: 1.5rem; } .container { padding: 1rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../index.html" class="back-link">← Volver</a>
+      <span class="brand">NumerosClaros</span>
+    </header>
+
+    <h1>Plusvalía Municipal</h1>
+    <span class="badge badge-espana">España</span>
+
+    <section>
+      <h2>¿Qué calcula?</h2>
+      <p>Calcula el Impuesto sobre el Incremento de Valor de los Terrenos de Naturaleza Urbana (plusvalía municipal) que se paga al vender, heredar o donar un inmueble. Estima la cuota tributaria según el valor catastral del suelo y los años de tenencia.</p>
+    </section>
+
+    <section>
+      <h2>Cómo usar</h2>
+      <table>
+        <thead><tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td><code>valor-catastral-suelo</code></td><td>Número</td><td>Valor catastral del suelo en euros</td></tr>
+          <tr><td><code>anos-tenencia</code></td><td>Número</td><td>Años de tenencia del inmueble</td></tr>
+          <tr><td><code>municipio</code></td><td>Texto</td><td>Municipio (para tipo impositivo local)</td></tr>
+        </tbody>
+      </table>
+      <p>Ejemplo de uso como Web Component:</p>
+      <pre><code>&lt;calc-plusvalia valor-catastral-suelo="80000" anos-tenencia="12" municipio="madrid"&gt;&lt;/calc-plusvalia&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Ejemplo de embed</h2>
+      <pre><code>&lt;!-- Incluir el script de NumerosClaros --&gt;
+&lt;script src="https://cdn.numerosclaros.com/calculadoras.js"&gt;&lt;/script&gt;
+
+&lt;!-- Insertar la calculadora --&gt;
+&lt;calc-plusvalia
+  valor-catastral-suelo="80000"
+  anos-tenencia="12"
+  municipio="madrid"&gt;
+&lt;/calc-plusvalia&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Fórmula</h2>
+      <div class="formula-block">
+        <code>Cuota = Valor catastral suelo × Coeficiente × Tipo impositivo municipal</code>
+      </div>
+      <ul class="var-list">
+        <li><strong>Valor catastral suelo</strong> — Parte del valor catastral correspondiente al suelo</li>
+        <li><strong>Coeficiente</strong> — Fijado por el RDL 26/2021 según años de tenencia (máx. 20 años)</li>
+        <li><strong>Tipo impositivo</strong> — Fijado por cada municipio (máximo 30%)</li>
+      </ul>
+      <p>Desde 2021 el contribuyente puede optar por tributar por la plusvalía real (diferencia entre precio de venta y compra) si le resulta más favorable.</p>
+    </section>
+
+    <section>
+      <h2>Fuentes</h2>
+      <ul>
+        <li>TRLRHL Art. 107 — Texto Refundido de la Ley Reguladora de las Haciendas Locales</li>
+        <li>Real Decreto-ley 26/2021 — Nuevo sistema de cálculo de la plusvalía</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>NumerosClaros — Calculadoras financieras abiertas</p>
+      <p><a href="https://github.com/Jacopalas/numerosclaros" target="_blank" rel="noopener">Ver en GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>

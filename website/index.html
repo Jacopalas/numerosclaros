@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NumerosClaros — Calculadoras financieras open source para España</title>
+  <meta name="description" content="Suite de calculadoras financieras open source para España. Web Components embebibles: hipoteca, IRPF, nómina, autónomos, IVA y más. Coge la que necesites, pégala en tu web.">
+  <meta property="og:title" content="NumerosClaros — Calculadoras financieras open source para España">
+  <meta property="og:description" content="Calculadoras financieras open source como Web Components. Hipoteca, IRPF, nómina, autónomos, IVA y más. Coge la que necesites, pégala en tu web.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jacopalas.github.io/numerosclaros/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      font-size: 1rem;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    a {
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    h1 { font-size: 2.5rem; line-height: 1.2; }
+    h2 { font-size: 2rem; line-height: 1.3; }
+    h3 { font-size: 1.25rem; line-height: 1.4; }
+
+    /* Fade-in animation — visible by default, JS adds .js-fade to enable */
+    .js-fade .fade-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .js-fade .fade-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== HEADER ========== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 100;
+    }
+
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0e3a8c;
+      text-decoration: none;
+    }
+
+    .logo:hover {
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #475569;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #e0f2fe 100%);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      color: #0e3a8c;
+      margin-bottom: 16px;
+      font-size: 3rem;
+    }
+
+    .hero .tagline {
+      font-size: 1.25rem;
+      color: #475569;
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #1a56db;
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: #0e3a8c;
+      border: 2px solid #0e3a8c;
+    }
+
+    .btn-green {
+      background: #059669;
+      color: #ffffff;
+    }
+
+    /* ========== SECTIONS ========== */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-alt {
+      background: #f8fafc;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 48px;
+      color: #0e3a8c;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-top: -40px;
+      margin-bottom: 48px;
+      font-size: 1.1rem;
+    }
+
+    /* ========== HOW TO USE CARDS ========== */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .how-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 32px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .how-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .how-card h3 {
+      margin-bottom: 16px;
+      color: #0e3a8c;
+    }
+
+    .how-card .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1a56db;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    /* ========== CODE BLOCKS ========== */
+    .code-wrapper {
+      position: relative;
+      margin: 12px 0;
+    }
+
+    .code-block {
+      background: #f1f5f9;
+      border-radius: 6px;
+      padding: 16px;
+      padding-right: 48px;
+      font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #334155;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      color: #475569;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: background 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .copy-btn.copied {
+      background: #059669;
+      color: #ffffff;
+      border-color: #059669;
+    }
+
+    /* ========== CATALOG ========== */
+    .catalog-subsection {
+      margin-bottom: 48px;
+    }
+
+    .catalog-subsection h3 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: #0e3a8c;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .calc-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calc-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .calc-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .calc-card h4 {
+      font-size: 1.1rem;
+      color: #1e293b;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .badge-universal {
+      background: #dbeafe;
+      color: #1a56db;
+    }
+
+    .badge-espana {
+      background: #fde8e8;
+      color: #e63946;
+    }
+
+    .badge-decisor {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .calc-card p {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .calc-placeholder {
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      border-radius: 6px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .calc-placeholder p {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-bottom: 0;
+    }
+
+    .calc-card .docs-link {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1a56db;
+    }
+
+    /* ========== EMBED SECTION ========== */
+    .embed-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .embed-mockup {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .embed-mockup .mockup-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .embed-mockup .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+
+    .embed-mockup .mockup-placeholder {
+      background: #e2e8f0;
+      border-radius: 8px;
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    /* ========== SHEETS SECTION ========== */
+    .sheets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .sheets-screenshot {
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sheets-screenshot .placeholder-text {
+      color: #059669;
+      font-size: 0.9rem;
+    }
+
+    .sheets-content h3 {
+      color: #0e3a8c;
+      margin-bottom: 16px;
+    }
+
+    .sheets-content p {
+      color: #475569;
+      margin-bottom: 20px;
+    }
+
+    /* ========== FOOTER ========== */
+    .site-footer {
+      background: #0e3a8c;
+      color: #93c5fd;
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .site-footer a {
+      color: #ffffff;
+    }
+
+    .footer-inner span {
+      font-size: 0.9rem;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .how-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .embed-grid,
+      .sheets-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 48px 0;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .tagline {
+        font-size: 1.05rem;
+      }
+
+      .section {
+        padding: 48px 0;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .nav-links a {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="container">
+      <a href="./" class="logo">NumerosClaros</a>
+      <nav class="nav-links">
+        <a href="docs/">Documentaci&oacute;n</a>
+        <a href="https://github.com/Jacopalas/numerosclaros" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container">
+      <h1>NumerosClaros</h1>
+      <p class="tagline">Calculadoras financieras open source para Espa&ntilde;a. Coge la que necesites, p&eacute;gala en tu web.</p>
+      <div class="hero-buttons">
+        <a href="#calculadoras" class="btn btn-primary">Ver calculadoras</a>
+        <a href="https://github.com/Jacopalas/numerosclaros" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMO USAR ========== -->
+  <section class="section fade-section" id="como-usar">
+    <div class="container">
+      <h2 class="section-title">C&oacute;mo usar</h2>
+      <div class="how-grid">
+
+        <!-- CDN -->
+        <div class="how-card">
+          <div class="step-number">1</div>
+          <h3>CDN</h3>
+          <p>A&ntilde;ade el script y usa el componente directamente:</p>
+          <div class="code-wrapper">
+            <pre class="code-block" id="code-cdn">&lt;script src="https://cdn.jsdelivr.net/npm/numerosclaros@latest/dist/numerosclaros.min.js"&gt;&lt;/script&gt;
+
+&lt;nc-hipoteca&gt;&lt;/nc-hipoteca&gt;</pre>
+            <button class="copy-btn" data-target="code-cdn">Copiar</button>
+          </div>
+        </div>
+
+        <!-- npm -->
+        <div class="how-card">
+          <div class="step-number">2</div>
+          <h3>npm</h3>
+          <p>Instala el paquete e imp&oacute;rtalo en tu proyecto:</p>
+          <div class="code-wrapper">
+            <pre class="code-block" id="code-npm">npm install numerosclaros</pre>
+            <button class="copy-btn" data-target="code-npm">Copiar</button>
+          </div>
+          <div class="code-wrapper">
+            <pre class="code-block" id="code-npm-import">import 'numerosclaros'</pre>
+            <button class="copy-btn" data-target="code-npm-import">Copiar</button>
+          </div>
+        </div>
+
+        <!-- Google Sheets -->
+        <div class="how-card">
+          <div class="step-number">3</div>
+          <h3>Google Sheets</h3>
+          <p>Usa las f&oacute;rmulas directamente en tu hoja de c&aacute;lculo:</p>
+          <div class="code-wrapper">
+            <pre class="code-block" id="code-sheets">=NC_HIPOTECA(200000, 25, 2.5)</pre>
+            <button class="copy-btn" data-target="code-sheets">Copiar</button>
+          </div>
+          <p style="margin-top: 12px;"><a href="#">Abrir plantilla de ejemplo &rarr;</a></p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CATALOG ========== -->
+  <section class="section section-alt fade-section" id="calculadoras">
+    <div class="container">
+      <h2 class="section-title">Todas las calculadoras</h2>
+
+      <!-- UNIVERSALES -->
+      <div class="catalog-subsection">
+        <h3>Universales</h3>
+        <div class="calc-grid">
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Calculadora de hipoteca</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Cuota mensual, intereses totales y cuadro de amortizaci&oacute;n</p>
+            <div class="calc-placeholder" data-calc="calc-hipoteca">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-hipoteca.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Inter&eacute;s compuesto</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Crecimiento de tu inversi&oacute;n con reinversi&oacute;n de intereses</p>
+            <div class="calc-placeholder" data-calc="calc-interes-compuesto">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-interes-compuesto.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Amortizaci&oacute;n de pr&eacute;stamo</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Cuadro completo de amortizaci&oacute;n francesa o americana</p>
+            <div class="calc-placeholder" data-calc="calc-amortizacion">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-amortizacion.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Pr&eacute;stamo personal</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Cuota y coste total de un pr&eacute;stamo al consumo</p>
+            <div class="calc-placeholder" data-calc="calc-prestamo-personal">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-prestamo-personal.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Planificador de ahorro</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Cu&aacute;nto necesitas ahorrar para alcanzar tu objetivo</p>
+            <div class="calc-placeholder" data-calc="calc-ahorro">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-ahorro.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Calculadora de inflaci&oacute;n</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Poder adquisitivo real de tu dinero en el tiempo</p>
+            <div class="calc-placeholder" data-calc="calc-inflacion">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-inflacion.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>TIR / VAN</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Tasa interna de retorno y valor actual neto de una inversi&oacute;n</p>
+            <div class="calc-placeholder" data-calc="calc-tir">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-tir.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Conversor de divisas</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Conversi&oacute;n entre monedas con tipo de cambio actual</p>
+            <div class="calc-placeholder" data-calc="calc-divisas">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-divisas.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Retorno de inversi&oacute;n (ROI)</h4>
+              <span class="badge badge-universal">Universal</span>
+            </div>
+            <p>Rentabilidad porcentual de cualquier inversi&oacute;n</p>
+            <div class="calc-placeholder" data-calc="calc-roi">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-roi.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ESPANA -->
+      <div class="catalog-subsection">
+        <h3>Espa&ntilde;a</h3>
+        <div class="calc-grid">
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Simulador de IRPF</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Estimaci&oacute;n de tu declaraci&oacute;n de la renta seg&uacute;n tramos vigentes</p>
+            <div class="calc-placeholder" data-calc="calc-irpf">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-irpf.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Cuota de aut&oacute;nomos</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Nueva cuota por tramos de rendimiento neto 2025</p>
+            <div class="calc-placeholder" data-calc="calc-autonomos">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-autonomos.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Calculadora de IVA</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Base imponible, IVA y total con tipos general, reducido y superreducido</p>
+            <div class="calc-placeholder" data-calc="calc-iva">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-iva.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Calculadora de pensi&oacute;n</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Estimaci&oacute;n de tu pensi&oacute;n de jubilaci&oacute;n seg&uacute;n cotizaciones</p>
+            <div class="calc-placeholder" data-calc="calc-pension">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-pension.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Simulador de n&oacute;mina</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>De salario bruto a neto con todas las retenciones</p>
+            <div class="calc-placeholder" data-calc="calc-nomina">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-nomina.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Plusval&iacute;a municipal</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Impuesto sobre el incremento de valor de terrenos urbanos</p>
+            <div class="calc-placeholder" data-calc="calc-plusvalia">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-plusvalia.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Impuesto de sucesiones</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Estimaci&oacute;n del impuesto por herencia seg&uacute;n CCAA</p>
+            <div class="calc-placeholder" data-calc="calc-sucesiones">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-sucesiones.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Impuesto sobre el patrimonio</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>C&aacute;lculo del impuesto seg&uacute;n patrimonio neto y CCAA</p>
+            <div class="calc-placeholder" data-calc="calc-patrimonio">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-patrimonio.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Impuesto de sociedades</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Tipo impositivo y cuota seg&uacute;n base imponible</p>
+            <div class="calc-placeholder" data-calc="calc-sociedades">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-sociedades.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Calculadora de retenciones</h4>
+              <span class="badge badge-espana">Espa&ntilde;a</span>
+            </div>
+            <p>Retenci&oacute;n de IRPF en facturas de aut&oacute;nomos y profesionales</p>
+            <div class="calc-placeholder" data-calc="calc-retenciones">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-retenciones.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DECISORES -->
+      <div class="catalog-subsection">
+        <h3>Decisores</h3>
+        <div class="calc-grid">
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>&iquest;Comprar o alquilar?</h4>
+              <span class="badge badge-decisor">Decisor</span>
+            </div>
+            <p>Comparativa financiera a largo plazo entre compra y alquiler</p>
+            <div class="calc-placeholder" data-calc="calc-comprar-alquilar">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-comprar-alquilar.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>&iquest;Hipoteca fija o variable?</h4>
+              <span class="badge badge-decisor">Decisor</span>
+            </div>
+            <p>Simulaci&oacute;n de escenarios con diferentes tipos de inter&eacute;s</p>
+            <div class="calc-placeholder" data-calc="calc-fijo-variable">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-fijo-variable.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>&iquest;Invertir o amortizar?</h4>
+              <span class="badge badge-decisor">Decisor</span>
+            </div>
+            <p>Qu&eacute; te conviene m&aacute;s: reducir deuda o invertir el excedente</p>
+            <div class="calc-placeholder" data-calc="calc-invertir-amortizar">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-invertir-amortizar.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>&iquest;Aut&oacute;nomo o SL?</h4>
+              <span class="badge badge-decisor">Decisor</span>
+            </div>
+            <p>Comparativa fiscal entre persona f&iacute;sica y sociedad limitada</p>
+            <div class="calc-placeholder" data-calc="calc-autonomo-sl">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-autonomo-sl.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-card-header">
+              <h4>Rescate plan de pensiones</h4>
+              <span class="badge badge-decisor">Decisor</span>
+            </div>
+            <p>Forma &oacute;ptima de rescatar tu plan: capital, renta o mixto</p>
+            <div class="calc-placeholder" data-calc="calc-rescate-plan">
+              <p>Calculadora disponible pr&oacute;ximamente</p>
+            </div>
+            <a href="docs/calc-rescate-plan.html" class="docs-link">Ver docs &rarr;</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== EMBED SECTION ========== -->
+  <section class="section fade-section" id="embed">
+    <div class="container">
+      <h2 class="section-title">Embed en tu web</h2>
+      <p class="section-subtitle">Copia y pega. Funciona en cualquier web: WordPress, Webflow, HTML est&aacute;tico...</p>
+      <div class="embed-grid">
+        <div>
+          <div class="code-wrapper">
+            <pre class="code-block" id="code-embed">&lt;script src="https://cdn.jsdelivr.net/npm/numerosclaros@latest/dist/numerosclaros.min.js"&gt;&lt;/script&gt;
+
+&lt;nc-hipoteca
+  importe="200000"
+  plazo="25"
+  interes="2.5"&gt;
+&lt;/nc-hipoteca&gt;</pre>
+            <button class="copy-btn" data-target="code-embed">Copiar</button>
+          </div>
+        </div>
+        <div class="embed-mockup">
+          <div class="mockup-bar">
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
+            <span class="mockup-dot"></span>
+          </div>
+          <div class="mockup-placeholder">
+            Aqu&iacute; se renderizar&iacute;a &lt;nc-hipoteca&gt;
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GOOGLE SHEETS SECTION ========== -->
+  <section class="section section-alt fade-section" id="sheets">
+    <div class="container">
+      <h2 class="section-title">Google Sheets</h2>
+      <div class="sheets-grid">
+        <div class="sheets-content">
+          <h3>Tus c&aacute;lculos financieros directamente en la hoja de c&aacute;lculo</h3>
+          <p>Instala el complemento de Google Sheets y usa funciones personalizadas para hacer c&aacute;lculos financieros sin salir de tu hoja. Ideal para comparativas, simulaciones y planificaci&oacute;n financiera.</p>
+          <div class="code-wrapper">
+            <pre class="code-block" id="code-sheets-example">=NC_HIPOTECA(200000, 25, 2.5)</pre>
+            <button class="copy-btn" data-target="code-sheets-example">Copiar</button>
+          </div>
+          <div style="margin-top: 20px;">
+            <a href="#" class="btn btn-green">Abrir plantilla</a>
+          </div>
+        </div>
+        <div class="sheets-screenshot">
+          <p class="placeholder-text">Captura de pantalla del complemento de Google Sheets</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span><a href="https://github.com/Jacopalas/numerosclaros" target="_blank" rel="noopener">GitHub</a></span>
+        <span>MIT License</span>
+        <span>Hecho en Espa&ntilde;a &#127466;&#127480;</span>
+        <span>&copy; 2026 NumerosClaros</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Enable fade-in only when JS is available
+    document.documentElement.classList.add('js-fade');
+
+    // ========== COPY BUTTONS ==========
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var targetId = this.getAttribute('data-target');
+        var codeEl = document.getElementById(targetId);
+        if (!codeEl) return;
+
+        var text = codeEl.textContent;
+        navigator.clipboard.writeText(text).then(function() {
+          btn.textContent = '\u2713 Copiado';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.textContent = 'Copiar';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      });
+    });
+
+    // ========== FADE-IN ON SCROLL ==========
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-section').forEach(function(section) {
+      observer.observe(section);
+    });
+  </script>
+
+</body>
+</html>

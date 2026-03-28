@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuota de Autónomos — NumerosClaros</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; color: #1e293b; background: #f8fafc; line-height: 1.6; }
+    .container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #e2e8f0; }
+    .back-link { color: #1a56db; text-decoration: none; font-weight: 500; }
+    .back-link:hover { text-decoration: underline; }
+    .brand { font-weight: 700; color: #1a56db; font-size: 1.1rem; }
+    h1 { font-size: 2rem; margin-bottom: 0.75rem; color: #0f172a; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 2rem; }
+    .badge-espana { background: #fef3c7; color: #92400e; }
+    section { margin-bottom: 2rem; }
+    h2 { font-size: 1.3rem; color: #1a56db; margin-bottom: 0.75rem; padding-bottom: 0.25rem; border-bottom: 1px solid #e2e8f0; }
+    p { margin-bottom: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    th, td { text-align: left; padding: 0.625rem 0.75rem; border: 1px solid #e2e8f0; }
+    th { background: #f1f5f9; font-weight: 600; font-size: 0.9rem; }
+    td { font-size: 0.9rem; }
+    code { font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Consolas, monospace; font-size: 0.85rem; }
+    pre { background: #0f172a; color: #e2e8f0; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; margin-bottom: 1rem; }
+    pre code { color: #e2e8f0; }
+    .formula-block { background: #eff6ff; border-left: 4px solid #1a56db; padding: 1rem 1.25rem; border-radius: 0 0.5rem 0.5rem 0; margin-bottom: 1rem; }
+    .formula-block code { color: #1e40af; font-size: 1rem; }
+    .var-list { margin-top: 0.5rem; padding-left: 1.25rem; }
+    .var-list li { margin-bottom: 0.25rem; font-size: 0.9rem; }
+    .source-link { color: #1a56db; text-decoration: none; }
+    .source-link:hover { text-decoration: underline; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; text-align: center; color: #64748b; font-size: 0.875rem; }
+    footer a { color: #1a56db; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 600px) { h1 { font-size: 1.5rem; } .container { padding: 1rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../index.html" class="back-link">← Volver</a>
+      <span class="brand">NumerosClaros</span>
+    </header>
+
+    <h1>Cuota de Autónomos</h1>
+    <span class="badge badge-espana">España</span>
+
+    <section>
+      <h2>¿Qué calcula?</h2>
+      <p>Calcula la cuota mensual de la Seguridad Social para trabajadores autónomos según el nuevo sistema de cotización por ingresos reales. Muestra en qué tramo te encuentras según tu rendimiento neto y cuánto pagarás cada mes.</p>
+    </section>
+
+    <section>
+      <h2>Cómo usar</h2>
+      <table>
+        <thead><tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td><code>rendimiento-neto</code></td><td>Número</td><td>Rendimiento neto mensual en euros</td></tr>
+        </tbody>
+      </table>
+      <p>Ejemplo de uso como Web Component:</p>
+      <pre><code>&lt;calc-autonomos rendimiento-neto="2500"&gt;&lt;/calc-autonomos&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Ejemplo de embed</h2>
+      <pre><code>&lt;!-- Incluir el script de NumerosClaros --&gt;
+&lt;script src="https://cdn.numerosclaros.com/calculadoras.js"&gt;&lt;/script&gt;
+
+&lt;!-- Insertar la calculadora --&gt;
+&lt;calc-autonomos
+  rendimiento-neto="2500"&gt;
+&lt;/calc-autonomos&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>Fórmula</h2>
+      <div class="formula-block">
+        <code>Cuota = Base de cotización del tramo × Tipo de cotización</code>
+      </div>
+      <p>Tramos de cotización 2025 según rendimiento neto mensual:</p>
+      <table>
+        <thead><tr><th>Rendimiento neto</th><th>Cuota mensual aprox.</th></tr></thead>
+        <tbody>
+          <tr><td>≤ 670 €</td><td>200 €</td></tr>
+          <tr><td>670 – 900 €</td><td>220 €</td></tr>
+          <tr><td>900 – 1.166 €</td><td>260 €</td></tr>
+          <tr><td>1.166 – 1.300 €</td><td>291 €</td></tr>
+          <tr><td>1.300 – 1.500 €</td><td>294 €</td></tr>
+          <tr><td>1.500 – 1.700 €</td><td>294 €</td></tr>
+          <tr><td>1.700 – 1.850 €</td><td>310 €</td></tr>
+          <tr><td>1.850 – 2.030 €</td><td>315 €</td></tr>
+          <tr><td>2.030 – 2.330 €</td><td>320 €</td></tr>
+          <tr><td>2.330 – 2.760 €</td><td>330 €</td></tr>
+          <tr><td>2.760 – 3.190 €</td><td>350 €</td></tr>
+          <tr><td>3.190 – 3.620 €</td><td>370 €</td></tr>
+          <tr><td>3.620 – 4.050 €</td><td>390 €</td></tr>
+          <tr><td>4.050 – 6.000 €</td><td>400 €</td></tr>
+          <tr><td>> 6.000 €</td><td>590 €</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Fuentes</h2>
+      <ul>
+        <li><a class="source-link" href="https://www.seg-social.es" target="_blank" rel="noopener">Seguridad Social — Cotización de autónomos</a></li>
+        <li>Real Decreto-ley 13/2022 — Nuevo sistema de cotización por ingresos reales</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>NumerosClaros — Calculadoras financieras abiertas</p>
+      <p><a href="https://github.com/Jacopalas/numerosclaros" target="_blank" rel="noopener">Ver en GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>
