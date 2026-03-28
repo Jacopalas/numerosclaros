@@ -1,0 +1,519 @@
+{
+  "_meta": {
+    "description": "Spanish tax data 2025-2026",
+    "last_updated": "2026-03-28",
+    "notes": {
+      "irpf": "The total IRPF rate = state portion + autonomous portion. The 'tramos estatales' below are the STATE portion only (roughly 50%). Each CCAA sets its own autonomous portion.",
+      "plusvalia": "2024 coefficients remain in force for 2025 (RDL 9/2024 was repealed Jan 2025). 2026 coefficients from RDL 16/2025.",
+      "autonomos": "2025 and 2026 quotas are identical (same bases/quotas). MEI rises from 0.8% to 0.9% in 2026.",
+      "navarra_pais_vasco": "Navarra and País Vasco have their own complete IRPF system (not split state/autonomous). Their rates shown are TOTAL rates."
+    }
+  },
+
+  "irpf_estatal": {
+    "description": "IRPF escala estatal (porción estatal) 2025-2026. Each bracket rate is ONLY the state portion.",
+    "brackets": [
+      { "from": 0, "to": 12450, "rate": 9.50 },
+      { "from": 12450, "to": 20200, "rate": 12.00 },
+      { "from": 20200, "to": 35200, "rate": 15.00 },
+      { "from": 35200, "to": 60000, "rate": 18.50 },
+      { "from": 60000, "to": 300000, "rate": 22.50 },
+      { "from": 300000, "to": null, "rate": 24.50 }
+    ],
+    "combined_total_brackets": {
+      "description": "Total IRPF rates (state + default autonomous). These are the commonly cited 'tramos del IRPF'.",
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 19.00 },
+        { "from": 12450, "to": 20200, "rate": 24.00 },
+        { "from": 20200, "to": 35200, "rate": 30.00 },
+        { "from": 35200, "to": 60000, "rate": 37.00 },
+        { "from": 60000, "to": 300000, "rate": 45.00 },
+        { "from": 300000, "to": null, "rate": 47.00 }
+      ]
+    },
+    "ahorro": {
+      "description": "Base imponible del ahorro (dividendos, intereses, ganancias patrimoniales) 2025-2026",
+      "brackets": [
+        { "from": 0, "to": 6000, "rate": 19.00 },
+        { "from": 6000, "to": 50000, "rate": 21.00 },
+        { "from": 50000, "to": 200000, "rate": 23.00 },
+        { "from": 200000, "to": 300000, "rate": 27.00 },
+        { "from": 300000, "to": null, "rate": 30.00 }
+      ]
+    }
+  },
+
+  "irpf_autonomico": {
+    "description": "IRPF escala autonómica (porción autonómica) por CCAA. Rates are the AUTONOMOUS portion only, except Navarra and País Vasco which have their own full system.",
+    "andalucia": {
+      "brackets": [
+        { "from": 0, "to": 13000, "rate": 9.50 },
+        { "from": 13000, "to": 21100, "rate": 12.00 },
+        { "from": 21100, "to": 35200, "rate": 15.00 },
+        { "from": 35200, "to": 60000, "rate": 18.50 },
+        { "from": 60000, "to": null, "rate": 22.50 }
+      ]
+    },
+    "aragon": {
+      "brackets": [
+        { "from": 0, "to": 13972.50, "rate": 9.50 },
+        { "from": 13972.50, "to": 21210, "rate": 12.00 },
+        { "from": 21210, "to": 36960, "rate": 15.00 },
+        { "from": 36960, "to": 52500, "rate": 18.50 },
+        { "from": 52500, "to": 60000, "rate": 20.50 },
+        { "from": 60000, "to": 80000, "rate": 23.00 },
+        { "from": 80000, "to": 90000, "rate": 24.00 },
+        { "from": 90000, "to": 130000, "rate": 25.00 },
+        { "from": 130000, "to": null, "rate": 25.50 }
+      ]
+    },
+    "asturias": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 10.00 },
+        { "from": 12450, "to": 17707, "rate": 12.00 },
+        { "from": 17707, "to": 33007, "rate": 14.00 },
+        { "from": 33007, "to": 53407, "rate": 18.50 },
+        { "from": 53407, "to": 70000, "rate": 21.50 },
+        { "from": 70000, "to": 90000, "rate": 22.50 },
+        { "from": 90000, "to": 175000, "rate": 25.00 },
+        { "from": 175000, "to": null, "rate": 25.50 }
+      ]
+    },
+    "baleares": {
+      "brackets": [
+        { "from": 0, "to": 10000, "rate": 9.00 },
+        { "from": 10000, "to": 18000, "rate": 11.25 },
+        { "from": 18000, "to": 30000, "rate": 14.25 },
+        { "from": 30000, "to": 48000, "rate": 17.50 },
+        { "from": 48000, "to": 70000, "rate": 19.00 },
+        { "from": 70000, "to": 90000, "rate": 21.75 },
+        { "from": 90000, "to": 120000, "rate": 22.75 },
+        { "from": 120000, "to": 175000, "rate": 23.75 },
+        { "from": 175000, "to": null, "rate": 24.75 }
+      ]
+    },
+    "canarias": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 9.00 },
+        { "from": 12450, "to": 17707, "rate": 11.50 },
+        { "from": 17707, "to": 33007, "rate": 14.00 },
+        { "from": 33007, "to": 53407, "rate": 18.50 },
+        { "from": 53407, "to": 90000, "rate": 23.50 },
+        { "from": 90000, "to": 120000, "rate": 25.00 },
+        { "from": 120000, "to": null, "rate": 26.00 }
+      ]
+    },
+    "cantabria": {
+      "brackets": [
+        { "from": 0, "to": 13000, "rate": 8.50 },
+        { "from": 13000, "to": 21000, "rate": 11.00 },
+        { "from": 21000, "to": 35200, "rate": 14.50 },
+        { "from": 35200, "to": 60000, "rate": 18.00 },
+        { "from": 60000, "to": 90000, "rate": 22.50 },
+        { "from": 90000, "to": null, "rate": 24.50 }
+      ]
+    },
+    "castilla_la_mancha": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 9.50 },
+        { "from": 12450, "to": 20200, "rate": 12.00 },
+        { "from": 20200, "to": 35200, "rate": 15.00 },
+        { "from": 35200, "to": 60000, "rate": 18.50 },
+        { "from": 60000, "to": null, "rate": 22.50 }
+      ]
+    },
+    "castilla_y_leon": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 9.00 },
+        { "from": 12450, "to": 20200, "rate": 12.00 },
+        { "from": 20200, "to": 35200, "rate": 14.00 },
+        { "from": 35200, "to": 53407, "rate": 18.50 },
+        { "from": 53407, "to": null, "rate": 21.50 }
+      ]
+    },
+    "cataluna": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 10.50 },
+        { "from": 12450, "to": 17707, "rate": 12.00 },
+        { "from": 17707, "to": 21000, "rate": 14.00 },
+        { "from": 21000, "to": 33007, "rate": 15.00 },
+        { "from": 33007, "to": 53407, "rate": 18.80 },
+        { "from": 53407, "to": 90000, "rate": 21.50 },
+        { "from": 90000, "to": 120000, "rate": 23.50 },
+        { "from": 120000, "to": 175000, "rate": 24.50 },
+        { "from": 175000, "to": null, "rate": 25.50 }
+      ]
+    },
+    "extremadura": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 8.00 },
+        { "from": 12450, "to": 20200, "rate": 10.00 },
+        { "from": 20200, "to": 24200, "rate": 16.00 },
+        { "from": 24200, "to": 35200, "rate": 17.50 },
+        { "from": 35200, "to": 60000, "rate": 21.00 },
+        { "from": 60000, "to": 80200, "rate": 23.50 },
+        { "from": 80200, "to": 99200, "rate": 24.00 },
+        { "from": 99200, "to": 120200, "rate": 24.50 },
+        { "from": 120200, "to": null, "rate": 25.00 }
+      ]
+    },
+    "galicia": {
+      "brackets": [
+        { "from": 0, "to": 12985, "rate": 9.00 },
+        { "from": 12985, "to": 21068, "rate": 11.65 },
+        { "from": 21068, "to": 35200, "rate": 14.90 },
+        { "from": 35200, "to": 47600, "rate": 18.40 },
+        { "from": 47600, "to": null, "rate": 22.50 }
+      ]
+    },
+    "la_rioja": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 8.00 },
+        { "from": 12450, "to": 20200, "rate": 10.60 },
+        { "from": 20200, "to": 35200, "rate": 13.60 },
+        { "from": 35200, "to": 40000, "rate": 17.80 },
+        { "from": 40000, "to": 50000, "rate": 18.30 },
+        { "from": 50000, "to": 60000, "rate": 19.00 },
+        { "from": 60000, "to": 120000, "rate": 24.50 },
+        { "from": 120000, "to": null, "rate": 27.00 }
+      ]
+    },
+    "madrid": {
+      "brackets": [
+        { "from": 0, "to": 13362, "rate": 8.50 },
+        { "from": 13362, "to": 18004, "rate": 10.70 },
+        { "from": 18004, "to": 35425, "rate": 12.80 },
+        { "from": 35425, "to": 57320, "rate": 17.40 },
+        { "from": 57320, "to": null, "rate": 20.50 }
+      ]
+    },
+    "murcia": {
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 9.50 },
+        { "from": 12450, "to": 20200, "rate": 11.20 },
+        { "from": 20200, "to": 34000, "rate": 13.30 },
+        { "from": 34000, "to": 60000, "rate": 17.90 },
+        { "from": 60000, "to": null, "rate": 22.50 }
+      ]
+    },
+    "comunidad_valenciana": {
+      "brackets": [
+        { "from": 0, "to": 12000, "rate": 9.00 },
+        { "from": 12000, "to": 22000, "rate": 12.00 },
+        { "from": 22000, "to": 32000, "rate": 15.00 },
+        { "from": 32000, "to": 42000, "rate": 17.50 },
+        { "from": 42000, "to": 52000, "rate": 20.00 },
+        { "from": 52000, "to": 65000, "rate": 22.50 },
+        { "from": 65000, "to": 72000, "rate": 25.00 },
+        { "from": 72000, "to": 100000, "rate": 26.50 },
+        { "from": 100000, "to": 150000, "rate": 27.50 },
+        { "from": 150000, "to": 200000, "rate": 28.50 },
+        { "from": 200000, "to": null, "rate": 29.50 }
+      ]
+    },
+    "navarra": {
+      "description": "Navarra has its own COMPLETE IRPF system (not split state/autonomous). These rates are TOTAL rates.",
+      "brackets": [
+        { "from": 0, "to": 4458, "rate": 13.00 },
+        { "from": 4458, "to": 10030, "rate": 22.00 },
+        { "from": 10030, "to": 21175, "rate": 25.00 },
+        { "from": 21175, "to": 35663, "rate": 28.00 },
+        { "from": 35663, "to": 51266, "rate": 36.50 },
+        { "from": 51266, "to": 66869, "rate": 41.50 },
+        { "from": 66869, "to": 89159, "rate": 44.00 },
+        { "from": 89159, "to": 139310, "rate": 47.00 },
+        { "from": 139310, "to": 195034, "rate": 49.00 },
+        { "from": 195034, "to": 334344, "rate": 50.50 },
+        { "from": 334344, "to": null, "rate": 54.00 }
+      ]
+    },
+    "pais_vasco": {
+      "description": "País Vasco has its own COMPLETE IRPF system (not split state/autonomous). These rates are TOTAL rates. Rates may vary slightly between Álava, Bizkaia, and Gipuzkoa.",
+      "brackets": [
+        { "from": 0, "to": 17720, "rate": 23.00 },
+        { "from": 17720, "to": 35440, "rate": 28.00 },
+        { "from": 35440, "to": 53160, "rate": 35.00 },
+        { "from": 53160, "to": 75910, "rate": 40.00 },
+        { "from": 75910, "to": 105130, "rate": 45.00 },
+        { "from": 105130, "to": 140130, "rate": 46.00 },
+        { "from": 140130, "to": 204270, "rate": 47.00 },
+        { "from": 204270, "to": null, "rate": 47.00 }
+      ]
+    },
+    "ceuta": {
+      "description": "Ceuta applies the default state autonomous scale (same as common territory). Additionally, residents get a 60% deduction on the IRPF quota for income generated in Ceuta.",
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 9.50 },
+        { "from": 12450, "to": 20200, "rate": 12.00 },
+        { "from": 20200, "to": 35200, "rate": 15.00 },
+        { "from": 35200, "to": 60000, "rate": 18.50 },
+        { "from": 60000, "to": 300000, "rate": 22.50 },
+        { "from": 300000, "to": null, "rate": 24.50 }
+      ],
+      "deduction_pct": 60
+    },
+    "melilla": {
+      "description": "Melilla applies the default state autonomous scale (same as common territory). Additionally, residents get a 60% deduction on the IRPF quota for income generated in Melilla.",
+      "brackets": [
+        { "from": 0, "to": 12450, "rate": 9.50 },
+        { "from": 12450, "to": 20200, "rate": 12.00 },
+        { "from": 20200, "to": 35200, "rate": 15.00 },
+        { "from": 35200, "to": 60000, "rate": 18.50 },
+        { "from": 60000, "to": 300000, "rate": 22.50 },
+        { "from": 300000, "to": null, "rate": 24.50 }
+      ],
+      "deduction_pct": 60
+    }
+  },
+
+  "seguridad_social_trabajadores_2025": {
+    "description": "Cotizaciones a la Seguridad Social - Régimen General 2025. Porcentajes sobre base de cotización.",
+    "contingencias_comunes": {
+      "total": 28.30,
+      "empresa": 23.60,
+      "trabajador": 4.70
+    },
+    "desempleo_contrato_indefinido": {
+      "total": 7.05,
+      "empresa": 5.50,
+      "trabajador": 1.55
+    },
+    "desempleo_contrato_temporal": {
+      "total": 8.30,
+      "empresa": 6.70,
+      "trabajador": 1.60
+    },
+    "formacion_profesional": {
+      "total": 0.70,
+      "empresa": 0.60,
+      "trabajador": 0.10
+    },
+    "fogasa": {
+      "total": 0.20,
+      "empresa": 0.20,
+      "trabajador": 0.00
+    },
+    "mei_2025": {
+      "description": "Mecanismo de Equidad Intergeneracional",
+      "total": 0.80,
+      "empresa": 0.67,
+      "trabajador": 0.13
+    },
+    "mei_2026": {
+      "total": 0.90,
+      "empresa": 0.75,
+      "trabajador": 0.15
+    },
+    "total_trabajador_indefinido_2025": {
+      "description": "Total worker contribution % (indefinido): CC 4.70 + desempleo 1.55 + FP 0.10 + MEI 0.13",
+      "total": 6.48
+    },
+    "total_trabajador_temporal_2025": {
+      "description": "Total worker contribution % (temporal): CC 4.70 + desempleo 1.60 + FP 0.10 + MEI 0.13",
+      "total": 6.53
+    },
+    "bases_cotizacion_2025": {
+      "minima_mensual": 1184.40,
+      "maxima_mensual": 4909.50
+    },
+    "bases_cotizacion_2026": {
+      "maxima_mensual": 5101.20
+    }
+  },
+
+  "cuota_autonomos_2025_2026": {
+    "description": "Sistema de cotización por rendimientos netos reales. Cuotas mensuales idénticas en 2025 y 2026 (solo sube el MEI 0.1pp).",
+    "tranches": [
+      { "tranche": 1, "rendimiento_neto_mensual_from": 0, "rendimiento_neto_mensual_to": 670, "base_minima": 735.29, "cuota_mensual": 200 },
+      { "tranche": 2, "rendimiento_neto_mensual_from": 670.01, "rendimiento_neto_mensual_to": 900, "base_minima": 816.99, "cuota_mensual": 225 },
+      { "tranche": 3, "rendimiento_neto_mensual_from": 900.01, "rendimiento_neto_mensual_to": 1166.70, "base_minima": 898.69, "cuota_mensual": 250 },
+      { "tranche": 4, "rendimiento_neto_mensual_from": 1166.71, "rendimiento_neto_mensual_to": 1300, "base_minima": 950.00, "cuota_mensual": 267 },
+      { "tranche": 5, "rendimiento_neto_mensual_from": 1300.01, "rendimiento_neto_mensual_to": 1500, "base_minima": 960.00, "cuota_mensual": 280 },
+      { "tranche": 6, "rendimiento_neto_mensual_from": 1500.01, "rendimiento_neto_mensual_to": 1700, "base_minima": 1013.07, "cuota_mensual": 294 },
+      { "tranche": 7, "rendimiento_neto_mensual_from": 1700.01, "rendimiento_neto_mensual_to": 1850, "base_minima": 1208.09, "cuota_mensual": 350 },
+      { "tranche": 8, "rendimiento_neto_mensual_from": 1850.01, "rendimiento_neto_mensual_to": 2030, "base_minima": 1272.12, "cuota_mensual": 370 },
+      { "tranche": 9, "rendimiento_neto_mensual_from": 2030.01, "rendimiento_neto_mensual_to": 2330, "base_minima": 1361.08, "cuota_mensual": 395.90 },
+      { "tranche": 10, "rendimiento_neto_mensual_from": 2330.01, "rendimiento_neto_mensual_to": 2760, "base_minima": 1454.79, "cuota_mensual": 423.30 },
+      { "tranche": 11, "rendimiento_neto_mensual_from": 2760.01, "rendimiento_neto_mensual_to": 3190, "base_minima": 1567.21, "cuota_mensual": 456.20 },
+      { "tranche": 12, "rendimiento_neto_mensual_from": 3190.01, "rendimiento_neto_mensual_to": 3620, "base_minima": 1651.16, "cuota_mensual": 480.40 },
+      { "tranche": 13, "rendimiento_neto_mensual_from": 3620.01, "rendimiento_neto_mensual_to": 4050, "base_minima": 1686.12, "cuota_mensual": 490 },
+      { "tranche": 14, "rendimiento_neto_mensual_from": 4050.01, "rendimiento_neto_mensual_to": 6000, "base_minima": 1732.03, "cuota_mensual": 504.30 },
+      { "tranche": 15, "rendimiento_neto_mensual_from": 6000.01, "rendimiento_neto_mensual_to": null, "base_minima": 2030.03, "cuota_mensual": 590 }
+    ],
+    "tarifa_plana": {
+      "description": "Tarifa plana para nuevos autónomos",
+      "cuota_mensual": 80,
+      "duracion_meses": 12,
+      "prorrogable_12_meses_mas_si": "rendimientos netos inferiores al SMI"
+    }
+  },
+
+  "itp_por_ccaa": {
+    "description": "Impuesto sobre Transmisiones Patrimoniales - tipo general para inmuebles por CCAA 2025-2026",
+    "rates": {
+      "andalucia": { "general": 7, "notes": "Tipo único del 7%" },
+      "aragon": { "general": "8-10", "progressive": true, "notes": "Progresivo: 8% hasta 400k, 8.5% 400k-450k, 9% 450k-500k, 9.5% 500k-750k, 10% >750k" },
+      "asturias": { "general": "8-10", "progressive": true, "notes": "Progresivo según valor: 8%, 9%, 10%" },
+      "baleares": { "general": "8-13", "progressive": true, "notes": "Escalado: 8% hasta 400k, 9% 400k-600k, 10% 600k-1M, 12% 1M-2M, 13% >2M" },
+      "canarias": { "general": 6.5, "notes": "6.5% tipo general" },
+      "cantabria": { "general": 9, "notes": "9% para inmuebles en general" },
+      "castilla_la_mancha": { "general": 9, "notes": "9% tipo general" },
+      "castilla_y_leon": { "general": "8-10", "progressive": true, "notes": "8% general, hasta 10% según valor" },
+      "cataluna": { "general": 10, "notes": "10% tipo general; 11% para inmuebles >1M" },
+      "extremadura": { "general": "8-11", "progressive": true, "notes": "8% hasta 360k, 10% 360k-600k, 11% >600k" },
+      "galicia": { "general": 8, "notes": "8% tipo general" },
+      "madrid": { "general": 6, "notes": "6% tipo general (el más bajo de régimen común)" },
+      "murcia": { "general": 8, "notes": "8% tipo general" },
+      "la_rioja": { "general": 7, "notes": "7% tipo general" },
+      "comunidad_valenciana": { "general": 10, "notes": "10% hasta mayo 2026; 9% a partir de junio 2026" },
+      "navarra": { "general": 6, "notes": "6% tipo general" },
+      "pais_vasco": { "general": 7, "notes": "7% (puede variar entre Álava, Bizkaia, Gipuzkoa: 4-7%)" },
+      "ceuta": { "general": 6, "notes": "6% tipo general + bonificación 50%" },
+      "melilla": { "general": 6, "notes": "6% tipo general + bonificación 50%" }
+    },
+    "tipo_reducido_vivienda_habitual_jovenes": {
+      "description": "Tipo reducido para primera vivienda habitual de jóvenes <40 años (Ley 1/2025)",
+      "rate": 4
+    }
+  },
+
+  "gastos_compra_vivienda": {
+    "description": "Gastos aproximados al comprar vivienda en España 2025-2026",
+    "notaria": {
+      "percentage_range": [0.2, 0.5],
+      "typical_percentage": 0.3,
+      "absolute_range_eur": [600, 900],
+      "notes": "Regulados por arancel. Varían según precio escriturado."
+    },
+    "registro_propiedad": {
+      "percentage_range": [0.1, 0.25],
+      "typical_percentage": 0.18,
+      "notes": "Regulados por arancel."
+    },
+    "gestoria": {
+      "absolute_range_eur": [300, 600],
+      "typical_eur": 400,
+      "notes": "No obligatoria pero habitual. Libre mercado."
+    },
+    "tasacion": {
+      "absolute_range_eur": [200, 600],
+      "typical_eur": 350,
+      "notes": "Obligatoria si se solicita hipoteca."
+    },
+    "total_estimado_pct": {
+      "description": "Porcentaje total estimado sobre precio de compra (impuestos + gastos)",
+      "range": [10, 15],
+      "notes": "Incluye ITP/IVA+AJD, notaría, registro, gestoría, tasación"
+    },
+    "ajd_por_ccaa": {
+      "description": "Actos Jurídicos Documentados - tipo general por CCAA. Se aplica en vivienda nueva (junto con IVA 10%) y en constitución de hipoteca.",
+      "rates": {
+        "andalucia": 1.2,
+        "aragon": 1.5,
+        "asturias": 1.2,
+        "baleares": 1.5,
+        "canarias": 1.0,
+        "cantabria": 1.5,
+        "castilla_la_mancha": 1.25,
+        "castilla_y_leon": 1.5,
+        "cataluna": 1.5,
+        "extremadura": 1.2,
+        "galicia": 1.5,
+        "madrid": 0.75,
+        "murcia": 1.5,
+        "navarra": 0.5,
+        "la_rioja": 1.0,
+        "pais_vasco": 0.5,
+        "comunidad_valenciana": 1.5,
+        "ceuta": 0.5,
+        "melilla": 0.5
+      }
+    },
+    "iva_vivienda_nueva": {
+      "general": 10,
+      "vpo": 4,
+      "canarias_igic": 7
+    }
+  },
+
+  "plusvalia_municipal": {
+    "description": "IIVTNU - Coeficientes máximos método objetivo (estimación objetiva). Base imponible = valor catastral del suelo * coeficiente.",
+    "coeficientes_2024_vigentes_2025": {
+      "description": "Coeficientes del RDL 8/2023, vigentes desde 01/01/2024. Siguen en vigor para 2025 (RDL 9/2024 fue derogado en enero 2025).",
+      "coefficients": {
+        "menos_1_anio": 0.15,
+        "1_anio": 0.15,
+        "2_anios": 0.14,
+        "3_anios": 0.14,
+        "4_anios": 0.16,
+        "5_anios": 0.18,
+        "6_anios": 0.19,
+        "7_anios": 0.20,
+        "8_anios": 0.19,
+        "9_anios": 0.15,
+        "10_anios": 0.12,
+        "11_anios": 0.10,
+        "12_anios": 0.09,
+        "13_anios": 0.09,
+        "14_anios": 0.09,
+        "15_anios": 0.09,
+        "16_anios": 0.10,
+        "17_anios": 0.13,
+        "18_anios": 0.17,
+        "19_anios": 0.23,
+        "20_anios_o_mas": 0.40
+      },
+      "coefficients_array": [
+        { "years": 0, "label": "Menos de 1 año", "coefficient": 0.15 },
+        { "years": 1, "label": "1 año", "coefficient": 0.15 },
+        { "years": 2, "label": "2 años", "coefficient": 0.14 },
+        { "years": 3, "label": "3 años", "coefficient": 0.14 },
+        { "years": 4, "label": "4 años", "coefficient": 0.16 },
+        { "years": 5, "label": "5 años", "coefficient": 0.18 },
+        { "years": 6, "label": "6 años", "coefficient": 0.19 },
+        { "years": 7, "label": "7 años", "coefficient": 0.20 },
+        { "years": 8, "label": "8 años", "coefficient": 0.19 },
+        { "years": 9, "label": "9 años", "coefficient": 0.15 },
+        { "years": 10, "label": "10 años", "coefficient": 0.12 },
+        { "years": 11, "label": "11 años", "coefficient": 0.10 },
+        { "years": 12, "label": "12 años", "coefficient": 0.09 },
+        { "years": 13, "label": "13 años", "coefficient": 0.09 },
+        { "years": 14, "label": "14 años", "coefficient": 0.09 },
+        { "years": 15, "label": "15 años", "coefficient": 0.09 },
+        { "years": 16, "label": "16 años", "coefficient": 0.10 },
+        { "years": 17, "label": "17 años", "coefficient": 0.13 },
+        { "years": 18, "label": "18 años", "coefficient": 0.17 },
+        { "years": 19, "label": "19 años", "coefficient": 0.23 },
+        { "years": 20, "label": "20 años o más", "coefficient": 0.40 }
+      ]
+    },
+    "coeficientes_2026": {
+      "description": "RDL 16/2025 actualizó coeficientes para 2026 con subidas de hasta 40% en periodos 7-15 años y bajadas para >17 años. Pendiente de convalidación.",
+      "coefficients_array": [
+        { "years": 0, "label": "Menos de 1 año", "coefficient": 0.16 },
+        { "years": 1, "label": "1 año", "coefficient": 0.15 },
+        { "years": 2, "label": "2 años", "coefficient": 0.15 },
+        { "years": 3, "label": "3 años", "coefficient": 0.15 },
+        { "years": 4, "label": "4 años", "coefficient": 0.16 },
+        { "years": 5, "label": "5 años", "coefficient": 0.18 },
+        { "years": 6, "label": "6 años", "coefficient": 0.20 },
+        { "years": 7, "label": "7 años", "coefficient": 0.22 },
+        { "years": 8, "label": "8 años", "coefficient": 0.23 },
+        { "years": 9, "label": "9 años", "coefficient": 0.21 },
+        { "years": 10, "label": "10 años", "coefficient": 0.16 },
+        { "years": 11, "label": "11 años", "coefficient": 0.13 },
+        { "years": 12, "label": "12 años", "coefficient": 0.11 },
+        { "years": 13, "label": "13 años", "coefficient": 0.10 },
+        { "years": 14, "label": "14 años", "coefficient": 0.10 },
+        { "years": 15, "label": "15 años", "coefficient": 0.10 },
+        { "years": 16, "label": "16 años", "coefficient": 0.10 },
+        { "years": 17, "label": "17 años", "coefficient": 0.12 },
+        { "years": 18, "label": "18 años", "coefficient": 0.16 },
+        { "years": 19, "label": "19 años", "coefficient": 0.22 },
+        { "years": 20, "label": "20 años o más", "coefficient": 0.35 }
+      ]
+    },
+    "tipo_impositivo_maximo": 30,
+    "notes": "Los ayuntamientos pueden aplicar coeficientes iguales o inferiores a estos máximos. El tipo impositivo máximo es del 30% sobre la base imponible."
+  }
+}
