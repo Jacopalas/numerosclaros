@@ -162,7 +162,7 @@ export function estimarRetencion(
   else reduccion = 2000;
 
   // Gastos deducibles SS (estimación 6.47%)
-  const ss = brutoAnual * 0.0647;
+  const ss = brutoAnual * 0.0648;
 
   const baseImponible = Math.max(0, brutoAnual - ss - reduccion);
   const resultado = calcularIRPF(baseImponible, ccaa, minimo);

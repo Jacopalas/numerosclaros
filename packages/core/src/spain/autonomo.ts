@@ -26,28 +26,28 @@ export interface TramoAutonomo {
 
 export const TRAMOS_AUTONOMOS_2025: TramoAutonomo[] = [
   // Tabla reducida (rendimientos <= IPREM)
-  { rendimientoMin: 0,    rendimientoMax: 670,   cuotaMinima: 200, baseCotizacion: 653.59 },
-  { rendimientoMin: 670,  rendimientoMax: 900,   cuotaMinima: 220, baseCotizacion: 718.95 },
-  { rendimientoMin: 900,  rendimientoMax: 1166.70, cuotaMinima: 260, baseCotizacion: 849.67 },
+  { rendimientoMin: 0,       rendimientoMax: 670,     cuotaMinima: 200,    baseCotizacion: 653.59 },
+  { rendimientoMin: 670,     rendimientoMax: 900,     cuotaMinima: 220,    baseCotizacion: 718.95 },
+  { rendimientoMin: 900,     rendimientoMax: 1166.70, cuotaMinima: 260,    baseCotizacion: 849.67 },
   // Tabla general
-  { rendimientoMin: 1166.70, rendimientoMax: 1300, cuotaMinima: 291, baseCotizacion: 950.98 },
-  { rendimientoMin: 1300, rendimientoMax: 1500, cuotaMinima: 294, baseCotizacion: 960.78 },
-  { rendimientoMin: 1500, rendimientoMax: 1700, cuotaMinima: 294, baseCotizacion: 960.78 },
-  { rendimientoMin: 1700, rendimientoMax: 1850, cuotaMinima: 310, baseCotizacion: 1013.07 },
-  { rendimientoMin: 1850, rendimientoMax: 2030, cuotaMinima: 315, baseCotizacion: 1029.41 },
-  { rendimientoMin: 2030, rendimientoMax: 2330, cuotaMinima: 320, baseCotizacion: 1045.75 },
-  { rendimientoMin: 2330, rendimientoMax: 2760, cuotaMinima: 330, baseCotizacion: 1078.43 },
-  { rendimientoMin: 2760, rendimientoMax: 3190, cuotaMinima: 350, baseCotizacion: 1143.79 },
-  { rendimientoMin: 3190, rendimientoMax: 3620, cuotaMinima: 370, baseCotizacion: 1209.15 },
-  { rendimientoMin: 3620, rendimientoMax: 4050, cuotaMinima: 390, baseCotizacion: 1274.51 },
-  { rendimientoMin: 4050, rendimientoMax: 6000, cuotaMinima: 400, baseCotizacion: 1307.19 },
-  { rendimientoMin: 6000, rendimientoMax: Infinity, cuotaMinima: 530, baseCotizacion: 1732.03 },
+  { rendimientoMin: 1166.70, rendimientoMax: 1300,    cuotaMinima: 291,    baseCotizacion: 950.98 },
+  { rendimientoMin: 1300,    rendimientoMax: 1500,    cuotaMinima: 294,    baseCotizacion: 960.78 },
+  { rendimientoMin: 1500,    rendimientoMax: 1700,    cuotaMinima: 294,    baseCotizacion: 960.78 },
+  { rendimientoMin: 1700,    rendimientoMax: 1850,    cuotaMinima: 350,    baseCotizacion: 1143.79 },
+  { rendimientoMin: 1850,    rendimientoMax: 2030,    cuotaMinima: 370,    baseCotizacion: 1209.15 },
+  { rendimientoMin: 2030,    rendimientoMax: 2330,    cuotaMinima: 390,    baseCotizacion: 1274.51 },
+  { rendimientoMin: 2330,    rendimientoMax: 2760,    cuotaMinima: 415,    baseCotizacion: 1356.21 },
+  { rendimientoMin: 2760,    rendimientoMax: 3190,    cuotaMinima: 440,    baseCotizacion: 1437.91 },
+  { rendimientoMin: 3190,    rendimientoMax: 3620,    cuotaMinima: 465,    baseCotizacion: 1519.61 },
+  { rendimientoMin: 3620,    rendimientoMax: 4050,    cuotaMinima: 491,    baseCotizacion: 1601.31 },
+  { rendimientoMin: 4050,    rendimientoMax: 6000,    cuotaMinima: 531,    baseCotizacion: 1732.03 },
+  { rendimientoMin: 6000,    rendimientoMax: Infinity, cuotaMinima: 591,   baseCotizacion: 1928.10 },
 ];
 
-/** Tipo de contingencias comunes para RETA: 28.30% */
-export const TIPO_CC_RETA = 0.283;
-/** Cuota SS administrador societario (base mínima grupo 7) — ~380€/mes aprox 2025 */
-export const CUOTA_ADMIN_SOCIETARIO = 380;
+/** Tipo total de cotización RETA: 31.40% (2025). Incluye CC, CP, cese, FP, MEI */
+export const TIPO_TOTAL_RETA = 0.314;
+/** Cuota SS administrador societario (base mín 1.000€ × 31.40%) — 2025 */
+export const CUOTA_ADMIN_SOCIETARIO = 314;
 /** Tipo IS general */
 export const TIPO_IS_GENERAL = 0.25;
 /** Tipo IS reducido nuevas empresas (primeros 2 años, primeros 50k) */

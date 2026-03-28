@@ -11,31 +11,33 @@
  */
 
 /**
- * Coeficientes por años de tenencia — método objetivo.
- * Fuente: Art. 107.4 TRLHL, actualizado por LPGE 2023/2024.
+ * Coeficientes máximos por años de tenencia — método objetivo.
+ * Fuente: RDL 8/2023, art. 107.4 TRLHL (coeficientes para devengos desde 2024).
+ * VIGENTES en 2025/2026: los RDL 9/2024 (para 2025) y RDL 16/2025 (para 2026)
+ * fueron DEROGADOS por el Congreso, por lo que siguen aplicándose los de 2024.
  * Se aplican al valor catastral del suelo.
  */
 export const COEFICIENTES_PLUSVALIA: Record<number, number> = {
-  1:  0.14,
-  2:  0.13,
-  3:  0.15,
-  4:  0.17,
-  5:  0.17,
-  6:  0.16,
-  7:  0.12,
-  8:  0.10,
-  9:  0.09,
-  10: 0.08,
-  11: 0.08,
-  12: 0.08,
-  13: 0.08,
-  14: 0.10,
-  15: 0.12,
-  16: 0.16,
-  17: 0.20,
-  18: 0.26,
-  19: 0.36,
-  20: 0.45,
+  1:  0.15,
+  2:  0.14,
+  3:  0.14,
+  4:  0.14,
+  5:  0.18,
+  6:  0.19,
+  7:  0.20,
+  8:  0.19,
+  9:  0.15,
+  10: 0.12,
+  11: 0.10,
+  12: 0.09,
+  13: 0.09,
+  14: 0.09,
+  15: 0.09,
+  16: 0.10,
+  17: 0.13,
+  18: 0.17,
+  19: 0.23,
+  20: 0.40,
 };
 
 /** Tipo impositivo máximo municipal: 30% */

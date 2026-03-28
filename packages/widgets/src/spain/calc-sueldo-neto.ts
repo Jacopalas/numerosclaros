@@ -12,18 +12,18 @@ import {
 } from '../../../core/src/spain/index.js';
 
 /**
- * Cotización SS trabajador 2025.
+ * Cotización SS trabajador 2025 (contrato indefinido).
  * Contingencias comunes: 4.70%
- * Desempleo (general): 1.55%
+ * Desempleo (indefinido): 1.55%
  * Formación profesional: 0.10%
- * MEI (Mecanismo Equidad Intergeneracional): 0.12%
- * TOTAL: 6.47%
+ * MEI (Mecanismo Equidad Intergeneracional): 0.13%
+ * TOTAL: 6.48%
  *
  * Fuente: Art. 109 LGSS, Orden PJC/51/2025.
  */
-const SS_TRABAJADOR = 0.0647;
-/** Cotización SS empresa (para coste empresa): ~30.4% aprox */
-const SS_EMPRESA = 0.304;
+const SS_TRABAJADOR = 0.0648;
+/** Cotización SS empresa (para coste empresa): ~30.5% aprox (incluye CC, desempleo, FP, FOGASA, MEI) */
+const SS_EMPRESA = 0.305;
 /** Base cotización máxima 2025 */
 const BASE_COT_MAX = 4909.50 * 12;
 
@@ -98,7 +98,7 @@ export class CalcSueldoNeto extends CalcBase {
         <div class="nc-divider"></div>
         <h3>Desglose anual</h3>
         ${this.resultRow('Salario bruto', this.fmtEur(bruto))}
-        ${this.resultRow('Seguridad Social (6,47%)', '- ' + this.fmtEur(ssAnual))}
+        ${this.resultRow('Seguridad Social (6,48%)', '- ' + this.fmtEur(ssAnual))}
         ${this.resultRow('IRPF (' + this.fmtPercent(retencionPct) + ')', '- ' + this.fmtEur(irpfAnual))}
         ${this.resultRow('Neto anual', this.fmtEur(netoAnual), true)}
 

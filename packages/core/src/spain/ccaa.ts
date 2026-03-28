@@ -300,7 +300,7 @@ export const CCAA_DATA: Record<ComunidadId, DatosCCAA> = {
       { hasta: Infinity,  tipo: 0.26 },
     ],
     itpGeneral: 0.065,
-    ajd: 0.01,
+    ajd: 0.0075,
     patrimonioMinExento: 700_000,
     patrimonioTramos: [
       { hasta: 167_129,   tipo: 0.002 },
@@ -592,7 +592,7 @@ export const CCAA_DATA: Record<ComunidadId, DatosCCAA> = {
       { hasta: Infinity,  tipo: 0.27 },
     ],
     itpGeneral: 0.07,
-    ajd: 0.015,
+    ajd: 0.01,
     patrimonioMinExento: 700_000,
     patrimonioTramos: [
       // La Rioja: bonificación 100%
