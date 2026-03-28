@@ -1,0 +1,16 @@
+{
+  "name": "numerosclaros-spain",
+  "version": "0.1.0",
+  "description": "Calculadoras financieras para España — Web Components embeddables",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
+  }
+}
