@@ -1,4 +1,4 @@
-import { CalcBase } from './base.js';
+import { CalcBase } from './calc-base.js';
 import { calculateEmergency } from '@numerosclaros/core';
 
 export class CalcFondoEmergencia extends CalcBase {

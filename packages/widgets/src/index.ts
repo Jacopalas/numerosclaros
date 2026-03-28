@@ -1,4 +1,4 @@
-export { CalcBase } from './base.js';
+export { CalcBase } from './calc-base.js';
 export { CalcHipoteca } from './calc-hipoteca.js';
 export { CalcInteresCompuesto } from './calc-interes-compuesto.js';
 export { CalcComparadorPrestamos } from './calc-comparador-prestamos.js';

@@ -2,14 +2,14 @@
  * calc-comparador-ccaa — Compara la carga fiscal entre comunidades autónomas.
  * IRPF autonómico + ITP + Patrimonio + Sucesiones.
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   calcularIRPF,
   CCAA_LIST,
   CCAA_DATA,
   calcularProgresivo,
   type ComunidadId,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 interface ResultadoCCAA {
   id: ComunidadId;

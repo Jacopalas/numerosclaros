@@ -1,11 +1,11 @@
 /**
  * calc-cuota-autonomos — Cuota de autónomos 2025 por tramos de rendimientos netos.
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   calcularCuotaAutonomo,
   TRAMOS_AUTONOMOS_2025,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 export class CalcCuotaAutonomos extends CalcBase {
   protected render(): void {

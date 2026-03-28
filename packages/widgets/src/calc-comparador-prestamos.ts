@@ -1,4 +1,4 @@
-import { CalcBase } from './base.js';
+import { CalcBase } from './calc-base.js';
 import { compareLoans } from '@numerosclaros/core';
 
 export class CalcComparadorPrestamos extends CalcBase {

@@ -3,8 +3,8 @@
  * SWR 3.0-3.25% (no 4%), pensión pública, sanidad gratuita,
  * fiscalidad rentas del ahorro (19-28%), inflación europea.
  */
-import { CalcBase } from '../base.js';
-import { calcularIRPFAhorro } from '../../../core/src/spain/index.js';
+import { CalcBase } from './base.js';
+import { calcularIRPFAhorro } from '@numerosclaros/core';
 
 /** Safe withdrawal rate para España: 3.0-3.25% */
 const SWR_DEFAULT = 0.0325;

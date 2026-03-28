@@ -1,4 +1,4 @@
-import { CalcBase } from './base.js';
+import { CalcBase } from './calc-base.js';
 import { calculateRoi } from '@numerosclaros/core';
 
 export class CalcRoi extends CalcBase {

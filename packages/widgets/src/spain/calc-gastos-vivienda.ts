@@ -2,12 +2,12 @@
  * calc-gastos-vivienda — Gastos REALES de comprar vivienda en España.
  * ITP/IVA por CCAA, notaría, registro, gestoría, tasación.
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   calcularGastosVivienda,
   CCAA_LIST,
   type ComunidadId,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 export class CalcGastosVivienda extends CalcBase {
   protected render(): void {

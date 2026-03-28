@@ -2,7 +2,7 @@
  * calc-irpf — Calculadora IRPF 2025/2026 con tramos estatales y autonómicos.
  * Web Component embeddable.
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   calcularIRPF,
   CCAA_LIST,
@@ -10,7 +10,7 @@ import {
   CCAA_FORALES,
   IRPF_ESTATAL,
   type ComunidadId,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 export class CalcIRPF extends CalcBase {
   protected render(): void {

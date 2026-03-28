@@ -1,12 +1,12 @@
 /**
  * calc-autonomo-vs-sl — Compara autónomo persona física vs Sociedad Limitada.
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   compararAutonomoVsSL,
   CCAA_LIST,
   type ComunidadId,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 export class CalcAutonomoVsSL extends CalcBase {
   protected render(): void {

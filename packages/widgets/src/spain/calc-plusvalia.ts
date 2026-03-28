@@ -2,8 +2,8 @@
  * calc-plusvalia — Plusvalía municipal (IIVTNU).
  * Método objetivo vs método real, el contribuyente elige el más favorable.
  */
-import { CalcBase } from '../base.js';
-import { calcularPlusvalia, COEFICIENTES_PLUSVALIA } from '../../../core/src/spain/index.js';
+import { CalcBase } from './base.js';
+import { calcularPlusvalia, COEFICIENTES_PLUSVALIA } from '@numerosclaros/core';
 
 export class CalcPlusvalia extends CalcBase {
   protected render(): void {

@@ -24,3 +24,6 @@ export type { EmergencyInput, EmergencyResult } from './emergency.js';
 
 export { calculateSavings } from './savings.js';
 export type { SavingsInput, SavingsResult, SavingsMonthRow } from './savings.js';
+
+// Spain-specific exports
+export * from './spain/index.js';

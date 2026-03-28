@@ -3,7 +3,7 @@
  * Minimiza el tipo marginal de IRPF distribuyendo el rescate en varios años.
  * Incluye la novedad del rescate a los 10 años (desde 2025).
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   calcularIRPF,
   tipoMarginal,
@@ -13,7 +13,7 @@ import {
   CCAA_FORALES,
   type ComunidadId,
   type Tramo,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 interface AnioRescate {
   anio: number;

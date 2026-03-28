@@ -1,4 +1,4 @@
-import { CalcBase } from './base.js';
+import { CalcBase } from './calc-base.js';
 import { calculateSavings } from '@numerosclaros/core';
 
 export class CalcMetaAhorro extends CalcBase {

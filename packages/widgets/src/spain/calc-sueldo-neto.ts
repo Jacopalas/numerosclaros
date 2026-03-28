@@ -2,14 +2,14 @@
  * calc-sueldo-neto — Bruto anual → neto mensual.
  * Incluye: SS trabajador, IRPF, pagas extra (12/14).
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   calcularIRPF,
   estimarRetencion,
   CCAA_LIST,
   MINIMO_PERSONAL,
   type ComunidadId,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 /**
  * Cotización SS trabajador 2025 (contrato indefinido).

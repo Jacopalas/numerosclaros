@@ -2,13 +2,13 @@
  * calc-pension — Calculadora de pensión de jubilación Seguridad Social.
  * Sistema dual 2025: dos fórmulas, se aplica la más favorable.
  */
-import { CalcBase } from '../base.js';
+import { CalcBase } from './base.js';
 import {
   calcularPension,
   edadLegalJubilacion,
   PENSION_MAX_2025,
   BASE_COTIZACION_MAX_2025,
-} from '../../../core/src/spain/index.js';
+} from '@numerosclaros/core';
 
 export class CalcPension extends CalcBase {
   protected render(): void {
