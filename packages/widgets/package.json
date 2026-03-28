@@ -1,0 +1,21 @@
+{
+  "name": "@numerosclaros/widgets",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/numerosclaros.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/numerosclaros.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "@numerosclaros/core": "1.0.0"
+  },
+  "files": ["dist"]
+}

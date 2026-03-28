@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NumerosClaros — Calculadoras Financieras</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+      line-height: 1.5;
+    }
+    header {
+      background: #1a56db;
+      color: white;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .grid > :first-child { grid-column: 1 / -1; }
+    }
+    .section-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6b7280;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .theme-toggle {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #1a56db;
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 100;
+    }
+    .theme-toggle:hover { background: #1e40af; }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+    footer a { color: #1a56db; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NumerosClaros</h1>
+    <p>Calculadoras financieras open source. Embeddables con una sola línea de HTML.</p>
+  </header>
+
+  <div class="container">
+    <div class="section-title">Hipotecas y Préstamos</div>
+    <div class="grid">
+      <calc-hipoteca></calc-hipoteca>
+      <calc-comparador-prestamos></calc-comparador-prestamos>
+    </div>
+
+    <div class="section-title">Inversión y Rentabilidad</div>
+    <div class="grid">
+      <calc-interes-compuesto></calc-interes-compuesto>
+      <calc-roi></calc-roi>
+      <calc-inflacion></calc-inflacion>
+    </div>
+
+    <div class="section-title">Deuda y Presupuesto</div>
+    <div class="grid">
+      <calc-deuda></calc-deuda>
+      <calc-presupuesto></calc-presupuesto>
+    </div>
+
+    <div class="section-title">Ahorro</div>
+    <div class="grid">
+      <calc-fondo-emergencia></calc-fondo-emergencia>
+      <calc-meta-ahorro></calc-meta-ahorro>
+    </div>
+  </div>
+
+  <footer>
+    <p>NumerosClaros v1.0.0 — <a href="https://github.com/Jacopalas/numerosclaros" target="_blank">GitHub</a></p>
+    <p style="margin-top:0.25rem">Uso: <code>&lt;script src="numerosclaros.js"&gt;&lt;/script&gt;</code> + <code>&lt;calc-hipoteca&gt;&lt;/calc-hipoteca&gt;</code></p>
+  </footer>
+
+  <button class="theme-toggle" onclick="toggleTheme()">Tema oscuro</button>
+
+  <script type="module" src="./packages/widgets/dist/numerosclaros.js"></script>
+  <script>
+    let dark = false;
+    function toggleTheme() {
+      dark = !dark;
+      const theme = dark ? 'dark' : 'light';
+      document.querySelectorAll('[theme]').forEach(el => el.setAttribute('theme', theme));
+      document.body.style.background = dark ? '#111827' : '#f3f4f6';
+      document.body.style.color = dark ? '#f9fafb' : '#111827';
+      document.querySelector('header').style.background = dark ? '#111827' : '#1a56db';
+      document.querySelector('.theme-toggle').textContent = dark ? 'Tema claro' : 'Tema oscuro';
+    }
+  </script>
+</body>
+</html>

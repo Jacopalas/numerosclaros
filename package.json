@@ -1,0 +1,20 @@
+{
+  "name": "numerosclaros",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/core",
+    "packages/widgets"
+  ],
+  "scripts": {
+    "build": "npm run build -w packages/core && npm run build -w packages/widgets",
+    "test": "npm test -w packages/core",
+    "dev": "npm run dev -w packages/widgets"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0",
+    "vite-plugin-dts": "^4.0.0"
+  }
+}
