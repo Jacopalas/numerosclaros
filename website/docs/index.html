@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentación — NumerosClaros</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1e293b; background: #f8fafc; line-height: 1.6; }
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #e2e8f0; }
+    .back-link { color: #1a56db; text-decoration: none; font-weight: 500; }
+    .back-link:hover { text-decoration: underline; }
+    .brand { font-weight: 700; color: #1a56db; font-size: 1.1rem; text-decoration: none; }
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #0f172a; }
+    .subtitle { color: #64748b; margin-bottom: 2.5rem; font-size: 1.1rem; }
+    h2 { font-size: 1.4rem; color: #0e3a8c; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #e2e8f0; }
+    .section { margin-bottom: 2.5rem; }
+    .calc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+    .calc-list a { display: block; padding: 16px 20px; background: #ffffff; border-radius: 8px; text-decoration: none; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.08); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .calc-list a:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .calc-list .name { font-weight: 600; font-size: 0.95rem; display: block; margin-bottom: 2px; }
+    .calc-list .desc { font-size: 0.8rem; color: #64748b; display: block; }
+    .badge { display: inline-block; font-size: 0.65rem; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
+    .badge-u { background: #dbeafe; color: #1a56db; }
+    .badge-e { background: #fde8e8; color: #e63946; }
+    .badge-d { background: #d1fae5; color: #059669; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 2px solid #e2e8f0; text-align: center; color: #64748b; font-size: 0.875rem; }
+    footer a { color: #1a56db; text-decoration: none; }
+    @media (max-width: 600px) { .calc-list { grid-template-columns: 1fr; } h1 { font-size: 1.5rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="../index.html" class="back-link">&larr; Inicio</a>
+      <a href="../index.html" class="brand">NumerosClaros</a>
+    </header>
+
+    <h1>Documentaci&oacute;n</h1>
+    <p class="subtitle">Referencia completa de cada calculadora: qu&eacute; calcula, c&oacute;mo usarla, f&oacute;rmulas y fuentes oficiales.</p>
+
+    <div class="section">
+      <h2>Universales</h2>
+      <ul class="calc-list">
+        <li><a href="calc-hipoteca.html"><span class="name">Calculadora de hipoteca <span class="badge badge-u">Universal</span></span><span class="desc">Cuota mensual, intereses totales y cuadro de amortizaci&oacute;n</span></a></li>
+        <li><a href="calc-interes-compuesto.html"><span class="name">Inter&eacute;s compuesto <span class="badge badge-u">Universal</span></span><span class="desc">Crecimiento de tu inversi&oacute;n con reinversi&oacute;n de intereses</span></a></li>
+        <li><a href="calc-amortizacion.html"><span class="name">Amortizaci&oacute;n de pr&eacute;stamo <span class="badge badge-u">Universal</span></span><span class="desc">Cuadro completo de amortizaci&oacute;n francesa o americana</span></a></li>
+        <li><a href="calc-prestamo-personal.html"><span class="name">Pr&eacute;stamo personal <span class="badge badge-u">Universal</span></span><span class="desc">Cuota y coste total de un pr&eacute;stamo al consumo</span></a></li>
+        <li><a href="calc-ahorro.html"><span class="name">Planificador de ahorro <span class="badge badge-u">Universal</span></span><span class="desc">Cu&aacute;nto necesitas ahorrar para alcanzar tu objetivo</span></a></li>
+        <li><a href="calc-inflacion.html"><span class="name">Calculadora de inflaci&oacute;n <span class="badge badge-u">Universal</span></span><span class="desc">Poder adquisitivo real de tu dinero en el tiempo</span></a></li>
+        <li><a href="calc-tir.html"><span class="name">TIR / VAN <span class="badge badge-u">Universal</span></span><span class="desc">Tasa interna de retorno y valor actual neto</span></a></li>
+        <li><a href="calc-divisas.html"><span class="name">Conversor de divisas <span class="badge badge-u">Universal</span></span><span class="desc">Conversi&oacute;n entre monedas con tipo de cambio actual</span></a></li>
+        <li><a href="calc-roi.html"><span class="name">Retorno de inversi&oacute;n (ROI) <span class="badge badge-u">Universal</span></span><span class="desc">Rentabilidad porcentual de cualquier inversi&oacute;n</span></a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Espa&ntilde;a</h2>
+      <ul class="calc-list">
+        <li><a href="calc-irpf.html"><span class="name">Simulador de IRPF <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Estimaci&oacute;n de la declaraci&oacute;n de la renta por tramos</span></a></li>
+        <li><a href="calc-autonomos.html"><span class="name">Cuota de aut&oacute;nomos <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Nueva cuota por tramos de rendimiento neto 2025</span></a></li>
+        <li><a href="calc-iva.html"><span class="name">Calculadora de IVA <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Base imponible, IVA y total con todos los tipos</span></a></li>
+        <li><a href="calc-pension.html"><span class="name">Calculadora de pensi&oacute;n <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Estimaci&oacute;n de la pensi&oacute;n de jubilaci&oacute;n</span></a></li>
+        <li><a href="calc-nomina.html"><span class="name">Simulador de n&oacute;mina <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">De salario bruto a neto con todas las retenciones</span></a></li>
+        <li><a href="calc-plusvalia.html"><span class="name">Plusval&iacute;a municipal <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Impuesto sobre el incremento de valor de terrenos</span></a></li>
+        <li><a href="calc-sucesiones.html"><span class="name">Impuesto de sucesiones <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Estimaci&oacute;n del impuesto por herencia seg&uacute;n CCAA</span></a></li>
+        <li><a href="calc-patrimonio.html"><span class="name">Impuesto sobre el patrimonio <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">C&aacute;lculo seg&uacute;n patrimonio neto y comunidad aut&oacute;noma</span></a></li>
+        <li><a href="calc-sociedades.html"><span class="name">Impuesto de sociedades <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Tipo impositivo y cuota seg&uacute;n base imponible</span></a></li>
+        <li><a href="calc-retenciones.html"><span class="name">Calculadora de retenciones <span class="badge badge-e">Espa&ntilde;a</span></span><span class="desc">Retenci&oacute;n de IRPF en facturas de aut&oacute;nomos</span></a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Decisores</h2>
+      <ul class="calc-list">
+        <li><a href="calc-comprar-alquilar.html"><span class="name">&iquest;Comprar o alquilar? <span class="badge badge-d">Decisor</span></span><span class="desc">Comparativa financiera a largo plazo</span></a></li>
+        <li><a href="calc-fijo-variable.html"><span class="name">&iquest;Hipoteca fija o variable? <span class="badge badge-d">Decisor</span></span><span class="desc">Simulaci&oacute;n de escenarios de tipo de inter&eacute;s</span></a></li>
+        <li><a href="calc-invertir-amortizar.html"><span class="name">&iquest;Invertir o amortizar? <span class="badge badge-d">Decisor</span></span><span class="desc">Reducir deuda vs. invertir el excedente</span></a></li>
+        <li><a href="calc-autonomo-sl.html"><span class="name">&iquest;Aut&oacute;nomo o SL? <span class="badge badge-d">Decisor</span></span><span class="desc">Comparativa fiscal persona f&iacute;sica vs. sociedad</span></a></li>
+        <li><a href="calc-rescate-plan.html"><span class="name">Rescate plan de pensiones <span class="badge badge-d">Decisor</span></span><span class="desc">Forma &oacute;ptima de rescatar: capital, renta o mixto</span></a></li>
+      </ul>
+    </div>
+
+    <footer>
+      <p><a href="https://github.com/Jacopalas/numerosclaros" target="_blank" rel="noopener">GitHub</a> &middot; MIT License &middot; Hecho en Espa&ntilde;a &#127466;&#127480;</p>
+    </footer>
+  </div>
+</body>
+</html>
