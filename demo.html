@@ -4,619 +4,1202 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NumerosClaros — Calculadoras Financieras</title>
+  <meta name="description" content="Calculadoras financieras interactivas con explicaciones claras. Hipoteca, inversiones, ahorro, impuestos y mas. Entiende tu dinero.">
+  <meta name="theme-color" content="#1a56db">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    /* ── Reset & Variables ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --accent: #1a56db;
-      --accent-light: #e8effc;
-      --accent-dark: #1e40af;
-      --bg: #f8f9fb;
-      --bg-card: #ffffff;
-      --text: #111827;
-      --text-muted: #6b7280;
-      --text-faint: #9ca3af;
-      --border: #e5e7eb;
-      --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
-      --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.12);
-      --radius: 16px;
-      --sidebar-width: 260px;
-      --header-height: 320px;
-      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --primary: #1a56db;
+      --primary-light: #3b82f6;
+      --primary-dark: #1e40af;
+      --secondary: #0e9f6e;
+      --secondary-light: #d1fae5;
+      --accent: #6366f1;
+      --danger: #e02424;
+
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-hover: #f1f5f9;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
+
+      --sidebar-w: 260px;
+      --header-h: 56px;
+
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-feature-settings: 'tnum';
+      color: var(--text);
+      line-height: 1.5;
     }
 
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 2rem;
-    }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 1rem); }
 
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      transition: background var(--transition), color var(--transition);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── Header ─────────────────────────────────────────────── */
-    .hero {
-      background: linear-gradient(135deg, #1a56db 0%, #3b82f6 50%, #6366f1 100%);
-      color: white;
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%),
-                  radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 40%);
-      pointer-events: none;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.75rem;
-      line-height: 1.1;
-    }
-    .hero .subtitle {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      font-weight: 400;
-      line-height: 1.6;
-      margin-bottom: 0.5rem;
-    }
-    .hero .version-badge {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.35rem 1rem;
-      background: rgba(255,255,255,0.15);
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.2);
+    ::selection { background: var(--primary); color: white; }
+
+    h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
+
+    /* ── Layout Grid ───────────────────────────────────────── */
+    .app-layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: var(--header-h) 1fr;
+      min-height: 100vh;
     }
 
-    /* ── Layout ──────────────────────────────────────────────── */
-    .page-layout {
-      display: flex;
-      max-width: 1440px;
-      margin: 0 auto;
-    }
-
-    /* ── Sidebar / TOC ───────────────────────────────────────── */
-    .sidebar {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      width: var(--sidebar-width);
-      min-width: var(--sidebar-width);
-      padding: 2rem 1.5rem;
-      overflow-y: auto;
-      border-right: 1px solid var(--border);
-      background: var(--bg);
-      transition: background var(--transition), border-color var(--transition);
-    }
-    .sidebar-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-faint);
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .sidebar nav {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    .sidebar nav a {
-      display: block;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: all 0.15s ease;
-      line-height: 1.4;
-    }
-    .sidebar nav a:hover {
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-    .sidebar nav a.active {
-      background: var(--accent-light);
-      color: var(--accent);
-      font-weight: 600;
-    }
-    .sidebar nav .nav-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 0.75rem 0;
-    }
-
-    /* ── Main Content ────────────────────────────────────────── */
-    .main-content {
-      flex: 1;
-      min-width: 0;
-      padding: 3rem 3rem 6rem;
-    }
-
-    /* ── Section ─────────────────────────────────────────────── */
-    .section {
-      margin-bottom: 4rem;
-    }
-    .section-header {
+    /* ── Header ────────────────────────────────────────────── */
+    .app-header {
+      grid-column: 1 / -1;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid var(--border);
+      gap: 12px;
+      padding: 0 20px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .section-icon {
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      padding: 6px;
+      border-radius: var(--radius-sm);
+      line-height: 1;
+      font-size: 1.25rem;
+    }
+    .menu-btn:hover { background: var(--surface-hover); }
+
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: var(--accent-light);
-      color: var(--accent);
-      font-size: 1.2rem;
-      flex-shrink: 0;
+      color: white;
+      font-weight: 800;
+      font-size: 0.9rem;
     }
-    .section-header h2 {
-      font-size: 1.5rem;
+    .logo-text {
+      font-size: 1.15rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
       color: var(--text);
-      transition: color var(--transition);
+      letter-spacing: -0.5px;
     }
 
-    /* ── Card ────────────────────────────────────────────────── */
-    .card {
-      background: var(--bg-card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-card);
-      padding: 2rem;
-      margin-bottom: 3rem;
+    /* ── Sidebar ───────────────────────────────────────────── */
+    .app-sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 16px 10px;
+    }
+
+    .sidebar-section-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 700;
+      padding: 8px 12px 4px;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 10px 12px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .nav-link:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-link.active {
+      background: #eef2ff;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .nav-link .nav-icon {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Sidebar overlay (mobile) ──────────────────────────── */
+    .sidebar-overlay { display: none; }
+
+    /* ── Main Content ──────────────────────────────────────── */
+    .app-main {
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    /* ── Home / Landing Grid ───────────────────────────────── */
+    .home-view {
       max-width: 1100px;
-      transition: box-shadow var(--transition), background var(--transition), transform var(--transition);
-      border: 1px solid var(--border);
-      /* Note: calculator web components use shadow DOM, so we cannot inject
-         styles (e.g. collapsible tables) into their internals from here.
-         We give generous padding and full width to accommodate complex widgets. */
+      margin: 0 auto;
+      padding: 48px 28px;
     }
-    .card:hover {
-      box-shadow: var(--shadow-card-hover);
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -1px;
+      line-height: 1.15;
+    }
+    .hero-accent {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 14px auto 0;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .calc-grid-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: block;
+    }
+    .calc-grid-card:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border);
       transform: translateY(-2px);
+      text-decoration: none;
     }
-    .card-label {
+
+    .grid-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      font-size: 1.5rem;
+    }
+    .grid-card-icon.blue   { background: #eff6ff; }
+    .grid-card-icon.green  { background: #ecfdf5; }
+    .grid-card-icon.purple { background: #f5f3ff; }
+    .grid-card-icon.orange { background: #fff7ed; }
+    .grid-card-icon.red    { background: #fef2f2; }
+    .grid-card-icon.teal   { background: #f0fdfa; }
+
+    .grid-card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .grid-card-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .grid-section-label {
+      grid-column: 1 / -1;
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--text-faint);
-      font-weight: 600;
-      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .grid-section-label:first-child {
+      border-top: none;
+      margin-top: 0;
+      padding-top: 0;
     }
 
-    /* ── Fade-in animation ───────────────────────────────────── */
+    /* ── Calculator Detail View ────────────────────────────── */
+    .calc-view {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 28px 80px;
+    }
+    .calc-view.active { display: block; }
+
+    .calc-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 24px;
+      transition: color 0.15s;
+    }
+    .calc-back-link:hover { color: var(--primary); }
+
+    .calc-page-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    /* ── Educational sections ──────────────────────────────── */
+    .edu-intro {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      border-left: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .edu-intro h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+    .edu-intro p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+    .edu-intro p:last-child { margin-bottom: 0; }
+
+    .edu-meaning {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-top: 24px;
+      border-left: 4px solid var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+    .edu-meaning h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #4338ca;
+      margin-bottom: 10px;
+    }
+    .edu-meaning p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+    .edu-meaning p:last-child { margin-bottom: 0; }
+
+    .edu-tip {
+      background: var(--secondary-light);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      margin-top: 16px;
+      border-left: 4px solid var(--secondary);
+    }
+    .edu-tip .tip-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 6px;
+    }
+    .edu-tip p {
+      font-size: 0.85rem;
+      color: #064e3b;
+      line-height: 1.6;
+    }
+
+    /* ── Widget card ───────────────────────────────────────── */
+    .widget-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Footer ────────────────────────────────────────────── */
+    .app-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 28px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .app-footer p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+    .app-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .app-footer a:hover { text-decoration: underline; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    /* ── Responsive ────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-btn { display: flex; }
+
+      .app-sidebar {
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 200;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: var(--shadow-lg);
+      }
+      .app-sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        top: var(--header-h);
+        background: rgba(0,0,0,0.3);
+        z-index: 150;
+      }
+      .sidebar-overlay.open { display: block; }
+
+      .home-view { padding: 32px 16px; }
+      .hero-title { font-size: 1.75rem; }
+      .calc-grid { grid-template-columns: 1fr; }
+      .calc-view { padding: 24px 16px 80px; }
+      .widget-card { padding: 20px 16px; }
+      .edu-intro, .edu-meaning { padding: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-desc { font-size: 0.95rem; }
+      .calc-page-title { font-size: 1.4rem; }
+    }
+
+    /* ── Fade-in ───────────────────────────────────────────── */
     .fade-in {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
     .fade-in.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* ── Theme toggle ────────────────────────────────────────── */
-    .theme-toggle {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--bg-card);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 0.6rem 1.25rem;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      font-family: inherit;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      z-index: 100;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(12px);
-    }
-    .theme-toggle:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
-      transform: translateY(-1px);
-    }
-    .theme-toggle .icon {
-      font-size: 1rem;
-      line-height: 1;
-    }
-
-    /* ── Footer ──────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 3rem 2rem;
-      text-align: center;
-      transition: border-color var(--transition);
-    }
-    footer .footer-inner {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    footer p {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      line-height: 1.8;
-    }
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-    footer a:hover { text-decoration: underline; }
-    footer .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    footer code {
-      background: var(--accent-light);
-      padding: 0.15rem 0.5rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      color: var(--accent-dark);
-    }
-
-    /* ── Dark theme overrides ────────────────────────────────── */
-    body.dark {
-      --bg: #0f1117;
-      --bg-card: #1a1d27;
-      --text: #f1f3f5;
-      --text-muted: #9ca3af;
-      --text-faint: #6b7280;
-      --border: #2d3140;
-      --accent-light: rgba(26,86,219,0.15);
-      --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
-      --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.4);
-    }
-    body.dark .hero {
-      background: linear-gradient(135deg, #111827 0%, #1e293b 50%, #1a1d27 100%);
-    }
-    body.dark .hero::before {
-      background: radial-gradient(circle at 30% 50%, rgba(26,86,219,0.2) 0%, transparent 60%),
-                  radial-gradient(circle at 70% 80%, rgba(99,102,241,0.1) 0%, transparent 40%);
-    }
-    body.dark footer code {
-      background: rgba(26,86,219,0.2);
-      color: #93b4f4;
-    }
-
-    /* ── Mobile responsive ───────────────────────────────────── */
-    .mobile-nav {
-      display: none;
-    }
-    @media (max-width: 1024px) {
-      .sidebar { display: none; }
-      .main-content { padding: 2rem 1.5rem 6rem; }
-      .hero h1 { font-size: 2.25rem; }
-      .card { padding: 1.5rem; }
-
-      .mobile-nav {
-        display: block;
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        background: var(--bg);
-        border-bottom: 1px solid var(--border);
-        padding: 0.75rem 1rem;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-        transition: background var(--transition), border-color var(--transition);
-      }
-      .mobile-nav a {
-        display: inline-block;
-        padding: 0.4rem 0.8rem;
-        border-radius: 8px;
-        font-size: 0.78rem;
-        font-weight: 500;
-        color: var(--text-muted);
-        text-decoration: none;
-        margin-right: 0.25rem;
-      }
-      .mobile-nav a:hover,
-      .mobile-nav a.active {
-        background: var(--accent-light);
-        color: var(--accent);
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- ── Hero ────────────────────────────────────────────────── -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1>NumerosClaros</h1>
-      <p class="subtitle">Calculadoras financieras open source.<br>Embeddables con una sola linea de HTML.</p>
-      <span class="version-badge">v1.0.0 &middot; Open Source</span>
-    </div>
+<div class="app-layout">
+
+  <!-- ── Header ──────────────────────────────────────────── -->
+  <header class="app-header">
+    <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="#" class="logo-link" onclick="showHome(); return false;">
+      <div class="logo-icon">NC</div>
+      <span class="logo-text">NumerosClaros</span>
+    </a>
   </header>
 
-  <!-- ── Mobile nav (visible < 1024px) ──────────────────────── -->
-  <div class="mobile-nav" role="navigation" aria-label="Secciones (movil)">
-    <a href="#hipotecas">Hipotecas</a>
-    <a href="#inversion">Inversion</a>
-    <a href="#deuda">Deuda</a>
-    <a href="#ahorro">Ahorro</a>
-    <a href="#fiscal">Fiscal</a>
-    <a href="#inmobiliario">Inmobiliario</a>
-    <a href="#fire">Jubilacion</a>
-    <a href="#comparadores">Comparadores</a>
-  </div>
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
+  <aside class="app-sidebar" id="sidebar">
+    <nav class="sidebar-nav" aria-label="Navegacion">
+      <a href="#" class="nav-link active" data-target="home" onclick="showHome(); return false;">
+        <span class="nav-icon">🏠</span> Inicio
+      </a>
 
-  <div class="page-layout">
+      <div class="sidebar-section-label">Basicas</div>
+      <a href="#" class="nav-link" data-target="hipoteca" onclick="showCalc('hipoteca'); return false;">
+        <span class="nav-icon">🏠</span> Hipoteca
+      </a>
+      <a href="#" class="nav-link" data-target="interes-compuesto" onclick="showCalc('interes-compuesto'); return false;">
+        <span class="nav-icon">📈</span> Interes Compuesto
+      </a>
+      <a href="#" class="nav-link" data-target="roi" onclick="showCalc('roi'); return false;">
+        <span class="nav-icon">💰</span> Rentabilidad (ROI)
+      </a>
+      <a href="#" class="nav-link" data-target="inflacion" onclick="showCalc('inflacion'); return false;">
+        <span class="nav-icon">📉</span> Inflacion
+      </a>
+      <a href="#" class="nav-link" data-target="comparador-prestamos" onclick="showCalc('comparador-prestamos'); return false;">
+        <span class="nav-icon">⚖️</span> Comparar Prestamos
+      </a>
+      <a href="#" class="nav-link" data-target="deuda" onclick="showCalc('deuda'); return false;">
+        <span class="nav-icon">💳</span> Eliminar Deudas
+      </a>
+      <a href="#" class="nav-link" data-target="presupuesto" onclick="showCalc('presupuesto'); return false;">
+        <span class="nav-icon">📊</span> Presupuesto 50/30/20
+      </a>
+      <a href="#" class="nav-link" data-target="fondo-emergencia" onclick="showCalc('fondo-emergencia'); return false;">
+        <span class="nav-icon">🛟</span> Fondo de Emergencia
+      </a>
+      <a href="#" class="nav-link" data-target="meta-ahorro" onclick="showCalc('meta-ahorro'); return false;">
+        <span class="nav-icon">🎯</span> Ahorro por Objetivo
+      </a>
 
-    <!-- ── Sidebar ─────────────────────────────────────────── -->
-    <aside class="sidebar">
-      <div class="sidebar-label">Calculadoras</div>
-      <nav aria-label="Tabla de contenidos">
-        <a href="#hipotecas">Hipotecas y Prestamos</a>
-        <a href="#inversion">Inversion y Rentabilidad</a>
-        <a href="#deuda">Deuda y Presupuesto</a>
-        <a href="#ahorro">Ahorro</a>
-        <div class="nav-divider"></div>
-        <a href="#fiscal">Espana — Fiscal</a>
-        <a href="#inmobiliario">Espana — Inmobiliario</a>
-        <a href="#fire">Espana — Jubilacion y FIRE</a>
-        <a href="#comparadores">Espana — Comparadores</a>
-      </nav>
-    </aside>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section-label">Espana</div>
+      <a href="#" class="nav-link" data-target="irpf" onclick="showCalc('irpf'); return false;">
+        <span class="nav-icon">🇪🇸</span> Simulador IRPF
+      </a>
+      <a href="#" class="nav-link" data-target="sueldo-neto" onclick="showCalc('sueldo-neto'); return false;">
+        <span class="nav-icon">💶</span> Sueldo Neto
+      </a>
+      <a href="#" class="nav-link" data-target="cuota-autonomos" onclick="showCalc('cuota-autonomos'); return false;">
+        <span class="nav-icon">👤</span> Cuota Autonomos
+      </a>
+      <a href="#" class="nav-link" data-target="autonomo-vs-sl" onclick="showCalc('autonomo-vs-sl'); return false;">
+        <span class="nav-icon">🏢</span> Autonomo vs SL
+      </a>
+      <a href="#" class="nav-link" data-target="gastos-vivienda" onclick="showCalc('gastos-vivienda'); return false;">
+        <span class="nav-icon">🏗️</span> Gastos Compra Vivienda
+      </a>
+      <a href="#" class="nav-link" data-target="plusvalia" onclick="showCalc('plusvalia'); return false;">
+        <span class="nav-icon">🏛️</span> Plusvalia Municipal
+      </a>
+      <a href="#" class="nav-link" data-target="pension" onclick="showCalc('pension'); return false;">
+        <span class="nav-icon">🏖️</span> Simulador Pension
+      </a>
+      <a href="#" class="nav-link" data-target="rescate-pensiones" onclick="showCalc('rescate-pensiones'); return false;">
+        <span class="nav-icon">💼</span> Rescate Pensiones
+      </a>
+      <a href="#" class="nav-link" data-target="fire-espana" onclick="showCalc('fire-espana'); return false;">
+        <span class="nav-icon">🔥</span> FIRE Espana
+      </a>
+      <a href="#" class="nav-link" data-target="comparador-ccaa" onclick="showCalc('comparador-ccaa'); return false;">
+        <span class="nav-icon">🗺️</span> Comparador por CCAA
+      </a>
+    </nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-    <!-- ── Main ────────────────────────────────────────────── -->
-    <main class="main-content">
+  <!-- ── Main ────────────────────────────────────────────── -->
+  <main class="app-main">
 
-      <!-- Hipotecas y Prestamos -->
-      <section id="hipotecas" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">🏠</div>
-          <h2>Hipotecas y Prestamos</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Simulador de hipoteca</div>
-          <calc-hipoteca></calc-hipoteca>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Comparador de prestamos</div>
-          <calc-comparador-prestamos></calc-comparador-prestamos>
-        </div>
-      </section>
-
-      <!-- Inversion y Rentabilidad -->
-      <section id="inversion" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">📈</div>
-          <h2>Inversion y Rentabilidad</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Interes compuesto</div>
-          <calc-interes-compuesto></calc-interes-compuesto>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Retorno de la inversion (ROI)</div>
-          <calc-roi></calc-roi>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Calculadora de inflacion</div>
-          <calc-inflacion></calc-inflacion>
-        </div>
-      </section>
-
-      <!-- Deuda y Presupuesto -->
-      <section id="deuda" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">💳</div>
-          <h2>Deuda y Presupuesto</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Plan de pago de deuda</div>
-          <calc-deuda></calc-deuda>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Presupuesto personal</div>
-          <calc-presupuesto></calc-presupuesto>
-        </div>
-      </section>
-
-      <!-- Ahorro -->
-      <section id="ahorro" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">🐷</div>
-          <h2>Ahorro</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Fondo de emergencia</div>
-          <calc-fondo-emergencia></calc-fondo-emergencia>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Meta de ahorro</div>
-          <calc-meta-ahorro></calc-meta-ahorro>
-        </div>
-      </section>
-
-      <!-- Espana — Fiscal -->
-      <section id="fiscal" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">🇪🇸</div>
-          <h2>Espana — Fiscal</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Simulador de IRPF</div>
-          <calc-irpf></calc-irpf>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Sueldo neto</div>
-          <calc-sueldo-neto></calc-sueldo-neto>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Cuota de autonomos</div>
-          <calc-cuota-autonomos></calc-cuota-autonomos>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Autonomo vs. Sociedad Limitada</div>
-          <calc-autonomo-vs-sl></calc-autonomo-vs-sl>
-        </div>
-      </section>
-
-      <!-- Espana — Inmobiliario -->
-      <section id="inmobiliario" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">🏗️</div>
-          <h2>Espana — Inmobiliario</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Gastos de compra de vivienda</div>
-          <calc-gastos-vivienda></calc-gastos-vivienda>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Plusvalia municipal</div>
-          <calc-plusvalia></calc-plusvalia>
-        </div>
-      </section>
-
-      <!-- Espana — Jubilacion y FIRE -->
-      <section id="fire" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">🔥</div>
-          <h2>Espana — Jubilacion y FIRE</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Simulador de pension</div>
-          <calc-pension></calc-pension>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Rescate de plan de pensiones</div>
-          <calc-rescate-pensiones></calc-rescate-pensiones>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">FIRE Espana</div>
-          <calc-fire-espana></calc-fire-espana>
-        </div>
-      </section>
-
-      <!-- Espana — Comparadores -->
-      <section id="comparadores" class="section">
-        <div class="section-header fade-in">
-          <div class="section-icon">⚖️</div>
-          <h2>Espana — Comparadores</h2>
-        </div>
-        <div class="card fade-in">
-          <div class="card-label">Comparador por Comunidad Autonoma</div>
-          <calc-comparador-ccaa></calc-comparador-ccaa>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- ── Footer ──────────────────────────────────────────────── -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-links">
-        <a href="https://github.com/Jacopalas/numerosclaros" target="_blank">GitHub</a>
-        <a href="https://github.com/Jacopalas/numerosclaros/issues" target="_blank">Issues</a>
-        <a href="https://github.com/Jacopalas/numerosclaros#readme" target="_blank">Documentacion</a>
+    <!-- ========== HOME VIEW (grid de cards) ========== -->
+    <div class="home-view" id="homeView">
+      <div class="hero-section fade-in">
+        <h1 class="hero-title">Entiende tus finanzas.<br><span class="hero-accent">Toma mejores decisiones.</span></h1>
+        <p class="hero-desc">Calculadoras financieras interactivas con explicaciones claras. Mueve los controles, observa los resultados, entiende tu dinero.</p>
       </div>
-      <p>
-        Uso: <code>&lt;script src="numerosclaros.js"&gt;&lt;/script&gt;</code> + <code>&lt;calc-hipoteca&gt;&lt;/calc-hipoteca&gt;</code>
-      </p>
-      <p style="margin-top: 0.5rem;">NumerosClaros &middot; MIT License</p>
+
+      <div class="calc-grid">
+        <!-- Basicas -->
+        <div class="grid-section-label">Calculadoras Basicas</div>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('hipoteca')">
+          <div class="grid-card-icon blue">🏠</div>
+          <div class="grid-card-title">Hipoteca</div>
+          <div class="grid-card-desc">Cuota mensual, tabla de amortizacion y cuanto pagas realmente en intereses.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('interes-compuesto')">
+          <div class="grid-card-icon green">📈</div>
+          <div class="grid-card-title">Interes Compuesto</div>
+          <div class="grid-card-desc">El efecto bola de nieve: como crece tu dinero cuando reinviertes los intereses.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('roi')">
+          <div class="grid-card-icon purple">💰</div>
+          <div class="grid-card-title">Rentabilidad (ROI)</div>
+          <div class="grid-card-desc">Mide el retorno real de cualquier inversion o gasto.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('inflacion')">
+          <div class="grid-card-icon orange">📉</div>
+          <div class="grid-card-title">Inflacion</div>
+          <div class="grid-card-desc">Cuanto poder de compra pierdes con el tiempo si no inviertes.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('comparador-prestamos')">
+          <div class="grid-card-icon teal">⚖️</div>
+          <div class="grid-card-title">Comparar Prestamos</div>
+          <div class="grid-card-desc">Hasta 3 opciones lado a lado para elegir el mejor prestamo.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('deuda')">
+          <div class="grid-card-icon red">💳</div>
+          <div class="grid-card-title">Eliminar Deudas</div>
+          <div class="grid-card-desc">Estrategias Snowball y Avalanche para librarte de tus deudas.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('presupuesto')">
+          <div class="grid-card-icon blue">📊</div>
+          <div class="grid-card-title">Presupuesto 50/30/20</div>
+          <div class="grid-card-desc">Distribuye tu sueldo de forma equilibrada entre necesidades, caprichos y ahorro.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('fondo-emergencia')">
+          <div class="grid-card-icon green">🛟</div>
+          <div class="grid-card-title">Fondo de Emergencia</div>
+          <div class="grid-card-desc">Cuanto necesitas ahorrado para dormir tranquilo y cuanto te falta.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('meta-ahorro')">
+          <div class="grid-card-icon purple">🎯</div>
+          <div class="grid-card-title">Ahorro por Objetivo</div>
+          <div class="grid-card-desc">Cuanto tienes que ahorrar al mes para llegar a tu meta en plazo.</div>
+        </a>
+
+        <!-- Espana -->
+        <div class="grid-section-label">Espana — Fiscal e Inmobiliario</div>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('irpf')">
+          <div class="grid-card-icon orange">🇪🇸</div>
+          <div class="grid-card-title">Simulador IRPF</div>
+          <div class="grid-card-desc">Calcula tu impuesto sobre la renta con los tramos actuales.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('sueldo-neto')">
+          <div class="grid-card-icon blue">💶</div>
+          <div class="grid-card-title">Sueldo Neto</div>
+          <div class="grid-card-desc">De bruto a neto: cuanto te queda realmente cada mes.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('cuota-autonomos')">
+          <div class="grid-card-icon green">👤</div>
+          <div class="grid-card-title">Cuota de Autonomos</div>
+          <div class="grid-card-desc">Cuanto pagas a la Seguridad Social segun tus ingresos reales.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('autonomo-vs-sl')">
+          <div class="grid-card-icon purple">🏢</div>
+          <div class="grid-card-title">Autonomo vs SL</div>
+          <div class="grid-card-desc">Compara impuestos y costes entre ser autonomo o crear una Sociedad Limitada.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('gastos-vivienda')">
+          <div class="grid-card-icon orange">🏗️</div>
+          <div class="grid-card-title">Gastos Compra Vivienda</div>
+          <div class="grid-card-desc">Notaria, registro, impuestos... todo lo que pagas ademas del precio.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('plusvalia')">
+          <div class="grid-card-icon teal">🏛️</div>
+          <div class="grid-card-title">Plusvalia Municipal</div>
+          <div class="grid-card-desc">El impuesto que se paga al vender o heredar un inmueble.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('pension')">
+          <div class="grid-card-icon blue">🏖️</div>
+          <div class="grid-card-title">Simulador de Pension</div>
+          <div class="grid-card-desc">Estima cuanto cobraras de pension publica cuando te jubiles.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('rescate-pensiones')">
+          <div class="grid-card-icon red">💼</div>
+          <div class="grid-card-title">Rescate Plan de Pensiones</div>
+          <div class="grid-card-desc">Como rescatar tu plan de pensiones pagando los menos impuestos posibles.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('fire-espana')">
+          <div class="grid-card-icon orange">🔥</div>
+          <div class="grid-card-title">FIRE Espana</div>
+          <div class="grid-card-desc">Cuantos anos necesitas para alcanzar la independencia financiera en Espana.</div>
+        </a>
+
+        <a class="calc-grid-card fade-in" onclick="showCalc('comparador-ccaa')">
+          <div class="grid-card-icon green">🗺️</div>
+          <div class="grid-card-title">Comparador por CCAA</div>
+          <div class="grid-card-desc">Compara impuestos, costes y condiciones entre Comunidades Autonomas.</div>
+        </a>
+      </div>
+
+      <!-- Footer -->
+      <div class="app-footer">
+        <div class="footer-links">
+          <a href="https://github.com/Jacopalas/numerosclaros" target="_blank">GitHub</a>
+          <a href="https://github.com/Jacopalas/numerosclaros/issues" target="_blank">Issues</a>
+        </div>
+        <p>NumerosClaros &middot; Open Source &middot; MIT License</p>
+      </div>
     </div>
-  </footer>
 
-  <!-- ── Theme toggle ────────────────────────────────────────── -->
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
-    <span class="icon">☀️</span>
-    <span class="label">Tema oscuro</span>
-  </button>
+    <!-- ========== CALCULATOR DETAIL VIEWS ========== -->
 
-  <!-- ── Scripts ─────────────────────────────────────────────── -->
-  <script type="module" src="./packages/widgets/src/index.ts"></script>
-  <script>
-    /* ── Theme toggle ────────────────────────────────────── */
-    let dark = false;
-    function toggleTheme() {
-      dark = !dark;
-      document.body.classList.toggle('dark', dark);
-      // Propagate theme to all web components
-      document.querySelectorAll('[theme]').forEach(el => el.setAttribute('theme', dark ? 'dark' : 'light'));
-      // Update toggle button
-      const btn = document.querySelector('.theme-toggle');
-      btn.querySelector('.icon').textContent = dark ? '🌙' : '☀️';
-      btn.querySelector('.label').textContent = dark ? 'Tema claro' : 'Tema oscuro';
+    <!-- Hipoteca -->
+    <div class="calc-view" id="view-hipoteca">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Calculadora de Hipoteca</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es una hipoteca?</h2>
+        <p>Una hipoteca es un prestamo a largo plazo que se utiliza para comprar una vivienda. El banco te presta el dinero que necesitas (descontando la entrada que aportas tu) y lo devuelves en cuotas mensuales durante un periodo que suele ser de 15 a 30 anos.</p>
+        <p>Cada cuota mensual tiene dos partes: una parte va a devolver el dinero prestado (lo que se llama "capital") y la otra parte son los intereses que cobra el banco por prestarte ese dinero. Al principio, la mayor parte de cada cuota son intereses; con el paso de los anos, esa proporcion se invierte y cada vez pagas mas capital.</p>
+        <p>Entender estos numeros es fundamental antes de firmar. Pequenas diferencias en el tipo de interes o en el plazo pueden suponer decenas de miles de euros de diferencia en lo que acabas pagando.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-hipoteca></calc-hipoteca>
+      </div>
+
+      <div class="edu-meaning fade-in">
+        <h3>Que significan estos resultados?</h3>
+        <p>La <strong>cuota mensual</strong> es lo que pagaras al banco cada mes sin falta durante toda la vida de la hipoteca. Asegurate de que no supere el 30-35% de tus ingresos netos.</p>
+        <p>El <strong>total de intereses</strong> te dice cuanto dinero extra le pagas al banco ademas del precio de la casa. En una hipoteca tipica, puede ser un 30-50% adicional sobre el capital prestado.</p>
+        <p>La <strong>tabla de amortizacion</strong> te muestra mes a mes como se reparte tu pago entre capital e intereses. Es normal que al principio casi todo sean intereses — no te asustes.</p>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Consejo: paga un poco mas cada mes</div>
+        <p>Si cada mes puedes pagar 50 euros mas de la cuota minima, terminaras la hipoteca varios anos antes y te ahorraras miles de euros en intereses. Compruebalo moviendo los controles de arriba.</p>
+      </div>
+    </div>
+
+    <!-- Interes Compuesto -->
+    <div class="calc-view" id="view-interes-compuesto">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Calculadora de Interes Compuesto</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es el interes compuesto?</h2>
+        <p>El interes compuesto es cuando los intereses que ganas se suman a tu capital, y a partir de ese momento tambien generan intereses. Es lo que Albert Einstein supuestamente llamo "la octava maravilla del mundo".</p>
+        <p>Imagina que inviertes 1.000 euros al 7% anual. El primer ano ganas 70 euros. El segundo ano ganas intereses sobre 1.070 euros, es decir, 74,90 euros. Cada ano ganas mas que el anterior, porque el capital crece como una bola de nieve.</p>
+        <p>La clave del interes compuesto es el <strong>tiempo</strong>. Cuanto antes empieces a invertir, mas tiempo tiene tu dinero para multiplicarse. Empezar 10 anos antes puede duplicar facilmente tu resultado final.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-interes-compuesto></calc-interes-compuesto>
+      </div>
+
+      <div class="edu-meaning fade-in">
+        <h3>Que significan estos resultados?</h3>
+        <p>El <strong>capital total</strong> es todo lo que tendras acumulado al final: tu inversion inicial + tus aportaciones + los intereses generados.</p>
+        <p>Fijate en la diferencia entre lo que tu has puesto de tu bolsillo y lo que ha generado el interes compuesto. Cuanto mas tiempo dejas el dinero invertido, mayor es esa diferencia.</p>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">La regla del 72</div>
+        <p>Divide 72 entre el tipo de interes y sabras aproximadamente cuantos anos tarda tu dinero en duplicarse. Al 7%, se duplica cada 10 anos aproximadamente. Al 3%, cada 24 anos.</p>
+      </div>
+    </div>
+
+    <!-- ROI -->
+    <div class="calc-view" id="view-roi">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Calculadora de Rentabilidad (ROI)</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es el ROI?</h2>
+        <p>ROI significa "Return on Investment" (retorno de la inversion). Es una forma sencilla de medir si una inversion ha sido rentable: cuanto has ganado (o perdido) comparado con lo que invertiste.</p>
+        <p>Por ejemplo, si inviertes 10.000 euros y al cabo de un tiempo tienes 13.000, tu ROI es del 30%. Es util para comparar inversiones muy diferentes entre si: un piso de alquiler, una accion en bolsa, un negocio...</p>
+        <p>Lo importante es comparar siempre el ROI <strong>anualizado</strong>, porque no es lo mismo ganar un 30% en 1 ano que en 10 anos.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-roi></calc-roi>
+      </div>
+
+      <div class="edu-meaning fade-in">
+        <h3>Que significan estos resultados?</h3>
+        <p>Un ROI positivo significa que has ganado dinero; uno negativo, que has perdido. Pero siempre comparalo con alternativas: si tu inversion da un 3% y el banco te daba un 2%, has ganado, pero quizas poco para el riesgo que has asumido.</p>
+      </div>
+    </div>
+
+    <!-- Inflacion -->
+    <div class="calc-view" id="view-inflacion">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Calculadora de Inflacion</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es la inflacion?</h2>
+        <p>La inflacion es la subida generalizada de los precios con el tiempo. Significa que el mismo billete de 100 euros compra menos cosas cada ano que pasa. En Espana, la inflacion media historica ronda el 2-3% anual.</p>
+        <p>Esto tiene un impacto directo en tus ahorros: si tu dinero esta parado en una cuenta sin intereses (o con intereses inferiores a la inflacion), cada ano pierdes poder adquisitivo. Es como si tu dinero se "encogiera" sin que te des cuenta.</p>
+        <p>Por eso es tan importante invertir: no para hacerte rico, sino simplemente para que tus ahorros no pierdan valor con el tiempo.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-inflacion></calc-inflacion>
+      </div>
+
+      <div class="edu-meaning fade-in">
+        <h3>Que significan estos resultados?</h3>
+        <p>El <strong>poder adquisitivo</strong> te muestra cuanto valdran tus ahorros actuales en terminos reales dentro de X anos. Si hoy tienes 10.000 euros y la inflacion media es del 3%, dentro de 25 anos esos 10.000 euros compraran lo mismo que compran hoy 4.800 euros.</p>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">La inflacion silenciosa</div>
+        <p>Tener el dinero "seguro" en la cuenta del banco no es tan seguro como parece. Si la inflacion es del 3% y tu cuenta da un 0,5%, pierdes un 2,5% de poder de compra cada ano. En 10 anos habras perdido casi un 25% del valor real de tus ahorros.</p>
+      </div>
+    </div>
+
+    <!-- Comparador de Prestamos -->
+    <div class="calc-view" id="view-comparador-prestamos">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Comparador de Prestamos</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Por que comparar prestamos?</h2>
+        <p>No todos los prestamos son iguales, aunque lo parezcan a primera vista. Pequenas diferencias en el tipo de interes, las comisiones o el plazo pueden suponer cientos o miles de euros de diferencia en el coste total.</p>
+        <p>El truco esta en mirar siempre la <strong>TAE</strong> (Tasa Anual Equivalente), que incluye todos los gastos, no solo el interes. Y sobre todo, fijate en cuanto pagas en total, no solo en la cuota mensual: una cuota mas baja puede significar un plazo mas largo y, al final, pagar mucho mas en intereses.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-comparador-prestamos></calc-comparador-prestamos>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Negociar siempre merece la pena</div>
+        <p>Lleva la oferta del banco A al banco B. La mayoria de bancos tienen margen para mejorar sus condiciones si ven que tienes alternativas. Medio punto menos de interes en una hipoteca a 25 anos puede ser 10.000-15.000 euros de ahorro.</p>
+      </div>
+    </div>
+
+    <!-- Deuda -->
+    <div class="calc-view" id="view-deuda">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Plan de Eliminacion de Deudas</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Como eliminar deudas de forma inteligente?</h2>
+        <p>Si tienes varias deudas (tarjeta de credito, prestamo del coche, prestamo personal...), hay dos estrategias principales para eliminarlas:</p>
+        <p><strong>Metodo Bola de Nieve (Snowball):</strong> pagas primero la deuda mas pequena. Cuando la eliminas, sumas esa cuota a la siguiente deuda mas pequena. La ventaja es psicologica: cada deuda que eliminas te motiva a seguir.</p>
+        <p><strong>Metodo Avalancha:</strong> pagas primero la deuda con mayor interes. Es matematicamente mas eficiente porque minimizas el total de intereses que pagas, pero requiere mas disciplina porque puede tardar mas en ver resultados.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-deuda></calc-deuda>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Lo mas importante: no generar deuda nueva</div>
+        <p>Mientras eliminas tus deudas, congela las tarjetas de credito (literal o figuradamente). No tiene sentido vaciar un barco mientras sigues haciendo agujeros.</p>
+      </div>
+    </div>
+
+    <!-- Presupuesto -->
+    <div class="calc-view" id="view-presupuesto">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Presupuesto 50/30/20</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es la regla del 50/30/20?</h2>
+        <p>Es una forma sencilla de distribuir tu sueldo neto cada mes sin complicarte la vida:</p>
+        <p><strong>50% para necesidades</strong> (alquiler/hipoteca, facturas, comida, transporte), <strong>30% para caprichos</strong> (ocio, restaurantes, viajes, compras no esenciales) y <strong>20% para ahorro e inversion</strong> (fondo de emergencia, plan de pensiones, inversiones).</p>
+        <p>No es una regla rigida — es un punto de partida. Si vives en una ciudad cara, quizas necesites dedicar un 60% a necesidades y reducir caprichos. Lo importante es tener un plan y ser consciente de a donde va tu dinero.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-presupuesto></calc-presupuesto>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Pagate a ti mismo primero</div>
+        <p>Cuando cobres, lo primero que debes hacer es transferir el 20% (o lo que puedas) a tu cuenta de ahorro. Si esperas a fin de mes para ver "lo que sobra", nunca sobrara nada.</p>
+      </div>
+    </div>
+
+    <!-- Fondo de Emergencia -->
+    <div class="calc-view" id="view-fondo-emergencia">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Fondo de Emergencia</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es un fondo de emergencia?</h2>
+        <p>Es un colchon de dinero guardado para imprevistos: te quedas sin trabajo, se te rompe el coche, necesitas una reparacion urgente en casa... La idea es que puedas cubrir tus gastos basicos durante 3 a 6 meses sin necesitar pedir prestado ni vender inversiones en mal momento.</p>
+        <p>El fondo de emergencia es la base de cualquier plan financiero. Sin el, cualquier imprevisto te puede forzar a endeudarte, lo que empeora todo. Debe estar en una cuenta accesible (no invertido en bolsa), aunque pierda algo con la inflacion.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-fondo-emergencia></calc-fondo-emergencia>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Empieza con 1.000 euros</div>
+        <p>Si 3-6 meses de gastos te parece mucho, empieza con una meta de 1.000 euros. Ya solo con eso cubres la mayoria de emergencias cotidianas y evitas tirar de tarjeta de credito.</p>
+      </div>
+    </div>
+
+    <!-- Meta de Ahorro -->
+    <div class="calc-view" id="view-meta-ahorro">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Ahorro por Objetivo</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Como ahorrar con un objetivo claro?</h2>
+        <p>Ahorrar sin una meta concreta es dificil porque no tienes motivacion. Pero si dices "quiero 5.000 euros para un viaje en 18 meses", puedes calcular exactamente cuanto necesitas guardar cada mes: unos 278 euros.</p>
+        <p>Tener un numero concreto hace que el ahorro deje de ser un sacrificio abstracto y se convierta en un plan con fecha y presupuesto. Funciona para vacaciones, entrada de un piso, un coche, un colchon nuevo, lo que sea.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-meta-ahorro></calc-meta-ahorro>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Automatiza el ahorro</div>
+        <p>Configura una transferencia automatica el dia que cobras. Si no ves el dinero en tu cuenta corriente, no lo gastas. Es el truco mas sencillo y mas efectivo que existe.</p>
+      </div>
+    </div>
+
+    <!-- IRPF -->
+    <div class="calc-view" id="view-irpf">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Simulador de IRPF</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es el IRPF?</h2>
+        <p>El IRPF (Impuesto sobre la Renta de las Personas Fisicas) es el impuesto principal que pagamos todos los que trabajamos en Espana. Se aplica sobre tus ingresos del ano y funciona por <strong>tramos</strong>: los primeros euros tributan menos y segun ganas mas, el porcentaje sube.</p>
+        <p>Esto significa que si ganas 30.000 euros, <strong>no</strong> pagas el mismo porcentaje por todos ellos. Los primeros 12.450 euros tributan al 19%, los siguientes al 24%, etc. Es un sistema progresivo: quien mas gana, mas paga proporcionalmente.</p>
+        <p>Cada ano, entre abril y junio, hay que hacer la declaracion de la renta, donde se ajustan las retenciones que te han hecho durante el ano con lo que realmente te corresponde pagar.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-irpf></calc-irpf>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Reducciones que mucha gente olvida</div>
+        <p>Aportaciones a planes de pensiones, deducciones por vivienda habitual (si compraste antes de 2013), donaciones a ONGs, gastos de guarderia... Revisa cada ano si puedes aplicar alguna deduccion que no conocias. Un asesor fiscal puede ahorrarte mas de lo que cobra.</p>
+      </div>
+    </div>
+
+    <!-- Sueldo Neto -->
+    <div class="calc-view" id="view-sueldo-neto">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Calculadora de Sueldo Neto</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>De bruto a neto: que te quitan?</h2>
+        <p>Cuando te ofrecen un trabajo con "30.000 euros brutos", eso no es lo que veras en tu cuenta. Antes de que llegue a ti, se descuentan dos cosas principales:</p>
+        <p><strong>Seguridad Social</strong> (aproximadamente un 6,35% de tu bruto): es lo que pagas para tener derecho a sanidad publica, desempleo, jubilacion, etc. <strong>IRPF</strong> (variable, normalmente entre un 15% y un 30%): el impuesto sobre la renta, que depende de cuanto ganas y de tu situacion personal.</p>
+        <p>Con 30.000 euros brutos, te quedaran aproximadamente entre 1.700 y 1.900 euros netos al mes (en 14 pagas).</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-sueldo-neto></calc-sueldo-neto>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Negocia siempre en bruto anual</div>
+        <p>Cuando negocies un sueldo, habla siempre en bruto anual. Es la unica cifra comparable. "2.000 euros netos" puede significar cosas muy distintas segun tu situacion fiscal. Y recuerda pedir siempre la cifra en 12 o 14 pagas para no llevarte sorpresas.</p>
+      </div>
+    </div>
+
+    <!-- Cuota Autonomos -->
+    <div class="calc-view" id="view-cuota-autonomos">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Cuota de Autonomos</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Cuanto paga un autonomo?</h2>
+        <p>Desde 2023, la cuota de autonomos en Espana se calcula segun tus ingresos reales netos (lo que facturas menos tus gastos deducibles). Ya no hay una cuota fija para todos.</p>
+        <p>El sistema tiene 15 tramos: si ganas poco, pagas poco (desde unos 230 euros/mes). Si ganas mucho, pagas mas (hasta unos 500 euros/mes). Ademas, los nuevos autonomos tienen una tarifa plana de 80 euros/mes durante los primeros 12 meses, ampliable a 24 si tus ingresos son bajos.</p>
+        <p>Esta cuota te da acceso a sanidad, baja por enfermedad, prestacion por cese de actividad (el "paro del autonomo") y cotizacion para la jubilacion.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-cuota-autonomos></calc-cuota-autonomos>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">No olvides la tarifa plana</div>
+        <p>Si nunca has sido autonomo (o no lo has sido en los ultimos 2 anos), puedes acogerte a la tarifa plana de 80 euros/mes durante el primer ano. Es un ahorro de mas de 1.800 euros respecto a la cuota minima normal.</p>
+      </div>
+    </div>
+
+    <!-- Autonomo vs SL -->
+    <div class="calc-view" id="view-autonomo-vs-sl">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Autonomo vs. Sociedad Limitada</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Cuando merece la pena crear una SL?</h2>
+        <p>Como autonomo, tus beneficios tributan por IRPF (hasta un 47%). Como Sociedad Limitada, los beneficios de la empresa tributan por Impuesto de Sociedades (25%, o 15% los primeros dos anos), y luego pagas IRPF cuando te sacas un sueldo o dividendos.</p>
+        <p>La regla general es que a partir de unos 40.000-50.000 euros de beneficio anual, puede merecer la pena crear una SL. Pero depende de muchos factores: si reinviertes beneficios, si tienes empleados, si necesitas limitar tu responsabilidad legal...</p>
+        <p>Crear una SL tiene costes fijos (notaria, registro, contabilidad obligatoria) que como autonomo no tienes. Por eso hay que hacer numeros para cada caso.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-autonomo-vs-sl></calc-autonomo-vs-sl>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">La responsabilidad limitada importa</div>
+        <p>La mayor ventaja de una SL no es fiscal, es legal: si algo sale mal, solo respondes con el capital de la empresa, no con tu casa ni tus ahorros personales. Si tu actividad tiene riesgos, esto puede ser razon suficiente para crear una SL aunque fiscalmente no compense aun.</p>
+      </div>
+    </div>
+
+    <!-- Gastos Vivienda -->
+    <div class="calc-view" id="view-gastos-vivienda">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Gastos de Compra de Vivienda</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Cuanto cuesta comprar una casa (ademas del precio)?</h2>
+        <p>El precio del piso es solo una parte del coste total. Hay una serie de gastos obligatorios que suman aproximadamente un 10-15% del precio de compra:</p>
+        <p><strong>Impuestos</strong> (ITP para vivienda usada, IVA + AJD para obra nueva), <strong>notaria</strong> (redactar las escrituras), <strong>registro</strong> (inscribir la propiedad a tu nombre), <strong>gestoria</strong> (tramites) y, si pides hipoteca, <strong>tasacion</strong> de la vivienda.</p>
+        <p>Estos gastos los paga el comprador y hay que tenerlos ahorrados antes de comprar, porque el banco normalmente no los financia con la hipoteca.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-gastos-vivienda></calc-gastos-vivienda>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Necesitas al menos un 30% ahorrado</div>
+        <p>El banco te financia como maximo el 80% del valor de tasacion. Asi que necesitas tener ahorrado al menos el 20% de entrada mas un 10-12% para los gastos. Para un piso de 200.000 euros, eso son unos 60.000-65.000 euros.</p>
+      </div>
+    </div>
+
+    <!-- Plusvalia -->
+    <div class="calc-view" id="view-plusvalia">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Plusvalia Municipal</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es la plusvalia municipal?</h2>
+        <p>Es un impuesto municipal que se paga cuando se transmite un inmueble (por venta, herencia o donacion). Grava el supuesto incremento de valor del terreno desde que lo compraste hasta que lo transmites.</p>
+        <p>Lo paga el vendedor (en caso de venta) o el que recibe (en caso de herencia o donacion). Cada ayuntamiento fija sus propios coeficientes, asi que el importe varia mucho segun la ciudad.</p>
+        <p>Desde 2021, si vendes por menos de lo que pagaste (no has tenido ganancia real), no tienes que pagar este impuesto. Antes si se exigia, lo cual era injusto y el Tribunal Constitucional lo tumbo.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-plusvalia></calc-plusvalia>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Dos metodos de calculo</div>
+        <p>Puedes elegir el metodo que te resulte mas favorable: el "objetivo" (basado en el valor catastral y coeficientes del ayuntamiento) o el "real" (basado en la diferencia entre precio de compra y venta). Siempre pides el que te salga mas barato.</p>
+      </div>
+    </div>
+
+    <!-- Pension -->
+    <div class="calc-view" id="view-pension">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Simulador de Pension</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Cuanto cobraras de pension?</h2>
+        <p>Tu pension publica depende de dos cosas principales: <strong>cuantos anos has cotizado</strong> y <strong>cuanto has cotizado</strong> (tu base de cotizacion). Con las reglas actuales, necesitas al menos 15 anos cotizados para tener derecho a pension y 37 anos para cobrar el 100%.</p>
+        <p>La cuantia se calcula a partir de tus ultimas 25 anos de bases de cotizacion (la media de lo que has aportado). No es tu sueldo directamente, sino la base por la que tu empresa ha cotizado.</p>
+        <p>Con el sistema actual, la pension maxima ronda los 3.175 euros/mes (2025) y la minima unos 1.000 euros/mes si has cotizado al menos 15 anos. La mayoria de la gente cobra entre 1.200 y 1.800 euros.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-pension></calc-pension>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">No cuentes solo con la pension publica</div>
+        <p>Las pensiones dependen de decisiones politicas y de la demografia. Aunque hoy las reglas sean estas, pueden cambiar. Complementar la pension con ahorro privado (plan de pensiones, fondos indexados, inmuebles) es una decision muy sensata.</p>
+      </div>
+    </div>
+
+    <!-- Rescate Pensiones -->
+    <div class="calc-view" id="view-rescate-pensiones">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Rescate de Plan de Pensiones</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Como rescatar tu plan de pensiones?</h2>
+        <p>Un plan de pensiones es un producto de ahorro donde metes dinero durante tu vida laboral y lo sacas cuando te jubilas. La ventaja fiscal es que las aportaciones reducen tu base imponible (pagas menos IRPF hoy). La desventaja es que cuando lo rescatas, tributa como renta del trabajo.</p>
+        <p>Hay tres formas de rescatarlo: como <strong>capital</strong> (todo de golpe), como <strong>renta</strong> (pagos periodicos) o <strong>mixto</strong>. Rescatarlo todo de golpe suele ser la peor opcion fiscalmente, porque se suma a tu pension y sube mucho tu tipo impositivo ese ano.</p>
+        <p>La forma mas eficiente suele ser rescatarlo poco a poco, complementando tu pension hasta un nivel que no te suba demasiado el tramo de IRPF.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-rescate-pensiones></calc-rescate-pensiones>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Planifica con un asesor fiscal</div>
+        <p>Rescatar un plan de pensiones mal puede costarte miles de euros en impuestos innecesarios. Un buen asesor fiscal te ayudara a planificar el rescate de la forma mas eficiente posible segun tu situacion concreta.</p>
+      </div>
+    </div>
+
+    <!-- FIRE Espana -->
+    <div class="calc-view" id="view-fire-espana">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">FIRE Espana</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Que es el movimiento FIRE?</h2>
+        <p>FIRE significa "Financial Independence, Retire Early" (independencia financiera, jubilacion temprana). La idea es ahorrar e invertir agresivamente durante unos anos para acumular un capital que genere suficientes ingresos pasivos para vivir sin trabajar.</p>
+        <p>La regla clasica es la <strong>regla del 4%</strong>: necesitas acumular 25 veces tus gastos anuales. Si gastas 24.000 euros al ano, necesitas 600.000 euros invertidos. Sacando un 4% cada ano, el capital no se agota (historicamente).</p>
+        <p>En Espana hay particularidades: tenemos sanidad publica, pension contributiva, y los costes de vida pueden ser mas bajos que en EEUU. Pero tambien hay que considerar los impuestos sobre inversiones y la inflacion.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-fire-espana></calc-fire-espana>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">No hace falta ser radical</div>
+        <p>No tienes que jubilarte a los 35. El concepto FIRE tambien sirve para tener libertad: poder elegir un trabajo que te guste aunque pague menos, tomarte un ano sabatico, o simplemente no depender de un solo sueldo. Cualquier paso hacia la independencia financiera es un paso en la buena direccion.</p>
+      </div>
+    </div>
+
+    <!-- Comparador CCAA -->
+    <div class="calc-view" id="view-comparador-ccaa">
+      <a href="#" class="calc-back-link" onclick="showHome(); return false;">&larr; Volver al inicio</a>
+      <h1 class="calc-page-title">Comparador por Comunidad Autonoma</h1>
+
+      <div class="edu-intro fade-in">
+        <h2>Importa donde vivas en Espana?</h2>
+        <p>Si, y mucho. En Espana, las Comunidades Autonomas tienen competencias para fijar sus propios tramos de IRPF (la parte autonomica), asi como los impuestos de Sucesiones y Donaciones, Transmisiones Patrimoniales (compraventa de vivienda usada) y otros.</p>
+        <p>Esto significa que por el mismo sueldo, un trabajador en Madrid puede pagar menos IRPF que uno en Cataluna. O que heredar una vivienda en Andalucia puede tener un coste fiscal muy diferente a hacerlo en Navarra.</p>
+        <p>No se trata de mudarse solo por impuestos, pero es informacion util a la hora de tomar decisiones financieras importantes como comprar una casa, planificar una herencia o montar un negocio.</p>
+      </div>
+
+      <div class="widget-card fade-in">
+        <calc-comparador-ccaa></calc-comparador-ccaa>
+      </div>
+
+      <div class="edu-tip fade-in">
+        <div class="tip-title">Mira mas alla de los impuestos</div>
+        <p>Cada comunidad tiene diferentes costes de vida, servicios publicos, oportunidades laborales y calidad de vida. Los impuestos son solo una pieza del puzzle. Un sueldo mas bajo en una ciudad con menos coste de vida puede dejarte mas dinero libre a final de mes.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── Scripts ──────────────────────────────────────────── -->
+<script type="module" src="./packages/widgets/src/index.ts"></script>
+<script>
+  /* ── Navigation ──────────────────────────────────────── */
+  function showHome() {
+    document.getElementById('homeView').style.display = '';
+    document.querySelectorAll('.calc-view').forEach(v => v.classList.remove('active'));
+    updateActiveNav('home');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    closeSidebar();
+    // Re-observe fade-in elements
+    document.querySelectorAll('#homeView .fade-in:not(.visible)').forEach(el => fadeObserver.observe(el));
+  }
+
+  function showCalc(id) {
+    document.getElementById('homeView').style.display = 'none';
+    document.querySelectorAll('.calc-view').forEach(v => v.classList.remove('active'));
+    const view = document.getElementById('view-' + id);
+    if (view) {
+      view.classList.add('active');
+      // Stagger fade-in for elements in this view
+      const items = view.querySelectorAll('.fade-in:not(.visible)');
+      items.forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), 80 * i);
+      });
     }
+    updateActiveNav(id);
+    // Scroll main area to top
+    document.querySelector('.app-main').scrollTop = 0;
+    closeSidebar();
+  }
 
-    /* ── Fade-in on scroll (IntersectionObserver) ────────── */
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.08,
-      rootMargin: '0px 0px -40px 0px'
+  function updateActiveNav(targetId) {
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.toggle('active', link.dataset.target === targetId);
     });
+  }
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  /* ── Sidebar toggle (mobile) ─────────────────────────── */
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+  }
 
-    /* ── Active sidebar link on scroll ───────────────────── */
-    const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.sidebar nav a, .mobile-nav a');
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-          });
-        }
-      });
-    }, {
-      threshold: 0,
-      rootMargin: '-10% 0px -80% 0px'
+  /* ── Fade-in on scroll ───────────────────────────────── */
+  const mainEl = document.querySelector('.app-main');
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
     });
+  }, { root: mainEl, threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
 
-    sections.forEach(section => sectionObserver.observe(section));
-  </script>
+  document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+</script>
 </body>
 </html>
