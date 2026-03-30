@@ -54,44 +54,29 @@ export class CalcHipoteca extends CalcBase {
     this.setText('total', this.formatCurrency(result.totalPayment));
     this.setText('interest', this.formatCurrency(result.totalInterest));
 
-    // Stacked area chart: interest vs capital over time
+    // Stacked area chart: interest vs capital over time (smooth curves with gradients)
     const step = Math.max(1, Math.floor(result.amortization.length / 60));
     const sampled = result.amortization.filter((_, i) => i % step === 0 || i === result.amortization.length - 1);
 
-    const w = 400;
-    const h = 150;
-    const n = sampled.length;
-    if (n < 2) return;
+    if (sampled.length < 2) return;
 
-    const xStep = w / (n - 1);
-    const maxPayment = result.monthlyPayment;
+    const capitalSeries = sampled.map((row) => row.principal);
+    const interestSeries = sampled.map((row) => row.interest);
 
-    const interestCoords = sampled.map((row, i) => ({
-      x: i * xStep,
-      y: h - 10 - (row.interest / maxPayment) * (h - 20),
+    const xLabels = sampled.map((row) => {
+      if (row.month % 12 === 0) return `${row.month / 12}a`;
+      return '';
+    }).filter((_, i) => i === 0 || i === sampled.length - 1 || sampled[i].month % 12 === 0);
+
+    this.setHtml('chart', this.createStackedAreaChart({
+      topSeries: capitalSeries,
+      bottomSeries: interestSeries,
+      topColor: '#1a56db',
+      bottomColor: '#e02424',
+      topLabel: 'Capital amortizado',
+      bottomLabel: 'Intereses',
+      height: 180,
     }));
-
-    const capitalCoords = sampled.map((row, i) => ({
-      x: i * xStep,
-      y: h - 10 - ((row.interest + row.principal) / maxPayment) * (h - 20),
-    }));
-
-    const interestArea = interestCoords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ') +
-      ` L ${interestCoords[n - 1].x} ${h - 10} L 0 ${h - 10} Z`;
-
-    const capitalArea = capitalCoords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ') +
-      ` L ${capitalCoords[n - 1].x} ${h - 10} L 0 ${h - 10} Z`;
-
-    this.setHtml('chart', `
-      <svg viewBox="0 0 ${w} ${h + 25}" style="width:100%;height:${h + 25}px">
-        <path d="${capitalArea}" fill="var(--nc-primary)" opacity="0.2"/>
-        <path d="${interestArea}" fill="var(--nc-accent)" opacity="0.3"/>
-        <text x="10" y="${h + 20}" font-size="11" fill="var(--nc-muted)">
-          <tspan fill="var(--nc-primary)">■</tspan> Capital
-          <tspan dx="10" fill="var(--nc-accent)">■</tspan> Intereses
-        </text>
-      </svg>
-    `);
 
     // Amortization table (show yearly summary)
     const yearlyRows: { year: number; interest: number; principal: number; balance: number }[] = [];

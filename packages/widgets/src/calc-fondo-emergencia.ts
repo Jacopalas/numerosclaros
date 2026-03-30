@@ -71,16 +71,22 @@ export class CalcFondoEmergencia extends CalcBase {
       result.monthsToGoal === 0 ? '¡Completado!' :
       `${result.monthsToGoal} meses`);
 
-    // Progress bar
+    // Progress bar (enhanced with gradient and milestone markers)
     const pct = Math.min(100, result.percentComplete);
+    const barColor = pct >= 100 ? '#059669' : pct >= 60 ? '#1a56db' : '#f59e0b';
     this.setHtml('progressBar', `
-      <div style="background:var(--nc-border);border-radius:999px;height:24px;overflow:hidden;position:relative">
-        <div style="background:var(--nc-accent);height:100%;width:${pct}%;border-radius:999px;
-                    transition:width 0.3s ease;min-width:${pct > 0 ? '2rem' : '0'}"></div>
-        <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-                     font-size:0.75rem;font-weight:700;color:${pct > 50 ? '#fff' : 'var(--nc-text)'}">
-          ${this.formatPercent(result.percentComplete)}
-        </span>
+      <div style="position:relative">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.7rem;color:var(--nc-muted)">
+          <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+        </div>
+        <div style="background:var(--nc-surface);border:1px solid var(--nc-border);border-radius:999px;height:28px;overflow:hidden;position:relative">
+          <div style="background:linear-gradient(90deg, ${barColor}dd, ${barColor});height:100%;width:${pct}%;border-radius:999px;
+                      transition:width 0.4s ease;min-width:${pct > 0 ? '2.5rem' : '0'}"></div>
+          <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+                       font-size:0.8rem;font-weight:700;color:${pct > 45 ? '#fff' : 'var(--nc-text)'}">
+            ${this.formatPercent(result.percentComplete)}
+          </span>
+        </div>
       </div>
     `);
   }

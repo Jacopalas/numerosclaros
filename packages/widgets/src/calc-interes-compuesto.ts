@@ -63,41 +63,23 @@ export class CalcInteresCompuesto extends CalcBase {
     this.setText('totalContrib', this.formatCurrency(result.totalContributions));
     this.setText('totalInterest', this.formatCurrency(result.totalInterest));
 
-    // Stacked area chart: contributions vs interest
-    const w = 400;
-    const h = 160;
+    // Stacked area chart: contributions vs total balance (smooth curves with gradients)
     const n = result.yearByYear.length;
     if (n < 2) return;
 
-    const max = result.finalBalance;
-    const xStep = w / (n - 1);
+    const balanceSeries = result.yearByYear.map((r) => r.balance);
+    const contribSeries = result.yearByYear.map((r) => r.totalContributions);
 
-    const contribCoords = result.yearByYear.map((r, i) => ({
-      x: i * xStep,
-      y: h - 10 - (r.totalContributions / max) * (h - 20),
+    this.setHtml('chart', this.createStackedAreaChart({
+      topSeries: balanceSeries,
+      bottomSeries: contribSeries,
+      topColor: '#0e9f6e',
+      bottomColor: '#1a56db',
+      topLabel: 'Balance total (con intereses)',
+      bottomLabel: 'Aportaciones',
+      height: 190,
+      xLabels: result.yearByYear.map((r) => `${r.year}`),
     }));
-    const balanceCoords = result.yearByYear.map((r, i) => ({
-      x: i * xStep,
-      y: h - 10 - (r.balance / max) * (h - 20),
-    }));
-
-    const balancePath = balanceCoords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ');
-    const contribPath = contribCoords.map((c, i) => `${i === 0 ? 'M' : 'L'} ${c.x} ${c.y}`).join(' ');
-    const balanceArea = `${balancePath} L ${balanceCoords[n - 1].x} ${h - 10} L 0 ${h - 10} Z`;
-    const contribArea = `${contribPath} L ${contribCoords[n - 1].x} ${h - 10} L 0 ${h - 10} Z`;
-
-    this.setHtml('chart', `
-      <svg viewBox="0 0 ${w} ${h + 25}" style="width:100%;height:${h + 25}px">
-        <path d="${balanceArea}" fill="var(--nc-primary)" opacity="0.15"/>
-        <path d="${balancePath}" fill="none" stroke="var(--nc-primary)" stroke-width="2"/>
-        <path d="${contribArea}" fill="var(--nc-accent)" opacity="0.2"/>
-        <path d="${contribPath}" fill="none" stroke="var(--nc-accent)" stroke-width="2"/>
-        <text x="10" y="${h + 20}" font-size="11" fill="var(--nc-muted)">
-          <tspan fill="var(--nc-primary)">■</tspan> Balance total
-          <tspan dx="10" fill="var(--nc-accent)">■</tspan> Aportaciones
-        </text>
-      </svg>
-    `);
   }
 }
 

@@ -142,7 +142,7 @@ export class CalcDeuda extends CalcBase {
       ` : ''}
     `);
 
-    // Timeline chart - show both strategies
+    // Timeline chart - show both strategies with filled areas and smooth curves
     const maxMonths = Math.max(s.totalMonths, a.totalMonths);
     const step = Math.max(1, Math.floor(maxMonths / 50));
     const sPoints = s.timeline.filter((_, i) => i % step === 0).map((t) => t.totalBalance);
@@ -153,24 +153,15 @@ export class CalcDeuda extends CalcBase {
     while (sPoints.length < len) sPoints.push(0);
     while (aPoints.length < len) aPoints.push(0);
 
-    const max = Math.max(...sPoints, ...aPoints, 1);
-    const w = 400;
-    const h = 130;
-    const xStep = w / (len - 1 || 1);
-
-    const makePath = (pts: number[]) =>
-      pts.map((v, i) => `${i === 0 ? 'M' : 'L'} ${i * xStep} ${h - 10 - (v / max) * (h - 20)}`).join(' ');
-
-    this.setHtml('chart', `
-      <svg viewBox="0 0 ${w} ${h + 25}" style="width:100%;height:${h + 25}px">
-        <path d="${makePath(sPoints)}" fill="none" stroke="var(--nc-primary)" stroke-width="2"/>
-        <path d="${makePath(aPoints)}" fill="none" stroke="var(--nc-accent)" stroke-width="2"/>
-        <text x="10" y="${h + 20}" font-size="11" fill="var(--nc-muted)">
-          <tspan fill="var(--nc-primary)">■</tspan> Snowball
-          <tspan dx="10" fill="var(--nc-accent)">■</tspan> Avalanche
-        </text>
-      </svg>
-    `);
+    this.setHtml('chart', this.createDualLineChart({
+      seriesA: sPoints,
+      seriesB: aPoints,
+      colorA: '#1a56db',
+      colorB: '#0e9f6e',
+      labelA: 'Snowball (deuda menor primero)',
+      labelB: 'Avalanche (mayor interés primero)',
+      height: 160,
+    }));
   }
 }
 

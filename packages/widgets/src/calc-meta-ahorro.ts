@@ -59,45 +59,46 @@ export class CalcMetaAhorro extends CalcBase {
     this.setText('totalContrib', this.formatCurrency(result.totalContributed + current));
     this.setText('totalInterest', this.formatCurrency(result.totalInterest));
 
-    // Progress line chart
+    // Progress line chart with goal line
     const points = result.timeline.map((r) => r.balance);
     if (points.length > 1) {
+      // Use createLineChart for the smooth curve, then overlay goal line
       const w = 400;
-      const h = 130;
+      const h = 150;
       const max = Math.max(...points, goal);
-      const xStep = w / (points.length - 1);
+      const pad = 10;
+      const goalY = h - pad - (goal / max) * (h - pad * 2);
 
-      const pathD = points.map((v, i) =>
-        `${i === 0 ? 'M' : 'L'} ${i * xStep} ${h - 10 - (v / max) * (h - 20)}`
-      ).join(' ');
-
-      const goalY = h - 10 - (goal / max) * (h - 20);
-
-      this.setHtml('chart', `
-        <svg viewBox="0 0 ${w} ${h + 25}" style="width:100%;height:${h + 25}px">
-          <line x1="0" y1="${goalY}" x2="${w}" y2="${goalY}"
-                stroke="var(--nc-accent)" stroke-width="1" stroke-dasharray="5,5"/>
-          <text x="${w - 5}" y="${goalY - 5}" text-anchor="end" font-size="10"
-                fill="var(--nc-accent)">Meta</text>
-          <path d="${pathD} L ${(points.length - 1) * xStep} ${h - 10} L 0 ${h - 10} Z"
-                fill="var(--nc-primary)" opacity="0.12"/>
-          <path d="${pathD}" fill="none" stroke="var(--nc-primary)" stroke-width="2"/>
-        </svg>
-      `);
+      const baseChart = this.createLineChart(points.map(p => p), w, h, 'var(--nc-primary)', 0.15);
+      // Inject goal line before </svg>
+      const goalLine = `
+        <line x1="0" y1="${goalY}" x2="${w}" y2="${goalY}"
+              stroke="var(--nc-accent)" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.8"/>
+        <rect x="${w - 48}" y="${goalY - 16}" width="44" height="16" rx="4" fill="var(--nc-accent)" opacity="0.15"/>
+        <text x="${w - 26}" y="${goalY - 5}" text-anchor="middle" font-size="10"
+              font-weight="600" fill="var(--nc-accent)">Meta</text>
+      `;
+      this.setHtml('chart', baseChart.replace('</svg>', goalLine + '</svg>'));
     }
 
-    // Progress bar based on final month
+    // Progress bar based on final month (enhanced with gradient)
     const lastPct = points.length > 0
       ? Math.min(100, (points[points.length - 1] / goal) * 100)
       : 0;
+    const barColor = lastPct >= 100 ? '#059669' : '#1a56db';
     this.setHtml('progressBar', `
-      <div style="background:var(--nc-border);border-radius:999px;height:20px;overflow:hidden;position:relative">
-        <div style="background:var(--nc-primary);height:100%;width:${lastPct}%;border-radius:999px;
-                    transition:width 0.3s ease"></div>
-        <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-                     font-size:0.7rem;font-weight:700;color:${lastPct > 50 ? '#fff' : 'var(--nc-text)'}">
-          ${this.formatPercent(lastPct)}
-        </span>
+      <div style="position:relative">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.7rem;color:var(--nc-muted)">
+          <span>0%</span><span>50%</span><span>Meta</span>
+        </div>
+        <div style="background:var(--nc-surface);border:1px solid var(--nc-border);border-radius:999px;height:24px;overflow:hidden;position:relative">
+          <div style="background:linear-gradient(90deg, ${barColor}dd, ${barColor});height:100%;width:${lastPct}%;border-radius:999px;
+                      transition:width 0.4s ease;min-width:${lastPct > 0 ? '2rem' : '0'}"></div>
+          <span style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+                       font-size:0.75rem;font-weight:700;color:${lastPct > 45 ? '#fff' : 'var(--nc-text)'}">
+            ${this.formatPercent(lastPct)}
+          </span>
+        </div>
       </div>
     `);
   }

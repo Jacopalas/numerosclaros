@@ -48,12 +48,12 @@ export class CalcPresupuesto extends CalcBase {
     this.setText('savings', this.formatCurrency(result.savings));
     this.setText('yearlySavings', this.formatCurrency(result.yearly.savings));
 
-    // Donut chart
+    // Donut chart (larger, with percentage labels and centered total)
     this.setHtml('chart', this.createDonutChart([
-      { label: 'Necesidades', value: result.needs, color: 'var(--nc-primary)' },
+      { label: 'Necesidades', value: result.needs, color: '#1a56db' },
       { label: 'Deseos', value: result.wants, color: '#f59e0b' },
-      { label: 'Ahorro', value: result.savings, color: 'var(--nc-accent)' },
-    ]));
+      { label: 'Ahorro', value: result.savings, color: '#059669' },
+    ], 220));
   }
 }
 
