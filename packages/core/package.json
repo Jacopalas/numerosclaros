@@ -1,6 +1,10 @@
 {
-  "name": "@numerosclaros/core",
+  "name": "numerosclaros-core",
   "version": "1.0.0",
+  "description": "Motor matemático de calculadoras financieras para España. Fórmulas de hipoteca, IRPF, pensión, autónomos, plusvalía y más.",
+  "license": "MIT",
+  "repository": {"type": "git", "url": "https://github.com/Jacopalas/numerosclaros"},
+  "keywords": ["financial", "calculator", "spain", "irpf", "mortgage", "pension", "autonomo"],
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

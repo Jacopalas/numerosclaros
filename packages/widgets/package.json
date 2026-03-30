@@ -1,6 +1,10 @@
 {
-  "name": "@numerosclaros/widgets",
+  "name": "numerosclaros-widgets",
   "version": "1.0.0",
+  "description": "Web Components de calculadoras financieras para España. Embebibles en cualquier web con una línea de HTML.",
+  "license": "MIT",
+  "repository": {"type": "git", "url": "https://github.com/Jacopalas/numerosclaros"},
+  "keywords": ["web-components", "financial", "calculator", "spain", "embeddable", "widget"],
   "type": "module",
   "main": "dist/numerosclaros.js",
   "types": "dist/index.d.ts",
@@ -15,7 +19,7 @@
     "dev": "vite"
   },
   "dependencies": {
-    "@numerosclaros/core": "1.0.0"
+    "numerosclaros-core": "1.0.0"
   },
   "files": ["dist"]
 }
