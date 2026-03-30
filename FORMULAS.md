@@ -751,7 +751,7 @@ Retención_IRPF = Base_imponible x Tipo_retención
 | Actividades profesionales (general) | 15% |
 | Nuevos autónomos profesionales (primeros 3 años) | 7% |
 | Actividades artísticas | 15% |
-| Actividades agricolas y ganaderas | 2% |
+| Actividades agrícolas y ganaderas | 2% |
 | Actividades forestales | 2% |
 | Cesión derechos de imagen | 24% |
 
@@ -951,7 +951,7 @@ SL (nómina administrador 30.000 EUR):
 SS administrador (autónomo societario) = aprox. 4.500 EUR/año
 Beneficio SL = 80.000 - 15.000 - 30.000 - 4.500 = 30.500 EUR
 IS (23%) = 7.015 EUR
-Beneficio despues IS = 23.485 EUR
+Beneficio después IS = 23.485 EUR
 Dividendos brutos = 23.485 EUR
 IRPF dividendos (19-21%) = aprox. 4.750 EUR
 Neto dividendos = 18.735 EUR
@@ -966,25 +966,25 @@ por la capacidad de diferir la tributación de dividendos y mayor facilidad de d
 
 ---
 
-### 24. Rescate del Plan de Pensiónes
+### 24. Rescate del Plan de Pensiones
 
 **Fórmula:**
 
-Las prestaciones de planes de pensiónes tributan como rendimientos del trabajo en el IRPF:
+Las prestaciones de planes de pensiones tributan como rendimientos del trabajo en el IRPF:
 
 ```
 IRPF_rescate = Aplicar_tramos_IRPF(Otros_rendimientos_trabajo + Rescate)
 ```
 
 **Modalidades de rescate:**
-- **Capital (de golpe):** Se suma todo a la base imponible del ano. Puede disparar el tipo marginal.
+- **Capital (de golpe):** Se suma todo a la base imponible del año. Puede disparar el tipo marginal.
 - **Renta (periódica):** Se reparte en mensualidades/anualidades. Menor impacto fiscal.
 - **Mixto:** Parte en capital + parte en renta.
 
-**Reducción por aportaciónes pre-2007:** 40% de reducción sobre las aportaciónes anteriores a 01/01/2007 si se rescata en capital.
+**Reducción por aportaciones pre-2007:** 40% de reducción sobre las aportaciones anteriores a 01/01/2007 si se rescata en capital.
 
 **Ejemplo:**
-Plan de pensiónes: 120.000 EUR (40.000 aportados antes de 2007). Salario actual: 35.000 EUR.
+Plan de pensiones: 120.000 EUR (40.000 aportados antes de 2007). Salario actual: 35.000 EUR.
 
 ```
 RESCATE EN CAPITAL (todo de golpe):
@@ -1003,30 +1003,30 @@ Coste fiscal anual del rescate = 3.300 EUR
 Coste fiscal total = 3.300 x 12 = 39.600 EUR (tipo medio: 33%)
 
 RESCATE MIXTO (40.000 en capital + 6.667/año durante 12 años):
-Ano 1: Base = 35.000 + 24.000 (40.000 - 40% reducción) + 6.667 = 65.667 EUR
-Resto años: Base = 35.000 + 6.667 = 41.667 EUR
+Año 1: Base = 35.000 + 24.000 (40.000 - 40% reducción) + 6.667 = 65.667 EUR
+Resto de años: Base = 35.000 + 6.667 = 41.667 EUR
 Coste fiscal total estimado = aprox. 35.800 EUR (tipo medio: 29,8%)
 
-Conclusion: El rescate mixto (aprovechando la reducción del 40%) es el más eficiente fiscalmente.
+Conclusión: El rescate mixto (aprovechando la reducción del 40%) es el más eficiente fiscalmente.
 ```
 
 **Fuente:** Agencia Tributaria -- Art. 17.2.a.3 y DT 12a de la Ley 35/2006 del IRPF. BOE-A-2006-20764.
 
 ---
 
-### 25. Fijo o Variable (Tipo de Interes en Préstamos)
+### 25. Fijo o Variable (Tipo de Interés en Préstamos)
 
-Este decisor es un alias extendido del numero 21 (Hipoteca Fija o Variable), aplicable tambien a préstamos personales y financiacion empresarial. La formula y métodologia son identicas.
+Este decisor es un alias extendido del número 21 (Hipoteca Fija o Variable), aplicable también a préstamos personales y financiación empresarial. La fórmula y metodología son idénticas.
 
-Para mayor detalle, consultar la [seccion 21: Hipoteca Fija o Variable](#21-hipoteca-fija-o-variable).
+Para mayor detalle, consultar la [sección 21: Hipoteca Fija o Variable](#21-hipoteca-fija-o-variable).
 
 ---
 
 ## Notas generales
 
-- Las cifras fiscales corresponden a la normativa estatal vigente en 2025. Las comunidades autonomás pueden modificar tramos, tipos y deducciónes.
+- Las cifras fiscales corresponden a la normativa estatal vigente en 2025. Las comunidades autónomas pueden modificar tramos, tipos y deducciones.
 - Los ejemplos son orientativos y no constituyen asesoramiento fiscal.
-- Los tipos del Euribor, inflación y rentabilidades de inversión son estimaciónes para los ejemplos.
+- Los tipos del Euribor, inflación y rentabilidades de inversión son estimaciones para los ejemplos.
 - Para cálculos oficiales, consultar siempre la Agencia Tributaria (www.agenciatributaria.es) y la Seguridad Social (www.seg-social.es).
 
 ## Fuentes principales
