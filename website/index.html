@@ -9,7 +9,7 @@
   <meta property="og:description" content="Calculadoras financieras open source como Web Components. Hipoteca, IRPF, nómina, autónomos, IVA y más. Coge la que necesites, pégala en tu web.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jacopalas.github.io/numerosclaros/">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='10' y='5' width='80' height='90' rx='8' fill='%231a56db'/><rect x='22' y='30' width='14' height='10' rx='2' fill='white'/><rect x='43' y='30' width='14' height='10' rx='2' fill='white'/><rect x='64' y='30' width='14' height='10' rx='2' fill='white'/><rect x='22' y='48' width='14' height='10' rx='2' fill='white'/><rect x='43' y='48' width='14' height='10' rx='2' fill='white'/><rect x='64' y='48' width='14' height='10' rx='2' fill='white'/><rect x='22' y='66' width='14' height='10' rx='2' fill='white'/><rect x='43' y='66' width='14' height='10' rx='2' fill='white'/><rect x='64' y='66' width='14' height='10' rx='2' fill='white'/><rect x='22' y='12' width='56' height='10' rx='2' fill='%2393c5fd'/></svg>">
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -323,8 +323,17 @@
     }
 
     .calc-icon {
-      font-size: 1.5rem;
       flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calc-icon svg {
+      width: 32px;
+      height: 32px;
     }
 
     .calc-card h4 {
@@ -602,7 +611,7 @@
   <!-- ========== GOOGLE SHEETS CTA ========== -->
   <section class="fade-section" style="padding: 60px 20px; background: linear-gradient(135deg, #059669 0%, #047857 100%); color: white; text-align: center;">
     <div class="container" style="max-width: 700px; margin: 0 auto;">
-      <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+      <div style="margin-bottom: 16px;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="4" width="32" height="40" rx="4" fill="white" opacity="0.2" stroke="white" stroke-width="2"/><rect x="14" y="14" width="8" height="4" rx="1" fill="white"/><rect x="26" y="14" width="8" height="4" rx="1" fill="white"/><rect x="14" y="22" width="8" height="4" rx="1" fill="white"/><rect x="26" y="22" width="8" height="4" rx="1" fill="white"/><rect x="14" y="30" width="8" height="4" rx="1" fill="white"/><rect x="26" y="30" width="8" height="4" rx="1" fill="white"/><line x1="24" y1="12" x2="24" y2="36" stroke="white" stroke-width="1" opacity="0.4"/><line x1="12" y1="20" x2="36" y2="20" stroke="white" stroke-width="1" opacity="0.4"/><line x1="12" y1="28" x2="36" y2="28" stroke="white" stroke-width="1" opacity="0.4"/></svg></div>
       <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 12px; color: white;">¿Prefieres Google Sheets?</h2>
       <p style="font-size: 1.15rem; opacity: 0.9; margin-bottom: 8px; line-height: 1.6; color: white;">
         Tenemos las 25 calculadoras como hoja de c&aacute;lculo. Cada pesta&ntilde;a es una calculadora con f&oacute;rmulas reales.
@@ -630,7 +639,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#127968;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16L16 6l11 10"/><path d="M8 14v12h16V14"/><rect x="13" y="20" width="6" height="6"/></svg></span>
               <h4>Hipoteca</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -639,7 +648,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128200;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,26 10,20 16,22 22,12 28,6"/><polyline points="22,6 28,6 28,12"/></svg></span>
               <h4>Inter&eacute;s compuesto</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -648,7 +657,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128197;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="24" height="24" rx="3"/><line x1="4" y1="12" x2="28" y2="12"/><line x1="12" y1="12" x2="12" y2="28"/><line x1="20" y1="12" x2="20" y2="28"/><line x1="4" y1="20" x2="28" y2="20"/></svg></span>
               <h4>Amortizaci&oacute;n</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -657,7 +666,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128179;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="6"/><path d="M12 11v6"/><path d="M10 16h4"/><path d="M20 10h8M20 16h8M20 22h8"/></svg></span>
               <h4>Pr&eacute;stamo personal</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -666,7 +675,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128176;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11"/><circle cx="16" cy="16" r="7"/><circle cx="16" cy="16" r="3"/></svg></span>
               <h4>Ahorro</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -675,7 +684,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128184;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,8 6,26 26,26"/><polyline points="10,14 16,18 20,12 26,20"/><polyline points="20,20 26,20 26,14"/></svg></span>
               <h4>Inflaci&oacute;n</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -684,7 +693,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128202;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="18" width="5" height="8"/><rect x="13.5" y="12" width="5" height="14"/><rect x="21" y="6" width="5" height="20"/></svg></span>
               <h4>TIR / VAN</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -693,7 +702,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128177;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h20M22 8l4 4-4 4"/><path d="M26 20H6M10 16l-4 4 4 4"/></svg></span>
               <h4>Conversor de divisas</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -702,7 +711,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#127919;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 6a10 10 0 1 1-7 3"/><polyline points="9,4 9,11 16,11"/><text x="12" y="21" font-size="8" font-weight="bold" fill="#1a56db" stroke="none" font-family="sans-serif">%</text></svg></span>
               <h4>ROI</h4>
               <span class="badge badge-universal">Universal</span>
             </div>
@@ -717,12 +726,12 @@
 
       <!-- ESPANA (10) -->
       <div class="catalog-subsection">
-        <h3>Espa&ntilde;a &#127466;&#127480;</h3>
+        <h3>Espa&ntilde;a</h3>
         <div class="calc-grid">
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128203;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h10l6 6v18H8z"/><path d="M18 4v6h6"/><text x="11" y="22" font-size="8" font-weight="bold" fill="#059669" stroke="none" font-family="sans-serif">%</text></svg></span>
               <h4>IRPF</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -731,7 +740,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128188;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="20" height="16" rx="2"/><line x1="6" y1="14" x2="26" y2="14"/><rect x="9" y="18" width="6" height="3" rx="1"/></svg></span>
               <h4>Aut&oacute;nomos</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -740,7 +749,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128178;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="11"/><path d="M12 12v3c0 1.5 1 2 2 2h4c1 0 2 .5 2 2v3"/><line x1="12" y1="22" x2="14" y2="22"/><line x1="18" y1="10" x2="20" y2="10"/></svg></span>
               <h4>IVA</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -749,7 +758,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128116;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 5v22"/><path d="M10 5h12"/><path d="M10 27h12"/><path d="M11 5c0 6-4 8-4 13"/><path d="M21 5c0 6 4 8 4 13"/></svg></span>
               <h4>Pensi&oacute;n</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -758,7 +767,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128221;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="20" height="24" rx="2"/><line x1="10" y1="10" x2="22" y2="10"/><line x1="10" y1="15" x2="22" y2="15"/><line x1="10" y1="20" x2="17" y2="20"/><circle cx="20" cy="22" r="3"/><path d="M19 22l1 1 2-2"/></svg></span>
               <h4>N&oacute;mina</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -767,7 +776,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#127970;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="20" height="16" rx="1"/><path d="M6 10l10-6 10 6"/><line x1="11" y1="16" x2="11" y2="26"/><line x1="16" y1="14" x2="16" y2="26"/><line x1="21" y1="16" x2="21" y2="26"/></svg></span>
               <h4>Plusval&iacute;a municipal</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -776,7 +785,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128220;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h10l6 6v18H8z"/><path d="M18 4v6h6"/><line x1="12" y1="16" x2="20" y2="16"/><line x1="12" y1="20" x2="20" y2="20"/><line x1="12" y1="24" x2="16" y2="24"/></svg></span>
               <h4>Sucesiones</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -785,7 +794,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#127974;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="26" width="24" height="2" rx="1"/><rect x="6" y="12" width="20" height="2"/><path d="M16 4l12 8H4z"/><line x1="9" y1="14" x2="9" y2="26"/><line x1="16" y1="14" x2="16" y2="26"/><line x1="23" y1="14" x2="23" y2="26"/></svg></span>
               <h4>Patrimonio</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -794,7 +803,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#127971;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="10" width="20" height="18" rx="2"/><path d="M12 10V7a4 4 0 0 1 8 0v3"/><rect x="10" y="16" width="4" height="4" rx="1"/><rect x="18" y="16" width="4" height="4" rx="1"/></svg></span>
               <h4>Sociedades</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -803,7 +812,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#9986;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8L8 24"/><circle cx="10" cy="10" r="3"/><circle cx="22" cy="22" r="3"/></svg></span>
               <h4>Retenciones</h4>
               <span class="badge badge-espana">Espa&ntilde;a</span>
             </div>
@@ -823,7 +832,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#127969;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16L16 6l11 10"/><path d="M8 14v12h16V14"/><circle cx="16" cy="21" r="3"/><text x="14.5" y="23.5" font-size="5" font-weight="bold" fill="#d97706" stroke="none" font-family="sans-serif">?</text></svg></span>
               <h4>&iquest;Comprar o alquilar?</h4>
               <span class="badge badge-decisor">Decisora</span>
             </div>
@@ -832,7 +841,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128260;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,26 4,6"/><polyline points="4,26 28,26"/><polyline points="8,18 14,10 20,16 26,8"/><polyline points="8,22 14,20 20,24 26,18"/></svg></span>
               <h4>&iquest;Hipoteca fija o variable?</h4>
               <span class="badge badge-decisor">Decisora</span>
             </div>
@@ -841,7 +850,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#9878;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="4" x2="16" y2="10"/><line x1="6" y1="14" x2="26" y2="14"/><path d="M8 14l-2 12h6z"/><path d="M24 14l2 12h-6z"/><circle cx="9" cy="24" r="2"/><circle cx="23" cy="24" r="2"/></svg></span>
               <h4>&iquest;Invertir o amortizar?</h4>
               <span class="badge badge-decisor">Decisora</span>
             </div>
@@ -850,7 +859,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#9878;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="10" height="20" rx="2"/><rect x="18" y="6" width="10" height="20" rx="2"/><line x1="7" y1="12" x2="11" y2="12"/><line x1="7" y1="16" x2="11" y2="16"/><line x1="21" y1="12" x2="25" y2="12"/><line x1="21" y1="16" x2="25" y2="16"/><path d="M14 16h4" stroke-dasharray="2 1"/></svg></span>
               <h4>&iquest;Snowball o Avalanche?</h4>
               <span class="badge badge-decisor">Decisora</span>
             </div>
@@ -859,7 +868,7 @@
 
           <div class="calc-card">
             <div class="calc-card-header">
-              <span class="calc-icon">&#128230;</span>
+              <span class="calc-icon"><svg viewBox="0 0 32 32" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16h8"/><path d="M18 16h8"/><path d="M10 10v12"/><path d="M22 10v12"/><polyline points="10,10 6,16 10,22"/><polyline points="22,10 26,16 22,22"/></svg></span>
               <h4>&iquest;Plan de pensiones o fondo indexado?</h4>
               <span class="badge badge-decisor">Decisora</span>
             </div>
@@ -937,7 +946,7 @@
       <div class="footer-inner">
         <span><a href="https://github.com/Jacopalas/numerosclaros" target="_blank" rel="noopener">GitHub</a></span>
         <span>MIT License</span>
-        <span>Hecho en Espa&ntilde;a &#127466;&#127480;</span>
+        <span>Hecho en Espa&ntilde;a</span>
         <span>&copy; 2026 NumerosClaros</span>
       </div>
     </div>
