@@ -34,7 +34,7 @@ M = 899,58 EUR/mes
 
 Total pagado: 269.874 EUR. Intereses totales: 69.874 EUR.
 
-**Fuente:** Formula estándar de amortización francesa. Banco de España -- Portal del Cliente Bancario.
+**Fuente:** Fórmula estándar de amortización francesa. Banco de España -- Portal del Cliente Bancario.
 
 ---
 
@@ -65,7 +65,7 @@ A = 27.126,40 EUR
 
 Ganancia neta: 17.126,40 EUR.
 
-**Fuente:** Formula estándar de interés compuesto. Cualquier manual de matematica financiera.
+**Fuente:** Fórmula estándar de interés compuesto. Cualquier manual de matemática financiera.
 
 ---
 
@@ -80,7 +80,7 @@ Capital_k = Cuota - Intereses_k
 Saldo_k = Saldo_(k-1) - Capital_k
 ```
 
-**Sistema Americaño (solo intereses + devolución final):**
+**Sistema Americano (solo intereses + devolución final):**
 
 ```
 Cuota periódica = P x r
@@ -93,7 +93,7 @@ Ultima cuota = P x r + P
 - `Capital_k` -- Parte de amortización de capital de la cuota k
 - `Saldo_k` -- Capital pendiente tras la cuota k
 
-**Ejemplo (Frances):**
+**Ejemplo (Francés):**
 Préstamo 100.000 EUR, 3% anual, 10 años. Cuota mensual: 965,61 EUR.
 
 ```
@@ -111,7 +111,7 @@ Cuota 120: Intereses = 2,41 | Capital = 963,20 | Saldo = 0,00
 
 **Fórmula:**
 
-Identica a la hipoteca (sistema frances), con parámetros típicos diferentes.
+Idéntica a la hipoteca (sistema francés), con parámetros típicos diferentes.
 
 ```
 M = P x [r(1+r)^n] / [(1+r)^n - 1]
@@ -141,7 +141,7 @@ Total pagado: 18.034,20 EUR. Intereses: 3.034,20 EUR.
 
 ---
 
-### 5. Ahorro (Valor Futuro con Aportaciónes Periodicas)
+### 5. Ahorro (Valor Futuro con Aportaciones Periódicas)
 
 **Fórmula:**
 
@@ -159,7 +159,7 @@ FV = P x (1+r)^n + PMT x [((1+r)^n - 1) / r]
 **Variables:**
 - `FV` -- Valor futuro acumulado
 - `PMT` -- Aportación periódica
-- `P` -- Capital inicial (opciónal)
+- `P` -- Capital inicial (opcional)
 - `r` -- Tipo de interés por periodo
 - `n` -- Número total de periodos
 
@@ -177,7 +177,7 @@ FV = 58.261 EUR
 
 Capital aportado: 5.000 + 36.000 = 41.000 EUR. Intereses generados: 17.261 EUR.
 
-**Fuente:** Formula estándar de anualidad. Cualquier manual de matematica financiera.
+**Fuente:** Fórmula estándar de anualidad. Cualquier manual de matemática financiera.
 
 ---
 
@@ -186,10 +186,10 @@ Capital aportado: 5.000 + 36.000 = 41.000 EUR. Intereses generados: 17.261 EUR.
 **Fórmula:**
 
 ```
-Valor_real = Valor_nóminal / (1 + i)^t
+Valor_real = Valor_nominal / (1 + i)^t
 ```
 
-Formula inversa (cuánto necesitarás en el futuro):
+Fórmula inversa (cuánto necesitarás en el futuro):
 
 ```
 Valor_futuro_necesario = Valor_actual x (1 + i)^t
@@ -200,7 +200,7 @@ Valor_futuro_necesario = Valor_actual x (1 + i)^t
 - `t` -- Número de años
 
 **Ejemplo:**
-Cuánto valdrán 50.000 EUR dentro de 10 años con inflación del 3% anual?
+¿Cuánto valdrán 50.000 EUR dentro de 10 años con inflación del 3% anual?
 
 ```
 Valor_real = 50.000 / (1 + 0,03)^10
@@ -255,7 +255,7 @@ VAN = 22.612 EUR
 
 TIR (por iteración): 17,8%. Como TIR > 8%, la inversión es rentable.
 
-**Fuente:** Formula estándar de valoración de inversiónes. Principios de finanzas corporativas (Brealey, Myers & Allen).
+**Fuente:** Fórmula estándar de valoración de inversiones. Principios de finanzas corporativas (Brealey, Myers & Allen).
 
 ---
 
@@ -299,7 +299,7 @@ ROI_anual = [(1 + ROI/100)^(1/t) - 1] x 100
 **Variables:**
 - `Valor_final` -- Valor obtenido de la inversión (incluye plusvalías y dividendos/rentas)
 - `Coste` -- Coste total de la inversión
-- `t` -- Anos de la inversión
+- `t` -- Años de la inversión
 
 **Ejemplo:**
 Compra de un inmueble por 150.000 EUR, venta a los 8 años por 210.000 EUR.
@@ -327,7 +327,7 @@ Cuota = SUM(k=1..n) [min(Base_restante, Tramo_k) x Tipo_k]
 
 **Tramos estatales + autonómicos 2025 (parte general):**
 
-| Base liquidable (EUR) | Tipo estatal | Tipo autonomico (*) | Tipo total |
+| Base liquidable (EUR) | Tipo estatal | Tipo autonómico (*) | Tipo total |
 |---|---|---|---|
 | 0 - 12.450 | 9,50% | 9,50% | 19,00% |
 | 12.450 - 20.200 | 12,00% | 12,00% | 24,00% |
@@ -336,14 +336,14 @@ Cuota = SUM(k=1..n) [min(Base_restante, Tramo_k) x Tipo_k]
 | 60.000 - 300.000 | 22,50% | 22,50% | 45,00% |
 | Más de 300.000 | 24,50% | 22,50% | 47,00% |
 
-(*) Los tipos autonómicos son los genericos. Cada comunidad autónoma puede modificarlos.
+(*) Los tipos autonómicos son los genéricos. Cada comunidad autónoma puede modificarlos.
 
 **Variables adicionales:**
 - Mínimo personal y familiar: 5.550 EUR (contribuyente), 2.400 EUR (primer hijo), 2.700 EUR (segundo)...
-- Reducciónes: rendimientos del trabajo, planes de pensiónes, etc.
+- Reducciones: rendimientos del trabajo, planes de pensiones, etc.
 
 **Ejemplo:**
-Salario bruto: 40.000 EUR. Sin hijos, sin deducciónes especiales. Reducción por rendimientos del trabajo: 2.000 EUR. Base liquidable: 40.000 - 2.000 - 5.550 = 32.450 EUR.
+Salario bruto: 40.000 EUR. Sin hijos, sin deducciones especiales. Reducción por rendimientos del trabajo: 2.000 EUR. Base liquidable: 40.000 - 2.000 - 5.550 = 32.450 EUR.
 
 ```
 Tramo 1: 12.450 x 19% = 2.365,50
@@ -398,7 +398,7 @@ Rendimiento_neto = Ingresos - Gastos_deducibles
 Rendimiento_neto_mensual = Rendimiento_neto / 12
 ```
 
-Deducción genérica por gastos de dificil justificacion: 7% (autónomos persona fisica) o 3% (societarios).
+Deducción genérica por gastos de difícil justificación: 7% (autónomos persona física) o 3% (societarios).
 
 **Ejemplo:**
 Autónomo con ingresos anuales de 36.000 EUR y gastos de 6.000 EUR.
@@ -473,10 +473,10 @@ Se toman los últimos 25 años (300 meses) de cotización, divididos entre 350 (
 **Porcentaje según años cotizados:**
 - 15 años: 50%
 - 15 a 25 años: 50% + 0,21% por cada mes adicional entre 15 y 25 años
-- 25 a 37 años: segun meses adicionales desde el año 25
-- 37 años o mas: 100%
+- 25 a 37 años: según meses adicionales desde el año 25
+- 37 años o más: 100%
 
-**Pensión máxima 2025:** 3.267,40 EUR/mes (14 pagas) = 45.743,60 EUR/ano.
+**Pensión máxima 2025:** 3.267,40 EUR/mes (14 pagas) = 45.743,60 EUR/año.
 **Pensión mínima 2025 (con cónyuge a cargo):** 1.033,20 EUR/mes (14 pagas).
 
 **Ejemplo:**
@@ -500,7 +500,7 @@ Pensión anual (14 pagas) = 2.141,04 x 14 = 29.974,56 EUR
 Salario_neto = Salario_bruto - SS_trabajador - Retención_IRPF
 ```
 
-**Cotizaciónes del trabajador a la Seguridad Social:**
+**Cotizaciones del trabajador a la Seguridad Social:**
 
 | Concepto | Porcentaje |
 |---|---|
@@ -541,7 +541,7 @@ Cuota = Base_imponible x Tipo_impositivo
 
 **Coeficientes por periodo de tenencia (2025):**
 
-| Anos | Coeficiente |
+| Años | Coeficiente |
 |---|---|
 | 1 | 0,14 |
 | 2 | 0,13 |
@@ -591,12 +591,12 @@ Resultado: Se aplica Método 1 (más favorable) = 1.000 EUR
 
 ---
 
-### 16. Impuesto de Sucesiones y Donaciónes
+### 16. Impuesto de Sucesiones y Donaciones
 
-**Formula general:**
+**Fórmula general:**
 
 ```
-Base_liquidable = Masa_hereditaria_individual - Reducciónes
+Base_liquidable = Masa_hereditaria_individual - Reducciones
 Cuota_integra = Aplicar tarifa progresiva a Base_liquidable
 Cuota_tributaria = Cuota_integra x Coeficiente_multiplicador
 ```
@@ -622,33 +622,33 @@ Cuota_tributaria = Cuota_integra x Coeficiente_multiplicador
 | 398.777,54 - 797.555,08 | 29,75% |
 | Más de 797.555,08 | 34,00% |
 
-**Reducciónes por grupo de parentesco:**
+**Reducciones por grupo de parentesco:**
 - Grupo I (descendientes menores de 21): 15.956,87 EUR + 3.990,72 EUR/año menor de 21
 - Grupo II (cónyuge, descendientes 21+, ascendientes): 15.956,87 EUR
 - Grupo III (colaterales 2o y 3er grado, ascendientes/descendientes por afinidad): 7.993,46 EUR
-- Grupo IV (colaterales 4o grado y mas, extraños): 0 EUR
+- Grupo IV (colaterales 4o grado y más, extraños): 0 EUR
 
-**Coeficientes multiplicadores (segun patrimonio preexistente y parentesco):**
+**Coeficientes multiplicadores (según patrimonio preexistente y parentesco):**
 - Grupos I y II: 1,0000 a 1,2000
 - Grupo III: 1,5882 a 1,9059
 - Grupo IV: 2,0000 a 2,4000
 
-**Nota importante:** Las comunidades autonomás tienen competencia normativa y la mayoría aplican bonificaciones del 95-99% para herencias entre padres e hijos y cónyuges.
+**Nota importante:** Las comunidades autónomas tienen competencia normativa y la mayoría aplican bonificaciones del 95-99% para herencias entre padres e hijos y cónyuges.
 
 **Ejemplo:**
-Herencia de 200.000 EUR para un hijo mayor de 21 años (Grupo II) en comunidad sin bonificacion propia.
+Herencia de 200.000 EUR para un hijo mayor de 21 años (Grupo II) en comunidad sin bonificación propia.
 
 ```
 Base imponible = 200.000 EUR
 Reducción Grupo II = 15.956,87 EUR
 Base liquidable = 200.000 - 15.956,87 = 184.043,13 EUR
 
-Cuota integra (aplicando tarifa por tramos) = aprox. 31.104 EUR
+Cuota íntegra (aplicando tarifa por tramos) = aprox. 31.104 EUR
 Coeficiente multiplicador (Grupo II, patrimonio preexistente < 402.678 EUR) = 1,0000
 Cuota tributaria = 31.104 x 1,0000 = 31.104 EUR
 ```
 
-**Fuente:** Ley 29/1987 del Impuesto sobre Sucesiones y Donaciónes. BOE-A-1987-28141. Real Decreto 1629/1991 (Reglamento).
+**Fuente:** Ley 29/1987 del Impuesto sobre Sucesiones y Donaciones. BOE-A-1987-28141. Real Decreto 1629/1991 (Reglamento).
 
 ---
 
@@ -703,7 +703,7 @@ Total = 1.164,37 EUR
 ```
 Base_imponible = Resultado_contable +/- Ajustes_fiscales
 Cuota_integra = Base_imponible x Tipo_impositivo
-Cuota_liquida = Cuota_integra - Deducciónes - Bonificaciones
+Cuota_liquida = Cuota_integra - Deducciones - Bonificaciones
 ```
 
 **Tipos impositivos 2025:**
@@ -711,8 +711,8 @@ Cuota_liquida = Cuota_integra - Deducciónes - Bonificaciones
 | Tipo de entidad | Tipo |
 |---|---|
 | General | 25% |
-| Empresas con cifra de negocios < 1 millon EUR | 23% |
-| Entidades de nueva creacion (2 primeros ejercicios con base positiva) | 15% |
+| Empresas con cifra de negocios < 1 millón EUR | 23% |
+| Entidades de nueva creación (2 primeros ejercicios con base positiva) | 15% |
 | Cooperativas fiscalmente protegidas | 20% |
 
 **Ejemplo:**
@@ -720,22 +720,22 @@ SL con resultado contable de 80.000 EUR, cifra de negocios de 500.000 EUR, sin a
 
 ```
 Base imponible = 80.000 EUR
-Tipo = 23% (facturación < 1 millon)
-Cuota integra = 80.000 x 23% = 18.400 EUR
+Tipo = 23% (facturación < 1 millón)
+Cuota íntegra = 80.000 x 23% = 18.400 EUR
 ```
 
 Si la misma empresa factura 2.000.000 EUR:
 
 ```
 Tipo = 25% (general)
-Cuota integra = 80.000 x 25% = 20.000 EUR
+Cuota íntegra = 80.000 x 25% = 20.000 EUR
 ```
 
 **Fuente:** Ley 27/2014 del Impuesto sobre Sociedades. BOE-A-2014-12328. Art. 29.
 
 ---
 
-### 19. Retenciónes (IRPF en Facturas)
+### 19. Retenciones (IRPF en Facturas)
 
 **Fórmula:**
 
@@ -750,13 +750,13 @@ Retención_IRPF = Base_imponible x Tipo_retención
 |---|---|
 | Actividades profesionales (general) | 15% |
 | Nuevos autónomos profesionales (primeros 3 años) | 7% |
-| Actividades artisticas | 15% |
+| Actividades artísticas | 15% |
 | Actividades agricolas y ganaderas | 2% |
 | Actividades forestales | 2% |
-| Cesion derechos de imagen | 24% |
+| Cesión derechos de imagen | 24% |
 
 **Ejemplo:**
-Factura de un disenador freelance (profesional, más de 3 años).
+Factura de un diseñador freelance (profesional, más de 3 años).
 
 ```
 Base imponible = 2.000 EUR
@@ -787,14 +787,14 @@ Coste_compra = Entrada + SUM(cuotas_hipoteca) + Gastos_compra + SUM(IBI + Comuni
 ```
 
 Donde:
-- `Entrada` -- Ahorro inicial destinado a la compra (tipicamente 20-30% del precio)
-- `Gastos_compra` -- ITP/IVA + notaria + registro + gestoria (aprox. 10-12% del precio)
-- `Valor_venta_estimado` -- Precio estimado de venta al final del periodo
+- `Entrada` -- Ahorro inicial destinado a la compra (típicamente 20-30% del precio)
+- `Gastos_compra` -- ITP/IVA + notaría + registro + gestoría (aprox. 10-12% del precio)
+- `Valor_venta_estimado` -- Precio estimado de venta al final del período
 
 **Coste total de alquilar:**
 
 ```
-Coste_alquilar = SUM(alquiler_mensual x (1 + subida_anual)^ano) - Rendimiento_invertir_diferencia
+Coste_alquilar = SUM(alquiler_mensual x (1 + subida_anual)^año) - Rendimiento_invertir_diferencia
 ```
 
 Donde el ahorro que no se destina a la entrada se invierte a un tipo de interés.
@@ -808,18 +808,18 @@ Entrada (20%) = 50.000 EUR
 Gastos compra (10%) = 25.000 EUR
 Hipoteca 200.000 EUR, 25 años, 2,5% = 899,58 EUR/mes x 240 meses = 215.899 EUR
 IBI + comunidad + seguros = 250 EUR/mes x 240 = 60.000 EUR
-Valor venta estimado (revalorización 2%/ano) = 250.000 x 1,02^20 = 371.486 EUR
+Valor venta estimado (revalorización 2%/año) = 250.000 x 1,02^20 = 371.486 EUR
 Coste neto compra = 50.000 + 25.000 + 215.899 + 60.000 - 371.486 = -20.587 EUR (ganancia)
 
 ALQUILAR:
-Alquiler (subida 3%/ano) = total aprox. 290.000 EUR en 20 años
+Alquiler (subida 3%/año) = total aprox. 290.000 EUR en 20 años
 Inversión de 75.000 EUR (entrada + gastos) al 5% = 198.997 EUR
 Coste neto alquiler = 290.000 - 198.997 = 91.003 EUR
 
 En este escenario, comprar sale más rentable por aprox. 111.590 EUR.
 ```
 
-**Fuente:** Modelo comparativo estándar. Banco de España -- "Guia de acceso al préstamo hipotecario".
+**Fuente:** Modelo comparativo estándar. Banco de España -- "Guía de acceso al préstamo hipotecario".
 
 ---
 
@@ -827,14 +827,14 @@ En este escenario, comprar sale más rentable por aprox. 111.590 EUR.
 
 **Fórmula:**
 
-Se simula el coste total bajo distintos escenarios de evolucion del Euribor:
+Se simula el coste total bajo distintos escenarios de evolución del Euribor:
 
 ```
 Coste_fijo = Cuota_fija x n_meses
 Coste_variable = SUM(k=1..n) [Cuota_variable(Euribor_k + diferencial)]
 ```
 
-La cuota variable se recalcula tipicamente cada 12 meses segun el Euribor vigente.
+La cuota variable se recalcula típicamente cada 12 meses según el Euribor vigente.
 
 **Escenarios típicos de simulación:**
 - Optimista: Euribor baja 0,5% gradualmente
@@ -859,11 +859,11 @@ Tipo medio = 1,5% + 0,8% = 2,30%
 Cuota media = 876,85 EUR/mes
 Total pagado = 876,85 x 300 = 263.055 EUR
 
-Conclusion: Si el Euribor medio se mantiene por debajo del 2,0%, la variable es mejor.
+Conclusión: Si el Euribor medio se mantiene por debajo del 2,0%, la variable es mejor.
              Si supera el 2,0% de media, la fija es mejor.
 ```
 
-**Fuente:** Banco de España -- Estadisticas del Euribor. Ley 5/2019 reguladora de los contratos de crédito inmobiliario.
+**Fuente:** Banco de España -- Estadísticas del Euribor. Ley 5/2019 reguladora de los contratos de crédito inmobiliario.
 
 ---
 
@@ -903,7 +903,7 @@ Rendimiento bruto 20 años = 20.000 x [(1,06)^20 - 1] = 44.143 EUR
 Impuestos (21% medio) = 44.143 x 0,21 = 9.270 EUR
 Rendimiento neto = 34.873 EUR
 
-Conclusion: Invertir genera 34.873 EUR netos vs 12.800 EUR de ahorro en intereses.
+Conclusión: Invertir genera 34.873 EUR netos vs 12.800 EUR de ahorro en intereses.
              En este caso, invertir es mejor siempre que se mantenga un 6% de rentabilidad media.
 ```
 
@@ -917,7 +917,7 @@ Conclusion: Invertir genera 34.873 EUR netos vs 12.800 EUR de ahorro en interese
 
 **Fórmula:**
 
-Se compara la carga fiscal total en ambos régimenes para el mismo nivel de ingresos:
+Se compara la carga fiscal total en ambos regímenes para el mismo nivel de ingresos:
 
 **Como autónomo:**
 
@@ -936,19 +936,19 @@ Dividendos_netos = (Beneficio_SL - IS) x (1 - tipo_ahorro)
 ```
 
 **Ejemplo:**
-Facturacion: 80.000 EUR. Gastos: 15.000 EUR.
+Facturación: 80.000 EUR. Gastos: 15.000 EUR.
 
 ```
-AUTONOMO:
+AUTÓNOMO:
 Rendimiento neto = 80.000 - 15.000 = 65.000 EUR
-Cuota autónomos = aprox. 530 EUR/mes = 6.360 EUR/ano
+Cuota autónomos = aprox. 530 EUR/mes = 6.360 EUR/año
 Base IRPF = 65.000 - 6.360 = 58.640 EUR
 IRPF (aplicando tramos) = aprox. 14.500 EUR
 Total impuestos + cuotas = 6.360 + 14.500 = 20.860 EUR
 Neto = 65.000 - 20.860 = 44.140 EUR
 
 SL (nómina administrador 30.000 EUR):
-SS administrador (autónomo societario) = aprox. 4.500 EUR/ano
+SS administrador (autónomo societario) = aprox. 4.500 EUR/año
 Beneficio SL = 80.000 - 15.000 - 30.000 - 4.500 = 30.500 EUR
 IS (23%) = 7.015 EUR
 Beneficio despues IS = 23.485 EUR
