@@ -81,9 +81,26 @@ def authenticate():
 
 # ─── Helpers ─────────────────────────────────────────────────────────────────
 
-def rate_limit():
+def rate_limit(seconds=2):
     """Pausa para evitar rate limits de la API."""
-    time.sleep(1.5)
+    time.sleep(seconds)
+
+
+def retry_on_quota(func, *args, max_retries=3, **kwargs):
+    """Reintenta una función si falla por quota exceeded."""
+    for attempt in range(max_retries):
+        try:
+            result = func(*args, **kwargs)
+            rate_limit(1)
+            return result
+        except Exception as e:
+            if "429" in str(e) or "Quota exceeded" in str(e):
+                wait = (attempt + 1) * 10
+                print(f"    ⏳ Rate limit alcanzado, esperando {wait}s...")
+                time.sleep(wait)
+            else:
+                raise
+    raise Exception(f"Fallo tras {max_retries} reintentos")
 
 
 def col_letter(n):
@@ -161,10 +178,13 @@ def batch_update_values(ws, updates):
 
 def write_block(ws, start_row, start_col, data):
     """Escribe un bloque de datos 2D empezando en (start_row, start_col)."""
-    end_row = start_row + len(data) - 1
-    end_col = start_col + len(data[0]) - 1
+    max_cols = max(len(row) for row in data)
+    # Normalizar: todas las filas al mismo ancho
+    normalized = [row + [""] * (max_cols - len(row)) for row in data]
+    end_row = start_row + len(normalized) - 1
+    end_col = start_col + max_cols - 1
     range_str = f"{col_letter(start_col)}{start_row}:{col_letter(end_col)}{end_row}"
-    ws.update(range_str, data, value_input_option="USER_ENTERED")
+    ws.update(range_str, normalized, value_input_option="USER_ENTERED")
 
 
 def create_conditional_format_rule(ws, range_str, condition_type, values, format_dict):
@@ -230,17 +250,29 @@ def add_chart(spreadsheet, ws, chart_spec):
     spreadsheet.batch_update(body)
 
 
-def make_source_range(ws_id, start_row, end_row, start_col, end_col):
-    """Crea un sourceRange para gráficos."""
+def _source_range(ws_id, start_row, end_row, start_col, end_col):
+    """Crea el objeto sourceRange interno."""
     return {
-        "sources": [{
-            "sheetId": ws_id,
-            "startRowIndex": start_row - 1,
-            "endRowIndex": end_row,
-            "startColumnIndex": start_col - 1,
-            "endColumnIndex": end_col,
-        }]
+        "sourceRange": {
+            "sources": [{
+                "sheetId": ws_id,
+                "startRowIndex": start_row - 1,
+                "endRowIndex": end_row,
+                "startColumnIndex": start_col - 1,
+                "endColumnIndex": end_col,
+            }]
+        }
     }
+
+
+def make_source_range(ws_id, start_row, end_row, start_col, end_col):
+    """Crea un sourceRange para series de gráficos (compatibilidad)."""
+    return _source_range(ws_id, start_row, end_row, start_col, end_col)
+
+
+def make_domain_range(ws_id, start_row, end_row, start_col, end_col):
+    """Crea un domain range para el eje X de gráficos."""
+    return {"domain": _source_range(ws_id, start_row, end_row, start_col, end_col)}
 
 
 # ─── Datos fiscales ─────────────────────────────────────────────────────────
@@ -380,7 +412,7 @@ def create_tab_hipoteca(spreadsheet, ws):
                     {"position": "BOTTOM_AXIS", "title": "Mes"},
                     {"position": "LEFT_AXIS", "title": "Euros (€)"},
                 ],
-                "domains": [make_source_range(ws.id, 19, 19 + min(int(300), 360), 1, 1)],
+                "domains": [make_domain_range(ws.id, 19, 19 + min(int(300), 360), 1, 1)],
                 "series": [
                     {"series": make_source_range(ws.id, 19, 19 + min(300, 360), 3, 3),
                      "targetAxis": "LEFT_AXIS", "color": COLOR_RED},
@@ -477,7 +509,7 @@ def create_tab_interes_compuesto(spreadsheet, ws):
                     {"position": "BOTTOM_AXIS", "title": "Años"},
                     {"position": "LEFT_AXIS", "title": "Euros (€)"},
                 ],
-                "domains": [make_source_range(ws.id, 16, 67, 1, 1)],
+                "domains": [make_domain_range(ws.id, 16, 67, 1, 1)],
                 "series": [
                     {"series": make_source_range(ws.id, 16, 67, 2, 2),
                      "targetAxis": "LEFT_AXIS", "color": {"red": 0.6, "green": 0.6, "blue": 0.6}},
@@ -563,7 +595,7 @@ def create_tab_comparador_prestamos(spreadsheet, ws):
                     {"position": "BOTTOM_AXIS", "title": ""},
                     {"position": "LEFT_AXIS", "title": "Euros (€)"},
                 ],
-                "domains": [make_source_range(ws.id, 4, 4, 3, 3)],
+                "domains": [make_domain_range(ws.id, 4, 4, 3, 3)],
                 "series": [
                     {"series": make_source_range(ws.id, 13, 13, 3, 3), "color": {"red": 0.26, "green": 0.52, "blue": 0.96}},
                     {"series": make_source_range(ws.id, 13, 13, 5, 5), "color": {"red": 0.96, "green": 0.52, "blue": 0.26}},
@@ -703,7 +735,7 @@ def create_tab_inflacion(spreadsheet, ws):
                     {"position": "BOTTOM_AXIS", "title": "Años"},
                     {"position": "LEFT_AXIS", "title": "Euros (€)"},
                 ],
-                "domains": [make_source_range(ws.id, 15, 56, 1, 1)],
+                "domains": [make_domain_range(ws.id, 15, 56, 1, 1)],
                 "series": [
                     {"series": make_source_range(ws.id, 15, 56, 2, 2), "color": {"red": 0.5, "green": 0.5, "blue": 0.5}},
                     {"series": make_source_range(ws.id, 15, 56, 3, 3), "color": COLOR_RED},
@@ -1207,7 +1239,7 @@ def create_tab_fire(spreadsheet, ws):
                     {"position": "BOTTOM_AXIS", "title": "Años"},
                     {"position": "LEFT_AXIS", "title": "Patrimonio (€)"},
                 ],
-                "domains": [make_source_range(ws.id, 16, 67, 1, 1)],
+                "domains": [make_domain_range(ws.id, 16, 67, 1, 1)],
                 "series": [
                     {"series": make_source_range(ws.id, 16, 67, 2, 2), "color": COLOR_GREEN},
                 ],
@@ -2165,7 +2197,18 @@ def main():
     print(f"Creando spreadsheet: {SPREADSHEET_TITLE}")
     spreadsheet = gc.create(SPREADSHEET_TITLE)
     spreadsheet_url = f"https://docs.google.com/spreadsheets/d/{spreadsheet.id}"
-    print(f"  ✓ Creado: {spreadsheet_url}\n")
+    print(f"  ✓ Creado: {spreadsheet_url}")
+
+    # Forzar locale a en_US para que las fórmulas con comas funcionen
+    spreadsheet.batch_update({
+        "requests": [{
+            "updateSpreadsheetProperties": {
+                "properties": {"locale": "en_US"},
+                "fields": "locale"
+            }
+        }]
+    })
+    print("  ✓ Locale: en_US (fórmulas con comas)\n")
 
     # Renombrar Sheet1 como Índice
     ws_indice = spreadsheet.sheet1
@@ -2221,10 +2264,13 @@ def main():
         ("24. Plan Pensiones vs Fondo", create_tab_plan_vs_fondo),
     ]
 
-    for name, creator in tab_creators:
+    for i, (name, creator) in enumerate(tab_creators):
         try:
             ws = worksheets[name]
-            creator(spreadsheet, ws)
+            retry_on_quota(creator, spreadsheet, ws)
+            print(f"  ✓ {name}")
+            if i % 3 == 2:
+                rate_limit(5)  # pausa extra cada 3 pestañas
         except Exception as e:
             print(f"  ✗ Error en {name}: {e}")
 
