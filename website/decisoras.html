@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NumerosClaros — Calculadoras Decisoras</title>
+  <style>
+    :root {
+      --nc-primary: #1a56db;
+      --nc-text: #111827;
+      --nc-muted: #6b7280;
+      --nc-bg: #f9fafb;
+      --nc-border: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--nc-bg);
+      color: var(--nc-text);
+      line-height: 1.6;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 24px 40px;
+      background: white;
+      border-bottom: 1px solid var(--nc-border);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--nc-text);
+    }
+
+    .hero h1 span { color: var(--nc-primary); }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--nc-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px 24px;
+      background: white;
+      border-bottom: 1px solid var(--nc-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav a {
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--nc-muted);
+      border: 1px solid var(--nc-border);
+      transition: all 0.15s;
+    }
+
+    .nav a:hover {
+      color: var(--nc-primary);
+      border-color: var(--nc-primary);
+      background: rgba(26, 86, 219, 0.05);
+    }
+
+    .section {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .section-header p {
+      color: var(--nc-muted);
+      font-size: 0.95rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--nc-border);
+      margin: 60px auto;
+      max-width: 960px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--nc-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--nc-primary);
+      text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.8rem; }
+      .hero { padding: 40px 16px 24px; }
+      .nav { gap: 4px; }
+      .nav a { font-size: 0.8rem; padding: 6px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>Numeros<span>Claros</span></h1>
+    <p>Calculadoras que no solo calculan — te dicen qué hacer. Ejecutan ambos escenarios, los comparan, y te dan un veredicto claro.</p>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html" style="background:var(--nc-bg);border-color:var(--nc-primary);color:var(--nc-primary);">Inicio</a>
+    <a href="calculadoras.html" style="background:var(--nc-bg);border-color:var(--nc-primary);color:var(--nc-primary);">Calculadoras</a>
+    <a href="#comprar-vs-alquilar">Comprar vs Alquilar</a>
+    <a href="#fijo-vs-variable">Fijo vs Variable</a>
+    <a href="#amortizar-vs-invertir">Amortizar vs Invertir</a>
+    <a href="#snowball-vs-avalanche">Snowball vs Avalanche</a>
+    <a href="#pension-vs-fondo">Pensiones vs Fondos</a>
+  </nav>
+
+  <!-- 1. Comprar vs Alquilar -->
+  <div class="section" id="comprar-vs-alquilar">
+    <div class="section-header">
+      <h2>Comprar vs Alquilar</h2>
+      <p>La gran pregunta. Compara el coste total y patrimonio acumulado de comprar una vivienda frente a alquilar e invertir la diferencia.</p>
+    </div>
+    <calc-comprar-vs-alquilar></calc-comprar-vs-alquilar>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 2. Fijo vs Variable -->
+  <div class="section" id="fijo-vs-variable">
+    <div class="section-header">
+      <h2>Hipoteca Fija vs Variable</h2>
+      <p>Simula 3 escenarios de Euribor futuro. Descubre cuál te conviene según tu tolerancia al riesgo.</p>
+    </div>
+    <calc-fijo-vs-variable></calc-fijo-vs-variable>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 3. Amortizar vs Invertir -->
+  <div class="section" id="amortizar-vs-invertir">
+    <div class="section-header">
+      <h2>Amortizar vs Invertir</h2>
+      <p>Si tienes dinero extra, ¿mejor reducir la hipoteca o invertirlo? Incluye el efecto fiscal y el punto de equilibrio.</p>
+    </div>
+    <calc-amortizar-vs-invertir></calc-amortizar-vs-invertir>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 4. Snowball vs Avalanche -->
+  <div class="section" id="snowball-vs-avalanche">
+    <div class="section-header">
+      <h2>Snowball vs Avalanche</h2>
+      <p>Dos estrategias para pagar múltiples deudas. Una optimiza los intereses, la otra la motivación. ¿Cuál te conviene?</p>
+    </div>
+    <calc-snowball-vs-avalanche></calc-snowball-vs-avalanche>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 5. Plan de Pensiones vs Fondo Indexado -->
+  <div class="section" id="pension-vs-fondo">
+    <div class="section-header">
+      <h2>Plan de Pensiones vs Fondo Indexado</h2>
+      <p>Comparativa fiscal completa para España. Desgravar ahora o tributar menos al rescatar — ¿qué te deja más dinero?</p>
+    </div>
+    <calc-pension-vs-fondo></calc-pension-vs-fondo>
+  </div>
+
+  <footer>
+    <p>NumerosClaros — Calculadoras financieras open source en español.</p>
+    <p>Los cálculos son orientativos. Consulta con un asesor financiero para decisiones importantes.</p>
+  </footer>
+
+  <script src="assets/numerosclaros-all.umd.js"></script>
+
+</body>
+</html>
