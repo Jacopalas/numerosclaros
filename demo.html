@@ -173,9 +173,11 @@
       font-weight: 600;
     }
     .nav-link .nav-icon {
-      font-size: 1rem;
       width: 20px;
-      text-align: center;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
     }
 
@@ -492,69 +494,69 @@
   <aside class="app-sidebar" id="sidebar">
     <nav class="sidebar-nav" aria-label="Navegación">
       <a href="#" class="nav-link active" data-target="home" onclick="showHome(); return false;">
-        <span class="nav-icon">🏠</span> Inicio
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16L16 6l11 10"/><path d="M8 14v12h16V14"/><rect x="13" y="20" width="6" height="6"/></svg></span> Inicio
       </a>
 
       <div class="sidebar-section-label">Básicas</div>
       <a href="#" class="nav-link" data-target="hipoteca" onclick="showCalc('hipoteca'); return false;">
-        <span class="nav-icon">🏠</span> Hipoteca
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16L16 6l11 10"/><path d="M8 14v12h16V14"/><rect x="13" y="20" width="6" height="6"/></svg></span> Hipoteca
       </a>
       <a href="#" class="nav-link" data-target="interes-compuesto" onclick="showCalc('interes-compuesto'); return false;">
-        <span class="nav-icon">📈</span> Interés Compuesto
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,26 10,20 16,22 22,12 28,6"/><polyline points="22,6 28,6 28,12"/></svg></span> Interés Compuesto
       </a>
       <a href="#" class="nav-link" data-target="roi" onclick="showCalc('roi'); return false;">
-        <span class="nav-icon">💰</span> Rentabilidad (ROI)
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="10"/><path d="M13 13c0-1.5 1.3-2 3-2s3 .5 3 2-1.3 2-3 2-3 .5-3 2 1.3 2 3 2 3-.5 3-2"/><line x1="16" y1="9" x2="16" y2="11"/><line x1="16" y1="21" x2="16" y2="23"/></svg></span> Rentabilidad (ROI)
       </a>
       <a href="#" class="nav-link" data-target="inflacion" onclick="showCalc('inflacion'); return false;">
-        <span class="nav-icon">📉</span> Inflación
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,6 10,12 16,10 22,20 28,26"/><polyline points="22,26 28,26 28,20"/></svg></span> Inflación
       </a>
       <a href="#" class="nav-link" data-target="comparador-prestamos" onclick="showCalc('comparador-prestamos'); return false;">
-        <span class="nav-icon">⚖️</span> Comparar Préstamos
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="6" x2="16" y2="26"/><line x1="6" y1="10" x2="26" y2="10"/><path d="M6 10l-2 8h8l-2-8"/><path d="M22 10l-2 8h8l-2-8"/><line x1="12" y1="26" x2="20" y2="26"/></svg></span> Comparar Préstamos
       </a>
       <a href="#" class="nav-link" data-target="deuda" onclick="showCalc('deuda'); return false;">
-        <span class="nav-icon">💳</span> Eliminar Deudas
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="24" height="18" rx="2"/><line x1="4" y1="14" x2="28" y2="14"/><line x1="8" y1="20" x2="16" y2="20"/></svg></span> Eliminar Deudas
       </a>
       <a href="#" class="nav-link" data-target="presupuesto" onclick="showCalc('presupuesto'); return false;">
-        <span class="nav-icon">📊</span> Presupuesto 50/30/20
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="10"/><path d="M16 6v10h10" fill="none"/><path d="M16 16l7 7"/></svg></span> Presupuesto 50/30/20
       </a>
       <a href="#" class="nav-link" data-target="fondo-emergencia" onclick="showCalc('fondo-emergencia'); return false;">
-        <span class="nav-icon">🛟</span> Fondo de Emergencia
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L6 8v6c0 7 4.3 13.3 10 16 5.7-2.7 10-9 10-16V8z"/></svg></span> Fondo de Emergencia
       </a>
       <a href="#" class="nav-link" data-target="meta-ahorro" onclick="showCalc('meta-ahorro'); return false;">
-        <span class="nav-icon">🎯</span> Ahorro por Objetivo
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#1a56db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="6"/><circle cx="16" cy="16" r="2"/></svg></span> Ahorro por Objetivo
       </a>
 
       <div class="sidebar-divider"></div>
       <div class="sidebar-section-label">España</div>
       <a href="#" class="nav-link" data-target="irpf" onclick="showCalc('irpf'); return false;">
-        <span class="nav-icon">🇪🇸</span> Simulador IRPF
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h10l6 6v18H8z"/><path d="M18 4v6h6"/><text x="11" y="22" font-size="8" font-weight="bold" fill="#059669" stroke="none" font-family="sans-serif">%</text></svg></span> Simulador IRPF
       </a>
       <a href="#" class="nav-link" data-target="sueldo-neto" onclick="showCalc('sueldo-neto'); return false;">
-        <span class="nav-icon">💶</span> Sueldo Neto
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="24" height="16" rx="2"/><circle cx="16" cy="16" r="4"/><circle cx="8" cy="16" r="1.5"/><circle cx="24" cy="16" r="1.5"/></svg></span> Sueldo Neto
       </a>
       <a href="#" class="nav-link" data-target="cuota-autonomos" onclick="showCalc('cuota-autonomos'); return false;">
-        <span class="nav-icon">👤</span> Cuota Autónomos
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="10" r="4"/><path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span> Cuota Autónomos
       </a>
       <a href="#" class="nav-link" data-target="autonomo-vs-sl" onclick="showCalc('autonomo-vs-sl'); return false;">
-        <span class="nav-icon">🏢</span> Autónomo vs SL
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="16" height="20" rx="1"/><rect x="11" y="10" width="4" height="3"/><rect x="17" y="10" width="4" height="3"/><rect x="11" y="16" width="4" height="3"/><rect x="17" y="16" width="4" height="3"/><rect x="14" y="22" width="4" height="4"/></svg></span> Autónomo vs SL
       </a>
       <a href="#" class="nav-link" data-target="gastos-vivienda" onclick="showCalc('gastos-vivienda'); return false;">
-        <span class="nav-icon">🏗️</span> Gastos Compra Vivienda
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="5"/><path d="M14 14l12 12"/><path d="M22 22l4 0"/><path d="M19 19l4 0"/></svg></span> Gastos Compra Vivienda
       </a>
       <a href="#" class="nav-link" data-target="plusvalia" onclick="showCalc('plusvalia'); return false;">
-        <span class="nav-icon">🏛️</span> Plusvalía Municipal
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="26" width="24" height="2" rx="1"/><path d="M16 4l12 8H4z"/><rect x="6" y="12" width="2" height="14"/><line x1="12" y1="12" x2="12" y2="26"/><line x1="20" y1="12" x2="20" y2="26"/><rect x="24" y="12" width="2" height="14"/></svg></span> Plusvalía Municipal
       </a>
       <a href="#" class="nav-link" data-target="pension" onclick="showCalc('pension'); return false;">
-        <span class="nav-icon">🏖️</span> Simulador Pensión
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h12"/><path d="M10 28h12"/><path d="M11 4c0 6 5 8 5 12s-5 6-5 12"/><path d="M21 4c0 6-5 8-5 12s5 6 5 12"/></svg></span> Simulador Pensión
       </a>
       <a href="#" class="nav-link" data-target="rescate-pensiones" onclick="showCalc('rescate-pensiones'); return false;">
-        <span class="nav-icon">💼</span> Rescate Pensiones
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="24" height="14" rx="2"/><path d="M12 12V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"/><line x1="4" y1="18" x2="28" y2="18"/></svg></span> Rescate Pensiones
       </a>
       <a href="#" class="nav-link" data-target="fire-espana" onclick="showCalc('fire-espana'); return false;">
-        <span class="nav-icon">🔥</span> FIRE España
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4c0 4-6 6-6 12a8 8 0 0 0 12 0c0-3-2-4-2-6s2-3 2-6"/><path d="M16 28a4 4 0 0 1-4-4c0-2 2-3 4-5 2 2 4 3 4 5a4 4 0 0 1-4 4"/></svg></span> FIRE España
       </a>
       <a href="#" class="nav-link" data-target="comparador-ccaa" onclick="showCalc('comparador-ccaa'); return false;">
-        <span class="nav-icon">🗺️</span> Comparador por CCAA
+        <span class="nav-icon"><svg viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l8 3v18l-8-3z"/><path d="M12 9l8-3v18l-8 3z"/><path d="M20 6l8-3v18l-8 3z"/></svg></span> Comparador por CCAA
       </a>
     </nav>
   </aside>
@@ -575,55 +577,55 @@
         <div class="grid-section-label">Calculadoras Básicas</div>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('hipoteca')">
-          <div class="grid-card-icon blue">🏠</div>
+          <div class="grid-card-icon blue"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16L16 6l11 10"/><path d="M8 14v12h16V14"/><rect x="13" y="20" width="6" height="6"/></svg></div>
           <div class="grid-card-title">Hipoteca</div>
           <div class="grid-card-desc">Cuota mensual, tabla de amortización y cuánto pagas realmente en intereses.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('interes-compuesto')">
-          <div class="grid-card-icon green">📈</div>
+          <div class="grid-card-icon green"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,26 10,20 16,22 22,12 28,6"/><polyline points="22,6 28,6 28,12"/></svg></div>
           <div class="grid-card-title">Interés Compuesto</div>
           <div class="grid-card-desc">El efecto bola de nieve: cómo crece tu dinero cuando reinviertes los intereses.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('roi')">
-          <div class="grid-card-icon purple">💰</div>
+          <div class="grid-card-icon purple"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="10"/><path d="M13 13c0-1.5 1.3-2 3-2s3 .5 3 2-1.3 2-3 2-3 .5-3 2 1.3 2 3 2 3-.5 3-2"/><line x1="16" y1="9" x2="16" y2="11"/><line x1="16" y1="21" x2="16" y2="23"/></svg></div>
           <div class="grid-card-title">Rentabilidad (ROI)</div>
           <div class="grid-card-desc">Mide el retorno real de cualquier inversión o gasto.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('inflacion')">
-          <div class="grid-card-icon orange">📉</div>
+          <div class="grid-card-icon orange"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,6 10,12 16,10 22,20 28,26"/><polyline points="22,26 28,26 28,20"/></svg></div>
           <div class="grid-card-title">Inflación</div>
           <div class="grid-card-desc">Cuánto poder de compra pierdes con el tiempo si no inviertes.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('comparador-prestamos')">
-          <div class="grid-card-icon teal">⚖️</div>
+          <div class="grid-card-icon teal"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#0d9488" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="16" y1="6" x2="16" y2="26"/><line x1="6" y1="10" x2="26" y2="10"/><path d="M6 10l-2 8h8l-2-8"/><path d="M22 10l-2 8h8l-2-8"/><line x1="12" y1="26" x2="20" y2="26"/></svg></div>
           <div class="grid-card-title">Comparar Préstamos</div>
           <div class="grid-card-desc">Hasta 3 opciones lado a lado para elegir el mejor préstamo.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('deuda')">
-          <div class="grid-card-icon red">💳</div>
+          <div class="grid-card-icon red"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="24" height="18" rx="2"/><line x1="4" y1="14" x2="28" y2="14"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div>
           <div class="grid-card-title">Eliminar Deudas</div>
           <div class="grid-card-desc">Estrategias Snowball y Avalanche para librarte de tus deudas.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('presupuesto')">
-          <div class="grid-card-icon blue">📊</div>
+          <div class="grid-card-icon blue"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="10"/><path d="M16 6v10h10" fill="none"/><path d="M16 16l7 7"/></svg></div>
           <div class="grid-card-title">Presupuesto 50/30/20</div>
           <div class="grid-card-desc">Distribuye tu sueldo de forma equilibrada entre necesidades, caprichos y ahorro.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('fondo-emergencia')">
-          <div class="grid-card-icon green">🛟</div>
+          <div class="grid-card-icon green"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4L6 8v6c0 7 4.3 13.3 10 16 5.7-2.7 10-9 10-16V8z"/></svg></div>
           <div class="grid-card-title">Fondo de Emergencia</div>
           <div class="grid-card-desc">Cuánto necesitas ahorrado para dormir tranquilo y cuánto te falta.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('meta-ahorro')">
-          <div class="grid-card-icon purple">🎯</div>
+          <div class="grid-card-icon purple"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="6"/><circle cx="16" cy="16" r="2"/></svg></div>
           <div class="grid-card-title">Ahorro por Objetivo</div>
           <div class="grid-card-desc">Cuánto tienes que ahorrar al mes para llegar a tu meta en plazo.</div>
         </a>
@@ -632,61 +634,61 @@
         <div class="grid-section-label">España — Fiscal e Inmobiliario</div>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('irpf')">
-          <div class="grid-card-icon orange">🇪🇸</div>
+          <div class="grid-card-icon orange"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h10l6 6v18H8z"/><path d="M18 4v6h6"/><text x="11" y="22" font-size="8" font-weight="bold" fill="#d97706" stroke="none" font-family="sans-serif">%</text></svg></div>
           <div class="grid-card-title">Simulador IRPF</div>
           <div class="grid-card-desc">Calcula tu impuesto sobre la renta con los tramos actuales.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('sueldo-neto')">
-          <div class="grid-card-icon blue">💶</div>
+          <div class="grid-card-icon blue"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="24" height="16" rx="2"/><circle cx="16" cy="16" r="4"/><circle cx="8" cy="16" r="1.5"/><circle cx="24" cy="16" r="1.5"/></svg></div>
           <div class="grid-card-title">Sueldo Neto</div>
           <div class="grid-card-desc">De bruto a neto: cuánto te queda realmente cada mes.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('cuota-autonomos')">
-          <div class="grid-card-icon green">👤</div>
+          <div class="grid-card-icon green"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="10" r="4"/><path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
           <div class="grid-card-title">Cuota de Autónomos</div>
           <div class="grid-card-desc">Cuánto pagas a la Seguridad Social según tus ingresos reales.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('autonomo-vs-sl')">
-          <div class="grid-card-icon purple">🏢</div>
+          <div class="grid-card-icon purple"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="16" height="20" rx="1"/><rect x="11" y="10" width="4" height="3"/><rect x="17" y="10" width="4" height="3"/><rect x="11" y="16" width="4" height="3"/><rect x="17" y="16" width="4" height="3"/><rect x="14" y="22" width="4" height="4"/></svg></div>
           <div class="grid-card-title">Autónomo vs SL</div>
           <div class="grid-card-desc">Compara impuestos y costes entre ser autónomo o crear una Sociedad Limitada.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('gastos-vivienda')">
-          <div class="grid-card-icon orange">🏗️</div>
+          <div class="grid-card-icon orange"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="5"/><path d="M14 14l12 12"/><path d="M22 22l4 0"/><path d="M19 19l4 0"/></svg></div>
           <div class="grid-card-title">Gastos Compra Vivienda</div>
           <div class="grid-card-desc">Notaría, registro, impuestos... todo lo que pagas además del precio.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('plusvalia')">
-          <div class="grid-card-icon teal">🏛️</div>
+          <div class="grid-card-icon teal"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#0d9488" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="26" width="24" height="2" rx="1"/><path d="M16 4l12 8H4z"/><rect x="6" y="12" width="2" height="14"/><line x1="12" y1="12" x2="12" y2="26"/><line x1="20" y1="12" x2="20" y2="26"/><rect x="24" y="12" width="2" height="14"/></svg></div>
           <div class="grid-card-title">Plusvalía Municipal</div>
           <div class="grid-card-desc">El impuesto que se paga al vender o heredar un inmueble.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('pension')">
-          <div class="grid-card-icon blue">🏖️</div>
+          <div class="grid-card-icon blue"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#1a56db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4h12"/><path d="M10 28h12"/><path d="M11 4c0 6 5 8 5 12s-5 6-5 12"/><path d="M21 4c0 6-5 8-5 12s5 6 5 12"/></svg></div>
           <div class="grid-card-title">Simulador de Pensión</div>
           <div class="grid-card-desc">Estima cuánto cobrarás de pensión pública cuando te jubiles.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('rescate-pensiones')">
-          <div class="grid-card-icon red">💼</div>
+          <div class="grid-card-icon red"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="12" width="24" height="14" rx="2"/><path d="M12 12V8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"/><line x1="4" y1="18" x2="28" y2="18"/></svg></div>
           <div class="grid-card-title">Rescate Plan de Pensiones</div>
           <div class="grid-card-desc">Cómo rescatar tu plan de pensiones pagando los menos impuestos posibles.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('fire-espana')">
-          <div class="grid-card-icon orange">🔥</div>
+          <div class="grid-card-icon orange"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4c0 4-6 6-6 12a8 8 0 0 0 12 0c0-3-2-4-2-6s2-3 2-6"/><path d="M16 28a4 4 0 0 1-4-4c0-2 2-3 4-5 2 2 4 3 4 5a4 4 0 0 1-4 4"/></svg></div>
           <div class="grid-card-title">FIRE España</div>
           <div class="grid-card-desc">Cuántos años necesitas para alcanzar la independencia financiera en España.</div>
         </a>
 
         <a class="calc-grid-card fade-in" onclick="showCalc('comparador-ccaa')">
-          <div class="grid-card-icon green">🗺️</div>
+          <div class="grid-card-icon green"><svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l8 3v18l-8-3z"/><path d="M12 9l8-3v18l-8 3z"/><path d="M20 6l8-3v18l-8 3z"/></svg></div>
           <div class="grid-card-title">Comparador por CCAA</div>
           <div class="grid-card-desc">Compara impuestos, costes y condiciones entre Comunidades Autónomas.</div>
         </a>
