@@ -4,129 +4,619 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NumerosClaros — Calculadoras Financieras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #1a56db;
+      --accent-light: #e8effc;
+      --accent-dark: #1e40af;
+      --bg: #f8f9fb;
+      --bg-card: #ffffff;
+      --text: #111827;
+      --text-muted: #6b7280;
+      --text-faint: #9ca3af;
+      --border: #e5e7eb;
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.12);
+      --radius: 16px;
+      --sidebar-width: 260px;
+      --header-height: 320px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 2rem;
+    }
+
     body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #f3f4f6;
-      color: #111827;
-      line-height: 1.5;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background var(--transition), color var(--transition);
     }
-    header {
-      background: #1a56db;
+
+    /* ── Header ─────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #1a56db 0%, #3b82f6 50%, #6366f1 100%);
       color: white;
-      padding: 2rem 1.5rem;
+      padding: 5rem 2rem 4rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    header h1 {
-      font-size: 2rem;
-      font-weight: 800;
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%),
+                  radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+    }
+    .hero .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      font-weight: 400;
+      line-height: 1.6;
       margin-bottom: 0.5rem;
     }
-    header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    .grid {
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 768px) {
-      .grid { grid-template-columns: 1fr 1fr; }
-      .grid > :first-child { grid-column: 1 / -1; }
-    }
-    .section-title {
+    .hero .version-badge {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.35rem 1rem;
+      background: rgba(255,255,255,0.15);
+      border-radius: 999px;
       font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* ── Layout ──────────────────────────────────────────────── */
+    .page-layout {
+      display: flex;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* ── Sidebar / TOC ───────────────────────────────────────── */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: var(--sidebar-width);
+      min-width: var(--sidebar-width);
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      transition: background var(--transition), border-color var(--transition);
+    }
+    .sidebar-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-faint);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .sidebar nav a {
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      line-height: 1.4;
+    }
+    .sidebar nav a:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .sidebar nav a.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .sidebar nav .nav-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0.75rem 0;
+    }
+
+    /* ── Main Content ────────────────────────────────────────── */
+    .main-content {
+      flex: 1;
+      min-width: 0;
+      padding: 3rem 3rem 6rem;
+    }
+
+    /* ── Section ─────────────────────────────────────────────── */
+    .section {
+      margin-bottom: 4rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      transition: color var(--transition);
+    }
+
+    /* ── Card ────────────────────────────────────────────────── */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      padding: 2rem;
+      margin-bottom: 3rem;
+      max-width: 1100px;
+      transition: box-shadow var(--transition), background var(--transition), transform var(--transition);
+      border: 1px solid var(--border);
+      /* Note: calculator web components use shadow DOM, so we cannot inject
+         styles (e.g. collapsible tables) into their internals from here.
+         We give generous padding and full width to accommodate complex widgets. */
+    }
+    .card:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-2px);
+    }
+    .card-label {
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #6b7280;
-      margin: 2rem 0 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #e5e7eb;
+      color: var(--text-faint);
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
+
+    /* ── Fade-in animation ───────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Theme toggle ────────────────────────────────────────── */
     .theme-toggle {
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      background: #1a56db;
-      color: white;
-      border: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
       border-radius: 999px;
-      padding: 0.75rem 1.25rem;
+      padding: 0.6rem 1.25rem;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-family: inherit;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
       z-index: 100;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(12px);
     }
-    .theme-toggle:hover { background: #1e40af; }
+    .theme-toggle:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+      transform: translateY(-1px);
+    }
+    .theme-toggle .icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
     footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
       text-align: center;
-      padding: 2rem;
-      color: #6b7280;
-      font-size: 0.85rem;
+      transition: border-color var(--transition);
     }
-    footer a { color: #1a56db; }
+    footer .footer-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    footer a:hover { text-decoration: underline; }
+    footer .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    footer code {
+      background: var(--accent-light);
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--accent-dark);
+    }
+
+    /* ── Dark theme overrides ────────────────────────────────── */
+    body.dark {
+      --bg: #0f1117;
+      --bg-card: #1a1d27;
+      --text: #f1f3f5;
+      --text-muted: #9ca3af;
+      --text-faint: #6b7280;
+      --border: #2d3140;
+      --accent-light: rgba(26,86,219,0.15);
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
+      --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    body.dark .hero {
+      background: linear-gradient(135deg, #111827 0%, #1e293b 50%, #1a1d27 100%);
+    }
+    body.dark .hero::before {
+      background: radial-gradient(circle at 30% 50%, rgba(26,86,219,0.2) 0%, transparent 60%),
+                  radial-gradient(circle at 70% 80%, rgba(99,102,241,0.1) 0%, transparent 40%);
+    }
+    body.dark footer code {
+      background: rgba(26,86,219,0.2);
+      color: #93b4f4;
+    }
+
+    /* ── Mobile responsive ───────────────────────────────────── */
+    .mobile-nav {
+      display: none;
+    }
+    @media (max-width: 1024px) {
+      .sidebar { display: none; }
+      .main-content { padding: 2rem 1.5rem 6rem; }
+      .hero h1 { font-size: 2.25rem; }
+      .card { padding: 1.5rem; }
+
+      .mobile-nav {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 1rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        transition: background var(--transition), border-color var(--transition);
+      }
+      .mobile-nav a {
+        display: inline-block;
+        padding: 0.4rem 0.8rem;
+        border-radius: 8px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        text-decoration: none;
+        margin-right: 0.25rem;
+      }
+      .mobile-nav a:hover,
+      .mobile-nav a.active {
+        background: var(--accent-light);
+        color: var(--accent);
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>NumerosClaros</h1>
-    <p>Calculadoras financieras open source. Embeddables con una sola línea de HTML.</p>
+
+  <!-- ── Hero ────────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>NumerosClaros</h1>
+      <p class="subtitle">Calculadoras financieras open source.<br>Embeddables con una sola linea de HTML.</p>
+      <span class="version-badge">v1.0.0 &middot; Open Source</span>
+    </div>
   </header>
 
-  <div class="container">
-    <div class="section-title">Hipotecas y Préstamos</div>
-    <div class="grid">
-      <calc-hipoteca></calc-hipoteca>
-      <calc-comparador-prestamos></calc-comparador-prestamos>
-    </div>
-
-    <div class="section-title">Inversión y Rentabilidad</div>
-    <div class="grid">
-      <calc-interes-compuesto></calc-interes-compuesto>
-      <calc-roi></calc-roi>
-      <calc-inflacion></calc-inflacion>
-    </div>
-
-    <div class="section-title">Deuda y Presupuesto</div>
-    <div class="grid">
-      <calc-deuda></calc-deuda>
-      <calc-presupuesto></calc-presupuesto>
-    </div>
-
-    <div class="section-title">Ahorro</div>
-    <div class="grid">
-      <calc-fondo-emergencia></calc-fondo-emergencia>
-      <calc-meta-ahorro></calc-meta-ahorro>
-    </div>
+  <!-- ── Mobile nav (visible < 1024px) ──────────────────────── -->
+  <div class="mobile-nav" role="navigation" aria-label="Secciones (movil)">
+    <a href="#hipotecas">Hipotecas</a>
+    <a href="#inversion">Inversion</a>
+    <a href="#deuda">Deuda</a>
+    <a href="#ahorro">Ahorro</a>
+    <a href="#fiscal">Fiscal</a>
+    <a href="#inmobiliario">Inmobiliario</a>
+    <a href="#fire">Jubilacion</a>
+    <a href="#comparadores">Comparadores</a>
   </div>
 
+  <div class="page-layout">
+
+    <!-- ── Sidebar ─────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <div class="sidebar-label">Calculadoras</div>
+      <nav aria-label="Tabla de contenidos">
+        <a href="#hipotecas">Hipotecas y Prestamos</a>
+        <a href="#inversion">Inversion y Rentabilidad</a>
+        <a href="#deuda">Deuda y Presupuesto</a>
+        <a href="#ahorro">Ahorro</a>
+        <div class="nav-divider"></div>
+        <a href="#fiscal">Espana — Fiscal</a>
+        <a href="#inmobiliario">Espana — Inmobiliario</a>
+        <a href="#fire">Espana — Jubilacion y FIRE</a>
+        <a href="#comparadores">Espana — Comparadores</a>
+      </nav>
+    </aside>
+
+    <!-- ── Main ────────────────────────────────────────────── -->
+    <main class="main-content">
+
+      <!-- Hipotecas y Prestamos -->
+      <section id="hipotecas" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">🏠</div>
+          <h2>Hipotecas y Prestamos</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Simulador de hipoteca</div>
+          <calc-hipoteca></calc-hipoteca>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Comparador de prestamos</div>
+          <calc-comparador-prestamos></calc-comparador-prestamos>
+        </div>
+      </section>
+
+      <!-- Inversion y Rentabilidad -->
+      <section id="inversion" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">📈</div>
+          <h2>Inversion y Rentabilidad</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Interes compuesto</div>
+          <calc-interes-compuesto></calc-interes-compuesto>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Retorno de la inversion (ROI)</div>
+          <calc-roi></calc-roi>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Calculadora de inflacion</div>
+          <calc-inflacion></calc-inflacion>
+        </div>
+      </section>
+
+      <!-- Deuda y Presupuesto -->
+      <section id="deuda" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">💳</div>
+          <h2>Deuda y Presupuesto</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Plan de pago de deuda</div>
+          <calc-deuda></calc-deuda>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Presupuesto personal</div>
+          <calc-presupuesto></calc-presupuesto>
+        </div>
+      </section>
+
+      <!-- Ahorro -->
+      <section id="ahorro" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">🐷</div>
+          <h2>Ahorro</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Fondo de emergencia</div>
+          <calc-fondo-emergencia></calc-fondo-emergencia>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Meta de ahorro</div>
+          <calc-meta-ahorro></calc-meta-ahorro>
+        </div>
+      </section>
+
+      <!-- Espana — Fiscal -->
+      <section id="fiscal" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">🇪🇸</div>
+          <h2>Espana — Fiscal</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Simulador de IRPF</div>
+          <calc-irpf></calc-irpf>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Sueldo neto</div>
+          <calc-sueldo-neto></calc-sueldo-neto>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Cuota de autonomos</div>
+          <calc-cuota-autonomos></calc-cuota-autonomos>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Autonomo vs. Sociedad Limitada</div>
+          <calc-autonomo-vs-sl></calc-autonomo-vs-sl>
+        </div>
+      </section>
+
+      <!-- Espana — Inmobiliario -->
+      <section id="inmobiliario" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">🏗️</div>
+          <h2>Espana — Inmobiliario</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Gastos de compra de vivienda</div>
+          <calc-gastos-vivienda></calc-gastos-vivienda>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Plusvalia municipal</div>
+          <calc-plusvalia></calc-plusvalia>
+        </div>
+      </section>
+
+      <!-- Espana — Jubilacion y FIRE -->
+      <section id="fire" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">🔥</div>
+          <h2>Espana — Jubilacion y FIRE</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Simulador de pension</div>
+          <calc-pension></calc-pension>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Rescate de plan de pensiones</div>
+          <calc-rescate-pensiones></calc-rescate-pensiones>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">FIRE Espana</div>
+          <calc-fire-espana></calc-fire-espana>
+        </div>
+      </section>
+
+      <!-- Espana — Comparadores -->
+      <section id="comparadores" class="section">
+        <div class="section-header fade-in">
+          <div class="section-icon">⚖️</div>
+          <h2>Espana — Comparadores</h2>
+        </div>
+        <div class="card fade-in">
+          <div class="card-label">Comparador por Comunidad Autonoma</div>
+          <calc-comparador-ccaa></calc-comparador-ccaa>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
   <footer>
-    <p>NumerosClaros v1.0.0 — <a href="https://github.com/Jacopalas/numerosclaros" target="_blank">GitHub</a></p>
-    <p style="margin-top:0.25rem">Uso: <code>&lt;script src="numerosclaros.js"&gt;&lt;/script&gt;</code> + <code>&lt;calc-hipoteca&gt;&lt;/calc-hipoteca&gt;</code></p>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="https://github.com/Jacopalas/numerosclaros" target="_blank">GitHub</a>
+        <a href="https://github.com/Jacopalas/numerosclaros/issues" target="_blank">Issues</a>
+        <a href="https://github.com/Jacopalas/numerosclaros#readme" target="_blank">Documentacion</a>
+      </div>
+      <p>
+        Uso: <code>&lt;script src="numerosclaros.js"&gt;&lt;/script&gt;</code> + <code>&lt;calc-hipoteca&gt;&lt;/calc-hipoteca&gt;</code>
+      </p>
+      <p style="margin-top: 0.5rem;">NumerosClaros &middot; MIT License</p>
+    </div>
   </footer>
 
-  <button class="theme-toggle" onclick="toggleTheme()">Tema oscuro</button>
+  <!-- ── Theme toggle ────────────────────────────────────────── -->
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+    <span class="icon">☀️</span>
+    <span class="label">Tema oscuro</span>
+  </button>
 
+  <!-- ── Scripts ─────────────────────────────────────────────── -->
   <script type="module" src="./packages/widgets/src/index.ts"></script>
   <script>
+    /* ── Theme toggle ────────────────────────────────────── */
     let dark = false;
     function toggleTheme() {
       dark = !dark;
-      const theme = dark ? 'dark' : 'light';
-      document.querySelectorAll('[theme]').forEach(el => el.setAttribute('theme', theme));
-      document.body.style.background = dark ? '#111827' : '#f3f4f6';
-      document.body.style.color = dark ? '#f9fafb' : '#111827';
-      document.querySelector('header').style.background = dark ? '#111827' : '#1a56db';
-      document.querySelector('.theme-toggle').textContent = dark ? 'Tema claro' : 'Tema oscuro';
+      document.body.classList.toggle('dark', dark);
+      // Propagate theme to all web components
+      document.querySelectorAll('[theme]').forEach(el => el.setAttribute('theme', dark ? 'dark' : 'light'));
+      // Update toggle button
+      const btn = document.querySelector('.theme-toggle');
+      btn.querySelector('.icon').textContent = dark ? '🌙' : '☀️';
+      btn.querySelector('.label').textContent = dark ? 'Tema claro' : 'Tema oscuro';
     }
+
+    /* ── Fade-in on scroll (IntersectionObserver) ────────── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* ── Active sidebar link on scroll ───────────────────── */
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar nav a, .mobile-nav a');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+          });
+        }
+      });
+    }, {
+      threshold: 0,
+      rootMargin: '-10% 0px -80% 0px'
+    });
+
+    sections.forEach(section => sectionObserver.observe(section));
   </script>
 </body>
 </html>
